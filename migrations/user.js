@@ -14,11 +14,12 @@ module.exports = {
       },
       name: Sequelize.STRING,
       email: Sequelize.STRING,
-      password: Sequelize.STRING
+      password: Sequelize.STRING,
+      googleId: Sequelize.STRING
     });
   },
 
   down: (queryInterface, Sequelize) => {
-		
+		queryInterface.dropTable('users')
 	}
 };
