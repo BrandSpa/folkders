@@ -1,14 +1,18 @@
 var fs = require("fs");
 var path = require("path");
 var Sequelize = require("sequelize");
-var env = process.env.NODE_ENV || "development";
-var config  = require('./config');
+import config from '../config';
 
-if (process.env.DATABASE_URL) {
-  var sequelize = new Sequelize(process.env.DATABASE_URL,config);
-} else {
-  var sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+var sequelize = new Sequelize(config.seq.database, config.seq.username, config.seq.password);
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 var db = {};
 
@@ -18,7 +22,8 @@ fs
     return (file.indexOf(".") !== 0) && (file !== "index.js");
   })
   .forEach(function(file) {
-    var model = sequelize.import(path.join(__dirname, file));
+    var model = require(`./${file}`).default;
+    model = model(sequelize, Sequelize);
     db[model.name] = model;
   });
 
