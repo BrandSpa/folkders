@@ -1,26 +1,38 @@
-import Sequelize from 'sequelize';
-const sequelize = Sequelize;
+import bcrypt from 'bcrypt';
 
 export default function(sequelize, Sequelize) {
-	const User = sequelize.define('User', {
-		name: {
-			type: Sequelize.STRING
-		},
-		email: {
-			type: Sequelize.STRING
-		},
-		password: {
-			type: Sequelize.STRING
-		}
-	},
-		{
-			classMethods: {
-				associate(models) {
-					console.log(models);
+  const User = sequelize.define(
+    "User",
+    {
+      name: {
+        type: Sequelize.STRING
+      },
+      email: {
+        type: Sequelize.STRING
+      },
+      password: {
+        type: Sequelize.STRING
+      }
+    },
+    {
+      classMethods: {
+        associate(models) {
+          console.log(models);
+        },
+				checkPassword() {
+					bcrypt.compare(myPlaintextPassword, hash).then(function(res) {
+							if(res == true) return true;
+							return false;
+					});
 				}
-			}
-		});
+      },
+      hooks: {
+        beforeCreate: (user, options) => {
+					return bcrypt.hash(user.password, 10).then(hash => user.password = hash );
+        }
+      }
+    }
+  );
 
-	return User;
+  return User;
 }
-
