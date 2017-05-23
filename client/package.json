@@ -2,6 +2,11 @@
   "name": "folkders_client",
   "version": "1.0.0",
   "main": "./src/app.js",
+  "repository": {
+    "url": "https://github.com/BrandSpa/folkders",
+    "type": "git"
+  },
+  "author": "Alejandro Sanabria <alesanabriav@gmail.com>",
   "license": "MIT",
   "scripts": {
     "test": "jest --verbose",

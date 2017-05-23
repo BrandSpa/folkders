@@ -8,6 +8,9 @@
   },
   "author": "Alejandro Sanabria <alesanabriav@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --ignore client/"
+  },
   "dependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.24.1",
