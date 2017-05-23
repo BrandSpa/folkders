@@ -1,19 +1,19 @@
 # folkders
 
-## Structure
-- Companies
-	- users: belongs to companies
-		- clients: belongs to companies
-			- projects: belongs to clients
-				- todos: belongs to projects and user
-					- attachments: belongs to todo 
-					- comments: belongs to todos and user
-
 ## Architecture
 - Backend
 	- MVC
 - Frontend
 	- Flux
+
+## Structure
+- Companies
+	- users
+		- clients
+			- projects
+				- todos
+					- attachments
+					- comments
 
 ## libs to look up
 - use [natural](https://www.npmjs.com/package/natural) to automatically tag projects
