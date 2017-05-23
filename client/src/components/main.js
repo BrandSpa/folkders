@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { Component } from "react";
+import Header from './header';
 
-class Main extends React.Component {
-	render() {
-		return (
-			<div>main{this.props.children}</div>
-		)
-	}
+class Main extends Component {
+  render() {
+    return (
+      <div>
+				<Header />
+        {this.props.children}
+      </div>
+    );
+  }
 }
 
 export default Main;

@@ -20,7 +20,7 @@ function RootRender(component) {
 }
 
 page('/', (ctx) => {
-	RootRender();
+	RootRender(<Login/>);
 });
 
 page('/register', (ctx) => {
@@ -29,10 +29,6 @@ page('/register', (ctx) => {
 
 page('/login', () => {
 	RootRender(<Login />);
-});
-
-page('*', () => {
-	console.log('not found');
 });
 
 page();
