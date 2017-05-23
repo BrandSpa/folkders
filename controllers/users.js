@@ -13,9 +13,4 @@ export const users = {
 	}
 }
 
-export const neas = {
-	get() {
-		
-	}
-}
 

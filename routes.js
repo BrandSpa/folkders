@@ -2,7 +2,7 @@ import controllers from "./controllers";
 import passport from "./lib/passport";
 import checkAuth from "./lib/auth";
 
-export default function Routes(app) {
+function Routes(app) {
   app.get(
     "/auth/google",
     passport.authenticate("google", {
@@ -25,7 +25,9 @@ export default function Routes(app) {
   app.get("/api/v1/users", checkAuth, controllers.users.get);
   app.post("/api/v1/users", controllers.users.store);
 
-  app.get("/*", (req, res) => {
+  app.get("*", (req, res) => {
     return res.sendFile(__dirname + "/public/index.html");
   });
 }
+
+export default Routes;

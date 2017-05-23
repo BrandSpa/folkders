@@ -9,6 +9,12 @@
 					- attachments: belongs to todo 
 					- comments: belongs to todos and user
 
+## Architecture
+- Backend
+	- MVC
+- Frontend
+	- Flux
+
 ## libs to look up
 - use [natural](https://www.npmjs.com/package/natural) to automatically tag projects
 - use [i18n-node](https://github.com/mashpie/i18n-node) to do multilang stuff
