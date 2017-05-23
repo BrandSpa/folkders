@@ -14,7 +14,7 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-var db = {};
+let db = {};
 
 fs
   .readdirSync(__dirname)
@@ -22,7 +22,7 @@ fs
     return (file.indexOf(".") !== 0) && (file !== "index.js");
   })
   .forEach(function(file) {
-    var model = require(`./${file}`).default;
+    let model = require(`./${file}`).default;
     model = model(sequelize, Sequelize);
     db[model.name] = model;
   });

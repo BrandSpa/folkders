@@ -12,6 +12,7 @@ module.exports = {
       updatedAt: {
         type: Sequelize.DATE
       },
+      company_id: Sequelize.INTEGER,
       name: Sequelize.STRING,
       email: Sequelize.STRING,
       password: Sequelize.STRING,

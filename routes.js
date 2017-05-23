@@ -1,9 +1,9 @@
-import users from "./controllers/users";
+import controllers from "./controllers";
 import passport from "./lib/passport";
-import checkAuth from './lib/auth';
+import checkAuth from "./lib/auth";
 
 export default function Routes(app) {
-    app.get(
+  app.get(
     "/auth/google",
     passport.authenticate("google", {
       session: false,
@@ -18,15 +18,14 @@ export default function Routes(app) {
     "/oauthCallback",
     passport.authenticate("google", { failureRedirect: "/login" }),
     (req, res) => {
-			req.session['access-token'] = 'this is the token';
+      req.session["access-token"] = "this is the token";
     }
   );
 
-  app.get("/api/v1/users", checkAuth, users.get);
-  app.post("/api/v1/users", users.store);
-  
-	 app.get("/*", (req, res) => {
-		 return res.sendFile(__dirname + "/public/index.html");
-	});
+  app.get("/api/v1/users", checkAuth, controllers.users.get);
+  app.post("/api/v1/users", controllers.users.store);
 
+  app.get("/*", (req, res) => {
+    return res.sendFile(__dirname + "/public/index.html");
+  });
 }

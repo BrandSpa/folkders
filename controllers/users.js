@@ -1,6 +1,6 @@
-import models from '../models/index';
+import models from '../models';
 
-export default {
+export const users = {
 	get(req, res) {
 		models.User.findAll({}).then(users => {
 				return res.json(users);
@@ -12,3 +12,10 @@ export default {
 		models.User.create(data).then(user => res.json(user));
 	}
 }
+
+export const neas = {
+	get() {
+		
+	}
+}
+
