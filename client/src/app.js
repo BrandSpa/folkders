@@ -8,8 +8,6 @@ import request from 'axios';
 import { Provider, connect } from 'react-redux';
 import store from './store';
 
-
-
 function RootRender(component) {
   return render(
     <Main>
@@ -17,7 +15,7 @@ function RootRender(component) {
         {component}
       </Provider>
     </Main>,
-    document.getElementById("app")
+    document.getElementById('app')
   );
 }
 

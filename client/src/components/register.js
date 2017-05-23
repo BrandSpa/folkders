@@ -25,20 +25,26 @@ class Register extends React.Component {
 
 	render() {
 		return (
-			<form onSubmit={this.store}>
+			<form onSubmit={this.store} className="col-md-5">
+			<div className="input-group">
 				<input 
 					type="text" 
-						placeholder="Email" 
-						onChange={this.handleChange.bind(null, 'email')} 
-						value={this.state.email}	
+					placeholder="Email" 
+					className="form-control"
+					onChange={this.handleChange.bind(null, 'email')} 
+					value={this.state.email}	
 					/>
-					
+			</div>
+				
+				<div className="input-group">
 				<input 
 					type="password" 
-						placeholder="Password" 
-						onChange={this.handleChange.bind(null, 'password')} 
-						value={this.state.password}	
+					placeholder="Password" 
+					className="form-control"
+					onChange={this.handleChange.bind(null, 'password')} 
+					value={this.state.password}	
 					/>
+				</div>
 					<button onClick={this.store}>Store</button>
 			</form>
 		)

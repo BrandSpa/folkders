@@ -4,9 +4,13 @@ const fs = require('fs');
 const path = __dirname.replace('client', '') + 'public/assets';
 
 module.exports = {
+  resolve: {
+    modules: ['node_modules', 'src'],
+    extensions: ['.js', '.jsx'],
+  },
   entry: {
-    vendor: ['react', 'react-dom', 'axios'],
-  	app: './app.js'
+    vendor: ['react', 'react-dom', 'react-redux', 'redux', 'axios'],
+  	app: './src/app.js'
   },
   output: {
   	path: path,
@@ -20,5 +24,12 @@ module.exports = {
 				loader: 'babel-loader?cacheDirectory=true' 
 			}
 		]
-  }
+  },
+		plugins: [
+      new webpack.optimize.CommonsChunkPlugin({ 
+        name: 'vendor', 
+        filename: 'vendor.js', 
+        minChunks: 2
+      })
+		]
 };

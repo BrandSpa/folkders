@@ -15,7 +15,8 @@ module.exports = {
       name: Sequelize.STRING,
       email: Sequelize.STRING,
       password: Sequelize.STRING,
-      googleId: Sequelize.STRING
+      googleId: Sequelize.STRING,
+      isEmailVerified: Sequelize.BOOLEAN
     });
   },
 
