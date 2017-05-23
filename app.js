@@ -13,9 +13,10 @@ app.use(cookieSession({
 	maxAge: 24 * 60 * 60 * 1000
 }));
 
-app.use(express.static('public'));
+app.use(express.static('public/assets'));
 app.use(passport.initialize());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 Routes(app);
 

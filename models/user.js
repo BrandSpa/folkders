@@ -17,7 +17,7 @@ export default function(sequelize, Sequelize) {
     {
       classMethods: {
         associate(models) {
-          console.log(models);
+
         },
 				checkPassword() {
 					bcrypt.compare(myPlaintextPassword, hash).then(function(res) {
