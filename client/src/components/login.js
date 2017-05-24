@@ -23,6 +23,7 @@ class Login extends React.Component {
 	}
 
 	render() {
+		console.log(this.props);
 		return (
 			<div className="row" style={{ height: '90vh' }}>
 			<div className="col-lg-3" style={{ background: '#19212F' }}>
@@ -35,7 +36,9 @@ class Login extends React.Component {
 						</div>
 						<button className="btn" style={{float: 'right'}} onClick={this.login}>Login</button>
 					</form>
+
 					<a className="btn btn-primary pull-right" href="/auth/google">Login via google</a>
+					<a className="btn btn-primary pull-right" href="/register">Register</a>
 				</div>
 			</div>
 		)
