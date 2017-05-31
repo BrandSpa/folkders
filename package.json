@@ -12,6 +12,7 @@
     "dev": "nodemon --ignore client/"
   },
   "dependencies": {
+    "apollo-server": "^0.3.3",
     "aws-sdk": "^2.56.0",
     "babel": "^6.23.0",
     "babel-core": "^6.24.1",
@@ -22,14 +23,19 @@
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.1",
     "express": "^4.15.2",
+    "express-graphql": "^0.6.6",
+    "graphql": "^0.10.1",
+    "graphql-tools": "^0.11.0",
     "i18n-node": "^2.1.5",
     "jsonwebtoken": "^7.4.1",
+    "lodash": "^4.17.4",
     "mysql": "^2.13.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "sequelize": "^3.30.4"
   },
   "devDependencies": {
+    "casual": "^1.5.12",
     "sequelize-cli": "^2.7.0",
     "webpack": "^2.6.0"
   }

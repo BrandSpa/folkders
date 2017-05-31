@@ -12,9 +12,10 @@ export default function(sequelize, Sequelize) {
     {
       classMethods: {
         associate(models) {
-
+          Company.hasMany(models.User);
         },
-      }
+      },
+      underscored: true
     }
   );
 

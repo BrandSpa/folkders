@@ -6,13 +6,19 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-      createdAt: {
+      created_at: {
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         type: Sequelize.DATE
       },
-      company_id: Sequelize.INTEGER,
+      company_id: { 
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'companies',
+          key: 'id'
+        }
+      },
       name: Sequelize.STRING,
       email: Sequelize.STRING,
       password: Sequelize.STRING,

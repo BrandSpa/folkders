@@ -17,7 +17,7 @@ export default function(sequelize, Sequelize) {
     {
       classMethods: {
         associate(models) {
-
+          User.belongsTo(models.Company);
         },
 				checkPassword() {
 					bcrypt.compare(myPlaintextPassword, hash).then(function(res) {
@@ -30,7 +30,8 @@ export default function(sequelize, Sequelize) {
         beforeCreate: (user, options) => {
 					return bcrypt.hash(user.password, 10).then(hash => user.password = hash );
         }
-      }
+      },
+      underscored: true
     }
   );
 
