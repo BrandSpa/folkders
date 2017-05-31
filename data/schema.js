@@ -21,7 +21,8 @@ const Company = new GraphQLObjectType({
     name: { type: GraphQLString },
     users: {
       args: {
-       name: { type: GraphQLJSON }
+       name: { type: GraphQLJSON },
+       limit: { type: GraphQLInt }
       },
       type: new GraphQLList(User),
       resolve(company, args) {
@@ -63,11 +64,20 @@ const Query = new GraphQLObjectType({
     },
     companies: {
       args: {
-       name: { type: GraphQLJSON },
+        where: {
+          type: new GraphQLInputObjectType({
+            name: "whereFilter",
+            fields: {
+              name: { type: GraphQLJSON }
+            }
+          })
+        },
+        limit: {type: GraphQLInt}
       },
       type: new GraphQLList(Company),
       resolve(root, args) {
-        return models.Company.findAll({where: args});
+        console.log(args);
+        return models.Company.findAll(args);
       }
     }
   })
