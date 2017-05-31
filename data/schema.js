@@ -9,6 +9,8 @@ import  {
    GraphQLInputObjectType
 } from 'graphql';
 
+import GraphQLJSON from 'graphql-type-json';
+
 import models from '../models';
 
 const Company = new GraphQLObjectType({
@@ -18,9 +20,12 @@ const Company = new GraphQLObjectType({
     id: { type: new GraphQLNonNull(GraphQLInt) },
     name: { type: GraphQLString },
     users: {
-      type: User,
-      resolve(company) {
-        return company.getUsers({}).then(user => user[0] ? user[0].dataValues : {} );
+      args: {
+       name: { type: GraphQLJSON }
+      },
+      type: new GraphQLList(User),
+      resolve(company, args) {
+        return company.getUsers({where: args})
       }
     }
   })
@@ -32,10 +37,7 @@ const User = new GraphQLObjectType({
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLString) },
     name: { 
-      type: GraphQLString, 
-      resolve(user) {
-        return user.name
-      }
+      type: GraphQLString
     },
     email: { type: GraphQLString },
     company: {
@@ -56,14 +58,16 @@ const Query = new GraphQLObjectType({
     users: {
       type: new GraphQLList(User),
       resolve(root, args) {
-        console.log(args);
         return models.User.findAll({where: args});
       }
     },
     companies: {
+      args: {
+       name: { type: GraphQLJSON },
+      },
       type: new GraphQLList(Company),
       resolve(root, args) {
-        return models.Company.findAll({});
+        return models.Company.findAll({where: args});
       }
     }
   })
