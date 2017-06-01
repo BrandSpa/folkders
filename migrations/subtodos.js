@@ -1,23 +1,24 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.createTable("projects", {
+    queryInterface.createTable("subtodos", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      created_at: {
+       created_at: {
         type: Sequelize.DATE
       },
       updated_at: {
         type: Sequelize.DATE
       },
-      client_id: Sequelize.INTEGER,
-      name: Sequelize.STRING
+      todo_id: Sequelize.INTEGER,
+      user_id: Sequelize.INTEGER,
+      content: Sequelize.TEXT
     });
   },
 
   down: (queryInterface, Sequelize) => {
-		queryInterface.dropTable('projects');
+		queryInterface.dropTable('subtodos')
 	}
 };

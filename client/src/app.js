@@ -2,22 +2,27 @@ import page from 'page.js';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider, connect } from 'react-redux';
+import {  ApolloProvider, ApolloClient, createNetworkInterface } from 'react-apollo';
+import gql from 'graphql-tag';
 import Login from './components/login';
 import Register from './components/register';
 import Main from './components/main';
+import Dashboard from './components/dashboard';
 import store from './store';
 
-store.dispatch((dispatch) => {
-  dispatch({type: 'USERS_TEST', payload: ['nea', 'nea1']});
+const client = new ApolloClient({
+  networkInterface: createNetworkInterface({
+    uri: 'http://localhost:4040/graphql',
+  }),
 });
 
 function RootRender(component) {
   return render(
-    <Provider store={store}>
+    <ApolloProvider client={client} store={store}>
       <Main>
           {component}
       </Main>
-    </Provider>,
+    </ApolloProvider>,
     document.getElementById('app')
   );
 }
@@ -32,6 +37,10 @@ page('/register', (ctx) => {
 
 page('/login', () => {
 	RootRender(<Login />);
+});
+
+page('/home', () => {
+  RootRender(<Dashboard />);
 });
 
 page();

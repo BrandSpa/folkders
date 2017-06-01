@@ -18,6 +18,8 @@ export default function(sequelize, Sequelize) {
       classMethods: {
         associate(models) {
           User.belongsTo(models.Company);
+          User.hasMany(models.Todo);
+          User.hasMany(models.SubTodo);
         },
 				checkPassword() {
 					bcrypt.compare(myPlaintextPassword, hash).then(function(res) {

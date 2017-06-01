@@ -1,24 +1,21 @@
 export default function(sequelize, Sequelize) {
-  const Company = sequelize.define(
-    "Company",
+  const Client = sequelize.define(
+    "Client",
     {
       name: {
-        type: Sequelize.STRING
-      },
-      logo: {
         type: Sequelize.STRING
       }
     },
     {
       classMethods: {
         associate(models) {
-          Company.hasMany(models.User);
-          Company.hasMany(models.Client);
+					Client.belongsTo(models.Company);
+					Client.hasMany(models.Project);
         },
       },
       underscored: true
     }
   );
 
-  return Company;
+  return Client;
 }

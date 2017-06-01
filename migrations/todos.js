@@ -12,6 +12,7 @@ module.exports = {
       updated_at: {
         type: Sequelize.DATE
       },
+      user_id: Sequelize.INTEGER,
       project_id: Sequelize.INTEGER,
       title: Sequelize.STRING,
       content: Sequelize.TEXT
