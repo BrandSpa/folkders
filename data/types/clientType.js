@@ -16,7 +16,6 @@ const projectsFilter = new GraphQLInputObjectType({
     })
 });
 
-
 const Client = new GraphQLObjectType({
   name: "client",
   fields: () => ({
@@ -24,10 +23,12 @@ const Client = new GraphQLObjectType({
     projects: {
       type: new GraphQLList(Project),
       args: {
-        where: {type: projectsFilter}
+        where: {type: projectsFilter},
+        limit: { type: GraphQLInt },
+        offset: { type: GraphQLInt }
       },
-      resolve(client) {
-        return client.getProjects();
+      resolve(client, args) {
+        return client.getProjects(args);
       }
     }
   })

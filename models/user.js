@@ -21,8 +21,8 @@ export default function(sequelize, Sequelize) {
           User.hasMany(models.Todo);
           User.hasMany(models.SubTodo);
         },
-				checkPassword() {
-					bcrypt.compare(myPlaintextPassword, hash).then(function(res) {
+				checkPassword(user, plainPass) {
+					return bcrypt.compare(plainPass, user.password).then(function(res) {
 							if(res == true) return true;
 							return false;
 					});

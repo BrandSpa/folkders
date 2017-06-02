@@ -1,25 +1,11 @@
 import {
-  graphql,
   GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLInt,
-  GraphQLList,
-  GraphQLNonNull,
-  GraphQLInputObjectType
+  GraphQLObjectType
 } from "graphql";
 
-import GraphQLJSON from "graphql-type-json";
-import models from "../models";
-import Client from './types/clientType';
-import User from './types/userType';
-import Company from './types/companyType';
-
 import clientsQuery from './queries/clientsQuery';
-
 import { createCompany, updateCompany } from './mutations/companyMutations';
 import { loginUser, registerUser } from './mutations/userMutations';
-
 
 const Query = new GraphQLObjectType({
   name: "folkderAppQueries",

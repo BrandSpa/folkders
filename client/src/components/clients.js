@@ -14,6 +14,7 @@ class Clients extends Component {
     return (
       <section style={{ height: '80vh', overflow: 'auto' }}>
 				<h3 style={{ color: '#fff' }}>Clients</h3>
+        <input type="text" />
         <ul style={{padding: '0'}}>
           {clients.map((client, i) => {
             return (

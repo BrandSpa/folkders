@@ -13,6 +13,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       name: Sequelize.STRING,
+      slug: Sequelize.STRING,
       logo: Sequelize.STRING,
       options: Sequelize.STRING
     });

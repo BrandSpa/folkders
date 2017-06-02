@@ -19,7 +19,9 @@ const Todo = new GraphQLObjectType({
     subtodos: {
       type: new GraphQLList(SubTodo),
       args: {
-        order: { type: GraphQLJSON } 
+        order: { type: GraphQLJSON },
+        limit: { type: GraphQLInt },
+        offset: { type: GraphQLInt }
       },
       resolve(todo, args) {
         return todo.getSubTodos(args);

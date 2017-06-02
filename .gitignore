@@ -39,3 +39,6 @@ jspm_packages
 config.js
 config/config.json
 client/node_modules
+client/logs
+client/*.log
+client/npm-debug.log*

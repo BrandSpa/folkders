@@ -8,13 +8,13 @@
 
 ## Structure
 - Companies
-	- users
-		- clients
-			- projects
-				- todos
-					- subtodos
-					- attachments
-					- comments
+	- Users
+		- Clients
+			- Projects
+				- Todos
+					- Subtodos
+					- Attachments
+					- Comments
 
 ## libs to look up
 - use [natural](https://www.npmjs.com/package/natural) to automatically tag projects

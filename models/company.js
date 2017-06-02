@@ -5,6 +5,9 @@ export default function(sequelize, Sequelize) {
       name: {
         type: Sequelize.STRING
       },
+      slug: {
+        type: Sequelize.STRING
+      },
       logo: {
         type: Sequelize.STRING
       }
@@ -15,6 +18,11 @@ export default function(sequelize, Sequelize) {
           Company.hasMany(models.User);
           Company.hasMany(models.Client);
         },
+      },
+      hooks: {
+        beforeCreate: (company, options) => {
+          company.slug = company.name.replace(' ', '-').toLowerCase();
+        }
       },
       underscored: true
     }

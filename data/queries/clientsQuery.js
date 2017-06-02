@@ -11,13 +11,13 @@ import Client from "../types/clientType";
 import models from "../../models";
 
 const clientsFilter = new GraphQLNonNull(
-    new GraphQLInputObjectType({
-      name: "clientsFilter",
-      fields: () => ({
-        name: { type: GraphQLJSON },
-        company_id: { type: new GraphQLNonNull(GraphQLInt) }
-      })
+  new GraphQLInputObjectType({
+    name: "clientsFilter",
+    fields: () => ({
+      name: { type: GraphQLJSON },
+      company_id: { type: new GraphQLNonNull(GraphQLInt) }
     })
+  })
 );
 
 const clients = {

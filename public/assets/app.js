@@ -3680,9 +3680,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _templateObject = _taggedTemplateLiteral(['\n    query getClients($companyId: Int!, $offset: Int = 0, $limit: Int = 1) {\n\t\t\tclients(where: {company_id: $companyId}, offset: $offset, limit: $limit) {\n\t\t\t\tname\n\t\t\t\tprojects {\n\t\t\t\t\tname\n\t\t\t\t\ttodos {\n\t\t\t\t\t\ttitle\n\t\t\t\t\t\tcontent\n\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t}\n\t\t\t\t\t\tsubtodos(order: [["id", "DESC"]]) {\n\t\t\t\t\t\t\tcontent\n\t\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n  '], ['\n    query getClients($companyId: Int!, $offset: Int = 0, $limit: Int = 1) {\n\t\t\tclients(where: {company_id: $companyId}, offset: $offset, limit: $limit) {\n\t\t\t\tname\n\t\t\t\tprojects {\n\t\t\t\t\tname\n\t\t\t\t\ttodos {\n\t\t\t\t\t\ttitle\n\t\t\t\t\t\tcontent\n\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t}\n\t\t\t\t\t\tsubtodos(order: [["id", "DESC"]]) {\n\t\t\t\t\t\t\tcontent\n\t\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n  ']);
+
 var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactApollo = __webpack_require__(82);
 
 var _clients = __webpack_require__(177);
 
@@ -3697,6 +3701,10 @@ var _tasks = __webpack_require__(181);
 var _tasks2 = _interopRequireDefault(_tasks);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3717,13 +3725,26 @@ var Dashboard = function (_Component) {
 		};
 
 		_this.changeTodos = function (todo) {
-			console.log('change t', todo);
 			_this.setState({ todo: todo });
+		};
+
+		_this.changeCompany = function () {
+			_this.setState({ offset: _this.state.offset + 1 });
+			_this.props.data.fetchMore({
+				variables: { offset: _this.state.offset + 1 },
+				updateQuery: function updateQuery(previousResult, _ref) {
+					var fetchMoreResult = _ref.fetchMoreResult,
+					    queryVariables = _ref.queryVariables;
+
+					return _extends({}, previousResult, { clients: [].concat(_toConsumableArray(previousResult.clients), _toConsumableArray(fetchMoreResult.clients)) });
+				}
+			});
 		};
 
 		_this.state = {
 			projects: [],
-			todo: { subtodos: [] }
+			todo: { subtodos: [] },
+			offset: 0
 		};
 		return _this;
 	}
@@ -3740,12 +3761,21 @@ var Dashboard = function (_Component) {
 			var defaultTodo = projects.length > 0 ? projects[0].todos[0] : this.state.todo;
 			var todo = Object.keys(this.state.todo).length > 1 ? this.state.todo : defaultTodo;
 
-			return _react2.default.createElement(
+			return data.loading ? _react2.default.createElement(
+				'h1',
+				{ style: { margin: "40px 0", textAlign: 'center', color: "#fff" } },
+				'loading...'
+			) : _react2.default.createElement(
 				'div',
 				{ className: 'row' },
 				_react2.default.createElement(
 					'div',
 					{ className: 'col-lg-3' },
+					_react2.default.createElement(
+						'button',
+						{ onClick: this.changeCompany },
+						'test'
+					),
 					_react2.default.createElement(_clients2.default, _extends({ changeProjects: this.changeProjects }, this.props))
 				),
 				_react2.default.createElement(
@@ -3765,7 +3795,13 @@ var Dashboard = function (_Component) {
 	return Dashboard;
 }(_react.Component);
 
-exports.default = Dashboard;
+exports.default = (0, _reactApollo.graphql)((0, _reactApollo.gql)(_templateObject), {
+	options: {
+		variables: {
+			companyId: 1
+		}
+	}
+})(Dashboard);
 
 /***/ }),
 /* 139 */
@@ -3917,21 +3953,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n    query getClients{ \n      clients {\n        name,\n        projects {\n          name,\n          todos {\n            title,\n            content,\n            created_at,\n            author {\n              name\n            }\n            subtodos(order: [["id", "DESC"]]) {\n              content,\n              created_at,\n              author {\n                name\n              }\n            }\n          }\n        }\n      }\n\n\n    }\n  '], ['\n    query getClients{ \n      clients {\n        name,\n        projects {\n          name,\n          todos {\n            title,\n            content,\n            created_at,\n            author {\n              name\n            }\n            subtodos(order: [["id", "DESC"]]) {\n              content,\n              created_at,\n              author {\n                name\n              }\n            }\n          }\n        }\n      }\n\n\n    }\n  ']);
-
 var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactApollo = __webpack_require__(82);
 
 var _header = __webpack_require__(178);
 
 var _header2 = _interopRequireDefault(_header);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3949,10 +3979,10 @@ var Main = function (_Component) {
   }
 
   _createClass(Main, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        "div",
         null,
         _react2.default.createElement(_header2.default, null),
         _react2.default.cloneElement(this.props.children, this.props)
@@ -3963,7 +3993,7 @@ var Main = function (_Component) {
   return Main;
 }(_react.Component);
 
-exports.default = (0, _reactApollo.graphql)((0, _reactApollo.gql)(_templateObject))(Main);
+exports.default = Main;
 
 /***/ }),
 /* 141 */
@@ -6694,6 +6724,7 @@ var Clients = function (_Component) {
           { style: { color: '#fff' } },
           'Clients'
         ),
+        _react2.default.createElement('input', { type: 'text' }),
         _react2.default.createElement(
           'ul',
           { style: { padding: '0' } },
