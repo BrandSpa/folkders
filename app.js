@@ -17,8 +17,8 @@ app.use(cookieSession({
 
 app.use(express.static('public/assets'));
 // app.use(passport.initialize());
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/graphql', graphqlHTTP({
   schema: Schema

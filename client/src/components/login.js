@@ -23,22 +23,51 @@ class Login extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
+
 		return (
 			<div className="row" style={{ height: '90vh' }}>
-			<div className="col-lg-3" style={{ background: '#19212F' }}>
+			<div className="col-lg-3" style={{ background: '#19212F', padding: "40px" }}>
 					<form>
 						<div className="input-group">
 							<input type="text" placeholder="email" className="form-control" onChange={this.handleChange.bind(null, 'email')}/>
 						</div>
-						<div className="input-group">
+
+						<div className="input-group" style={{marginTop: "20px"}}>
 							<input type="password" placeholder="password" className="form-control" onChange={this.handleChange.bind(null, 'password')}/>
 						</div>
-						<button className="btn" style={{float: 'right'}} onClick={this.login}>Login</button>
+						<div className="row" style={{marginTop: "20px"}}>
+						<div className="input-group col-lg-6">
+							<button
+								className="btn"
+								style={{ 
+									float: "right", 
+									cursor: "pointer", 
+									color: "#fff",
+									border: "1px solid #9CC0FA", 
+									background: 'rgba(0,0,0,.5)',
+									width: '100%'
+								}}
+								onClick={this.login}
+							>
+								Login
+							</button>
+						</div>
+						<div className="input-group col-lg-6">
+							<a 
+								className="btn" 
+								href="/register"
+								style={{ 
+									float: "right", 
+									cursor: "pointer", 
+									color: "#fff",
+									border: "1px solid #9CC0FA", 
+									background: 'rgba(0,0,0,.5)',
+									width: '100%'
+								}}
+							>I am new</a>
+						</div>
+						</div>
 					</form>
-
-					<a className="btn btn-primary pull-right" href="/auth/google">Login via google</a>
-					<a className="btn btn-primary pull-right" href="/register">Register</a>
 				</div>
 			</div>
 		)

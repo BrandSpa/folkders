@@ -15,7 +15,8 @@ module.exports = {
       user_id: Sequelize.INTEGER,
       project_id: Sequelize.INTEGER,
       title: Sequelize.STRING,
-      content: Sequelize.TEXT
+      content: Sequelize.TEXT,
+      is_completed: Sequelize.BOOLEAN
     });
   },
 

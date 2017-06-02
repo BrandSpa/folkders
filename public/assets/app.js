@@ -3829,13 +3829,13 @@ var Login = function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			console.log(this.props);
+
 			return _react2.default.createElement(
 				'div',
 				{ className: 'row', style: { height: '90vh' } },
 				_react2.default.createElement(
 					'div',
-					{ className: 'col-lg-3', style: { background: '#19212F' } },
+					{ className: 'col-lg-3', style: { background: '#19212F', padding: "40px" } },
 					_react2.default.createElement(
 						'form',
 						null,
@@ -3846,24 +3846,53 @@ var Login = function (_React$Component) {
 						),
 						_react2.default.createElement(
 							'div',
-							{ className: 'input-group' },
+							{ className: 'input-group', style: { marginTop: "20px" } },
 							_react2.default.createElement('input', { type: 'password', placeholder: 'password', className: 'form-control', onChange: this.handleChange.bind(null, 'password') })
 						),
 						_react2.default.createElement(
-							'button',
-							{ className: 'btn', style: { float: 'right' }, onClick: this.login },
-							'Login'
+							'div',
+							{ className: 'row', style: { marginTop: "20px" } },
+							_react2.default.createElement(
+								'div',
+								{ className: 'input-group col-lg-6' },
+								_react2.default.createElement(
+									'button',
+									{
+										className: 'btn',
+										style: {
+											float: "right",
+											cursor: "pointer",
+											color: "#fff",
+											border: "1px solid #9CC0FA",
+											background: 'rgba(0,0,0,.5)',
+											width: '100%'
+										},
+										onClick: this.login
+									},
+									'Login'
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'input-group col-lg-6' },
+								_react2.default.createElement(
+									'a',
+									{
+										className: 'btn',
+										href: '/register',
+										style: {
+											float: "right",
+											cursor: "pointer",
+											color: "#fff",
+											border: "1px solid #9CC0FA",
+											background: 'rgba(0,0,0,.5)',
+											width: '100%'
+										}
+									},
+									'I am new'
+								)
+							)
 						)
-					),
-					_react2.default.createElement(
-						'a',
-						{ className: 'btn btn-primary pull-right', href: '/auth/google' },
-						'Login via google'
-					),
-					_react2.default.createElement(
-						'a',
-						{ className: 'btn btn-primary pull-right', href: '/register' },
-						'Register'
 					)
 				)
 			);

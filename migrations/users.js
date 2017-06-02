@@ -22,8 +22,8 @@ module.exports = {
       name: Sequelize.STRING,
       email: Sequelize.STRING,
       password: Sequelize.STRING,
-      googleId: Sequelize.STRING,
-      isEmailVerified: Sequelize.BOOLEAN
+      role: Sequelize.STRING,
+      email_verified: {type: Sequelize.BOOLEAN, default: false }
     });
   },
 
