@@ -2,7 +2,7 @@
 
 ## Architecture
 - Backend
-	- MVC
+	- Graphql
 - Frontend
 	- Flux
 
@@ -12,8 +12,9 @@
 		- clients
 			- projects
 				- todos
-					- attachments
-					- comments
+					-subtodos
+						- attachments
+						- comments
 
 ## libs to look up
 - use [natural](https://www.npmjs.com/package/natural) to automatically tag projects
