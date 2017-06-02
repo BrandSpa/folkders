@@ -12,9 +12,9 @@
 		- clients
 			- projects
 				- todos
-					-subtodos
-						- attachments
-						- comments
+					- subtodos
+					- attachments
+					- comments
 
 ## libs to look up
 - use [natural](https://www.npmjs.com/package/natural) to automatically tag projects
