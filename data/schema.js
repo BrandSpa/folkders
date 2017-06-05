@@ -5,6 +5,7 @@ import {
 
 import clientsQuery from './queries/clientsQuery';
 import { createCompany, updateCompany } from './mutations/companyMutations';
+import { createClient, updateClient } from './mutations/clientMutations';
 import { loginUser, registerUser } from './mutations/userMutations';
 
 const Query = new GraphQLObjectType({
@@ -20,6 +21,8 @@ const Mutation = new GraphQLObjectType({
   fields: () => ({
     createCompany,
     updateCompany,
+    createClient, 
+    updateClient,
     loginUser,
     registerUser
   })

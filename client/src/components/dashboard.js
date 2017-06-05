@@ -113,7 +113,7 @@ class Dashboard extends Component {
   }
 }
 
-const getClientsQuery = gql`
+export const getClientsQuery = gql`
   query getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $offset: Int = 0, $limit: Int = 5) {
 			clients(where: {company_id: $companyId, name: $clientName}, offset: $offset, limit: $limit) {
 				id
@@ -145,9 +145,9 @@ const getClientsQuery = gql`
 `;
 
 export default graphql(getClientsQuery, {
-  options: {
+  options: (props) => ({
     variables: {
-      companyId: 1
+      companyId: props.companyId
     }
-  }
+  })
 })(Dashboard);

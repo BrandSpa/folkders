@@ -11,6 +11,7 @@ import {
 import GraphQLJSON from "graphql-type-json";
 import models from "../../models";
 import Company from '../types/companyType';
+
 export const createCompany = {
 	type: Company,
   args: {

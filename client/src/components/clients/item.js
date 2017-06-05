@@ -9,7 +9,7 @@ class Client extends Component {
 
   editClient = (client, e) => {
     e.preventDefault();
-    console.log(client);
+    this.props.editClient(client);
   }
 	
   render() {
@@ -34,7 +34,10 @@ class Client extends Component {
           onClick={this.changeClient.bind(null, client)}
         >
           {client.name}
-          <button onClick={this.editClient.bind(null, client)}>Edit</button>
+          <button 
+            className="btn btn-secondary" 
+            style={{float: "right"}} 
+            onClick={this.editClient.bind(null, client)}>Edit</button>
         </a>
       </li>
     );

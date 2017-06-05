@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import Client from './item';
+import Form from './form';
 
 class Clients extends Component {
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      client: {}
+    }
+  }
+
   changeClient = (client, e) => {
     this.props.changeClient(client);
   };
@@ -11,9 +18,12 @@ class Clients extends Component {
     this.props.searchClients(e);
   };
 
-  editClient = (client, e) => {
-    e.preventDefault();
-    console.log(client);
+  editClient = (client) => {
+     this.setState({client});
+  }
+
+  addClient = (client) => {
+    this.setState({client});
   }
 
   render() {
@@ -29,8 +39,11 @@ class Clients extends Component {
           className="form-control"
           placeholder="Search"
         />
+        <br/>
+        <Form companyId={this.props.companyId} client={this.state.client} addClient={this.addClient}  />
+        <br/>
         <ul style={{ padding: "0" }}>
-          {clients.map((client, i) => <Client changeClient={this.changeClient} selected={this.props.selected} key={i} client={client} />)}
+          {clients.map((client, i) => <Client changeClient={this.changeClient} editClient={this.editClient} selected={this.props.selected} key={i} client={client} />)}
         </ul>
       </section>
     );
