@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { gql, graphql } from "react-apollo";
+import { getClientsQuery } from '../dashboard';
 
 class ClientForm extends Component {
   constructor(props) {
@@ -28,7 +29,6 @@ class ClientForm extends Component {
       })
       .then(({ data }) => {
         this.props.addClient(data.createClient);
-        console.log("got data", data);
       })
       .catch(error => {
         console.log("there was an error sending the query", error);
@@ -65,7 +65,7 @@ const createClientMutation = gql`
 mutation createClient($name: String!, $companyId: Int!) {
 	createClient(name: $name, company_id: $companyId) {
 		id,
-		name
+	  name
 	}
 }
 `;
@@ -75,11 +75,12 @@ const options = {
     update: (proxy, { data: { createClient } }) => {
 			console.log(proxy);
       // Read the data from our cache for this query.
-      const data = proxy.readQuery({ query: gql`{ clients { name } }` });
+      const data = proxy.readQuery({ query: getClientsQuery });
+      console.log(data);
       // // Add our todo from the mutation to the end.
       data.clients.push(createClient);
       // // Write our data back to the cache.
-      proxy.writeQuery({ query: gql`{ clients { name } }` , data });
+      // proxy.writeQuery({ query: getClientsQuery , data });
     }
   }
 };

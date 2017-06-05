@@ -3681,7 +3681,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(["\n  query getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $offset: Int = 0, $limit: Int = 5) {\n\t\t\tclients(where: {company_id: $companyId, name: $clientName}, offset: $offset, limit: $limit) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tprojects(where: {name: $projectName}, offset: $offset, limit: $limit) {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\ttodos {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t\tcontent\n\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\tsubtodos(order: [[\"id\", \"DESC\"]]) {\n\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\tcontent\n\t\t\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t}\n"], ["\n  query getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $offset: Int = 0, $limit: Int = 5) {\n\t\t\tclients(where: {company_id: $companyId, name: $clientName}, offset: $offset, limit: $limit) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tprojects(where: {name: $projectName}, offset: $offset, limit: $limit) {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\ttodos {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t\tcontent\n\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\tsubtodos(order: [[\"id\", \"DESC\"]]) {\n\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\tcontent\n\t\t\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t}\n"]);
+var _templateObject = _taggedTemplateLiteral(["\nquery getClients($companyId: Int!, $offset: Int = 0, $limit: Int = 4) {\n  clients(where: {company_id: $companyId}, offset: $offset, limit: $limit, order: [[\"id\", \"DESC\"]]) {\n    name\n    projects {\n      ...projectFields\n    }\n\t}\n}\n\nfragment projectFields on project {\n  name\n  todos {\n  \t...todoFields\n\t}\n}\n\nfragment todoFields on todo {\n  title\n  content\n  created_at\n  author {\n    ...authorFields\n  }\n  subtodos {\n    ...subTodoFields\n  }\n}\n\nfragment subTodoFields on subtodo {\n  content\n  created_at\n  author {\n  \t...authorFields\n  }\n}\n  \nfragment authorFields on user {\n\tname  \n}\n"], ["\nquery getClients($companyId: Int!, $offset: Int = 0, $limit: Int = 4) {\n  clients(where: {company_id: $companyId}, offset: $offset, limit: $limit, order: [[\"id\", \"DESC\"]]) {\n    name\n    projects {\n      ...projectFields\n    }\n\t}\n}\n\nfragment projectFields on project {\n  name\n  todos {\n  \t...todoFields\n\t}\n}\n\nfragment todoFields on todo {\n  title\n  content\n  created_at\n  author {\n    ...authorFields\n  }\n  subtodos {\n    ...subTodoFields\n  }\n}\n\nfragment subTodoFields on subtodo {\n  content\n  created_at\n  author {\n  \t...authorFields\n  }\n}\n  \nfragment authorFields on user {\n\tname  \n}\n"]);
 
 var _react = __webpack_require__(6);
 
@@ -6688,14 +6688,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(["\nmutation createClient($name: String!, $companyId: Int!) {\n\tcreateClient(name: $name, company_id: $companyId) {\n\t\tid,\n\t\tname\n\t}\n}\n"], ["\nmutation createClient($name: String!, $companyId: Int!) {\n\tcreateClient(name: $name, company_id: $companyId) {\n\t\tid,\n\t\tname\n\t}\n}\n"]),
-    _templateObject2 = _taggedTemplateLiteral(["{ clients { name } }"], ["{ clients { name } }"]);
+var _templateObject = _taggedTemplateLiteral(["\nmutation createClient($name: String!, $companyId: Int!) {\n\tcreateClient(name: $name, company_id: $companyId) {\n\t\tid,\n\t  name\n\t}\n}\n"], ["\nmutation createClient($name: String!, $companyId: Int!) {\n\tcreateClient(name: $name, company_id: $companyId) {\n\t\tid,\n\t  name\n\t}\n}\n"]);
 
 var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactApollo = __webpack_require__(48);
+
+var _dashboard = __webpack_require__(138);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6784,7 +6785,6 @@ var _initialiseProps = function _initialiseProps() {
       var data = _ref2.data;
 
       _this2.props.addClient(data.createClient);
-      console.log("got data", data);
     }).catch(function (error) {
       console.log("there was an error sending the query", error);
     });
@@ -6800,11 +6800,12 @@ var options = {
 
       console.log(proxy);
       // Read the data from our cache for this query.
-      var data = proxy.readQuery({ query: (0, _reactApollo.gql)(_templateObject2) });
+      var data = proxy.readQuery({ query: _dashboard.getClientsQuery });
+      console.log(data);
       // // Add our todo from the mutation to the end.
       data.clients.push(createClient);
       // // Write our data back to the cache.
-      proxy.writeQuery({ query: (0, _reactApollo.gql)(_templateObject2), data: data });
+      // proxy.writeQuery({ query: getClientsQuery , data });
     }
   }
 };

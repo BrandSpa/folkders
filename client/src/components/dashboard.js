@@ -114,34 +114,45 @@ class Dashboard extends Component {
 }
 
 export const getClientsQuery = gql`
-  query getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $offset: Int = 0, $limit: Int = 5) {
-			clients(where: {company_id: $companyId, name: $clientName}, offset: $offset, limit: $limit) {
-				id
-				name
-				projects(where: {name: $projectName}, offset: $offset, limit: $limit) {
-					id
-					name
-					todos {
-						id
-						title
-						content
-						created_at
-						author {
-							name
-						}
-							subtodos(order: [["id", "DESC"]]) {
-								id
-								content
-								created_at
-								author {
-									id
-									name
-								}
-							}
-					}
-				}
-			}
+query getClients($companyId: Int!, $offset: Int = 0, $limit: Int = 4) {
+  clients(where: {company_id: $companyId}, offset: $offset, limit: $limit, order: [["id", "DESC"]]) {
+    name
+    projects {
+      ...projectFields
+    }
 	}
+}
+
+fragment projectFields on project {
+  name
+  todos {
+  	...todoFields
+	}
+}
+
+fragment todoFields on todo {
+  title
+  content
+  created_at
+  author {
+    ...authorFields
+  }
+  subtodos {
+    ...subTodoFields
+  }
+}
+
+fragment subTodoFields on subtodo {
+  content
+  created_at
+  author {
+  	...authorFields
+  }
+}
+  
+fragment authorFields on user {
+	name  
+}
 `;
 
 export default graphql(getClientsQuery, {

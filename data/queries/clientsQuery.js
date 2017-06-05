@@ -35,7 +35,8 @@ const clients = {
   args: {
     where: {type: clientsFilter},
     limit: { type: GraphQLInt },
-    offset: { type: GraphQLInt }
+    offset: { type: GraphQLInt },
+    order: { type: GraphQLJSON }
   },
   resolve(root, args) {
     return models.Client.findAll(args);
