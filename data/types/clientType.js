@@ -12,13 +12,14 @@ import Project from './projectType';
 const projectsFilter = new GraphQLInputObjectType({
     name: "projectsFilter",
     fields: () => ({
-      name: {type: GraphQLJSON}
+      name: { type: GraphQLJSON}
     })
 });
 
 const Client = new GraphQLObjectType({
   name: "client",
   fields: () => ({
+    id: { type: GraphQLInt },
     name: { type: GraphQLString },
     projects: {
       type: new GraphQLList(Project),

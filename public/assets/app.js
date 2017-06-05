@@ -3673,14 +3673,14 @@ function getLocation(source, position) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n    query getClients($companyId: Int!, $offset: Int = 0, $limit: Int = 1) {\n\t\t\tclients(where: {company_id: $companyId}, offset: $offset, limit: $limit) {\n\t\t\t\tname\n\t\t\t\tprojects {\n\t\t\t\t\tname\n\t\t\t\t\ttodos {\n\t\t\t\t\t\ttitle\n\t\t\t\t\t\tcontent\n\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t}\n\t\t\t\t\t\tsubtodos(order: [["id", "DESC"]]) {\n\t\t\t\t\t\t\tcontent\n\t\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n  '], ['\n    query getClients($companyId: Int!, $offset: Int = 0, $limit: Int = 1) {\n\t\t\tclients(where: {company_id: $companyId}, offset: $offset, limit: $limit) {\n\t\t\t\tname\n\t\t\t\tprojects {\n\t\t\t\t\tname\n\t\t\t\t\ttodos {\n\t\t\t\t\t\ttitle\n\t\t\t\t\t\tcontent\n\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t}\n\t\t\t\t\t\tsubtodos(order: [["id", "DESC"]]) {\n\t\t\t\t\t\t\tcontent\n\t\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n  ']);
+var _templateObject = _taggedTemplateLiteral(["\n  query getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $offset: Int = 0, $limit: Int = 5) {\n\t\t\tclients(where: {company_id: $companyId, name: $clientName}, offset: $offset, limit: $limit) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tprojects(where: {name: $projectName}, offset: $offset, limit: $limit) {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\ttodos {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t\tcontent\n\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\tsubtodos(order: [[\"id\", \"DESC\"]]) {\n\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\tcontent\n\t\t\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t}\n"], ["\n  query getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $offset: Int = 0, $limit: Int = 5) {\n\t\t\tclients(where: {company_id: $companyId, name: $clientName}, offset: $offset, limit: $limit) {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tprojects(where: {name: $projectName}, offset: $offset, limit: $limit) {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\ttodos {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t\tcontent\n\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\tname\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\tsubtodos(order: [[\"id\", \"DESC\"]]) {\n\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\tcontent\n\t\t\t\t\t\t\t\tcreated_at\n\t\t\t\t\t\t\t\tauthor {\n\t\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\t\tname\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t}\n"]);
 
 var _react = __webpack_require__(6);
 
@@ -3713,94 +3713,143 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Dashboard = function (_Component) {
-	_inherits(Dashboard, _Component);
+  _inherits(Dashboard, _Component);
 
-	function Dashboard(props) {
-		_classCallCheck(this, Dashboard);
+  function Dashboard(props) {
+    _classCallCheck(this, Dashboard);
 
-		var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
 
-		_this.changeProjects = function (projects) {
-			_this.setState({ projects: projects });
-		};
+    _this.changeClient = function (client) {
+      _this.setState({ clientSelected: client.id, projects: client.projects });
+    };
 
-		_this.changeTodos = function (todo) {
-			_this.setState({ todo: todo });
-		};
+    _this.changeTodos = function (todo) {
+      _this.setState({ todo: todo });
+    };
 
-		_this.changeCompany = function () {
-			_this.setState({ offset: _this.state.offset + 1 });
-			_this.props.data.fetchMore({
-				variables: { offset: _this.state.offset + 1 },
-				updateQuery: function updateQuery(previousResult, _ref) {
-					var fetchMoreResult = _ref.fetchMoreResult,
-					    queryVariables = _ref.queryVariables;
+    _this.searchProjects = function (e) {
+      _this.props.data.fetchMore({
+        variables: { projectName: { like: "%" + e.target.value + "%" } },
+        updateQuery: function updateQuery(previousResult, _ref) {
+          var fetchMoreResult = _ref.fetchMoreResult,
+              queryVariables = _ref.queryVariables;
 
-					return _extends({}, previousResult, { clients: [].concat(_toConsumableArray(previousResult.clients), _toConsumableArray(fetchMoreResult.clients)) });
-				}
-			});
-		};
+          return _extends({}, previousResult, { clients: fetchMoreResult.clients });
+        }
+      });
+    };
 
-		_this.state = {
-			projects: [],
-			todo: { subtodos: [] },
-			offset: 0
-		};
-		return _this;
-	}
+    _this.searchClients = function (e) {
+      _this.props.data.fetchMore({
+        variables: { clientName: { like: "%" + e.target.value + "%" } },
+        updateQuery: function updateQuery(previousResult, _ref2) {
+          var fetchMoreResult = _ref2.fetchMoreResult,
+              queryVariables = _ref2.queryVariables;
 
-	_createClass(Dashboard, [{
-		key: 'render',
-		value: function render() {
-			var data = this.props.data;
-			var _data$clients = data.clients,
-			    clients = _data$clients === undefined ? [] : _data$clients;
+          return _extends({}, previousResult, { clients: fetchMoreResult.clients });
+        }
+      });
+    };
 
-			var defaultProjects = clients.length > 0 ? clients[0].projects : [];
-			var projects = this.state.projects.length > 0 ? this.state.projects : defaultProjects;
-			var defaultTodo = projects.length > 0 ? projects[0].todos[0] : this.state.todo;
-			var todo = Object.keys(this.state.todo).length > 1 ? this.state.todo : defaultTodo;
+    _this.changeCompany = function () {
+      _this.setState({ offset: _this.state.offset + 1 });
+      _this.props.data.fetchMore({
+        variables: { offset: _this.state.offset + 1 },
+        updateQuery: function updateQuery(previousResult, _ref3) {
+          var fetchMoreResult = _ref3.fetchMoreResult,
+              queryVariables = _ref3.queryVariables;
 
-			return data.loading ? _react2.default.createElement(
-				'h1',
-				{ style: { margin: "40px 0", textAlign: 'center', color: "#fff" } },
-				'loading...'
-			) : _react2.default.createElement(
-				'div',
-				{ className: 'row' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'col-lg-3' },
-					_react2.default.createElement(
-						'button',
-						{ onClick: this.changeCompany },
-						'test'
-					),
-					_react2.default.createElement(_clients2.default, _extends({ changeProjects: this.changeProjects }, this.props))
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'col-lg-3' },
-					_react2.default.createElement(_projects2.default, { changeTodos: this.changeTodos, projects: projects })
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'col-lg-6' },
-					_react2.default.createElement(_tasks2.default, { todo: todo })
-				)
-			);
-		}
-	}]);
+          return _extends({}, previousResult, {
+            clients: [].concat(_toConsumableArray(previousResult.clients), _toConsumableArray(fetchMoreResult))
+          });
+        }
+      });
+    };
 
-	return Dashboard;
+    _this.state = {
+      clientSelected: null,
+      projects: [],
+      todo: { subtodos: [] },
+      offset: 0
+    };
+    return _this;
+  }
+
+  _createClass(Dashboard, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var data = this.props.data;
+      var _data$clients = data.clients,
+          clients = _data$clients === undefined ? [] : _data$clients;
+
+      var projects = [];
+      var todo = {};
+
+      if (this.state.clientSelected !== null) {
+        projects = clients.filter(function (client) {
+          return client.id == _this2.state.clientSelected;
+        })[0].projects;
+        if (projects.length > 0) {
+          var defaultTodo = projects[0].todos.length > 0 ? projects[0].todos[0] : {};
+          todo = Object.keys(this.state.todo).length > 0 ? this.state.todo : defaultTodo;
+        } else {
+          todo = {};
+        }
+      } else {
+        var defaultProjects = clients.length > 0 ? clients[0].projects : [];
+        projects = this.state.projects.length > 0 ? this.state.projects : defaultProjects;
+        var _defaultTodo = projects.length > 0 ? projects[0].todos[0] : this.state.todo;
+        todo = Object.keys(this.state.todo).length > 0 ? this.state.todo : _defaultTodo;
+      }
+
+      return data.loading ? _react2.default.createElement(
+        "h1",
+        { style: { margin: "40px 0", textAlign: "center", color: "#fff" } },
+        "loading..."
+      ) : _react2.default.createElement(
+        "div",
+        { className: "row" },
+        _react2.default.createElement(
+          "div",
+          { className: "col-lg-3" },
+          _react2.default.createElement(_clients2.default, _extends({
+            searchClients: this.searchClients,
+            changeClient: this.changeClient,
+            selected: this.state.clientSelected
+          }, this.props))
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "col-lg-3" },
+          _react2.default.createElement(_projects2.default, {
+            searchProjects: this.searchProjects,
+            changeTodos: this.changeTodos,
+            projects: projects
+          })
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "col-lg-6" },
+          _react2.default.createElement(_tasks2.default, { todo: todo })
+        )
+      );
+    }
+  }]);
+
+  return Dashboard;
 }(_react.Component);
 
-exports.default = (0, _reactApollo.graphql)((0, _reactApollo.gql)(_templateObject), {
-	options: {
-		variables: {
-			companyId: 1
-		}
-	}
+var getClientsQuery = (0, _reactApollo.gql)(_templateObject);
+
+exports.default = (0, _reactApollo.graphql)(getClientsQuery, {
+  options: {
+    variables: {
+      companyId: 1
+    }
+  }
 })(Dashboard);
 
 /***/ }),
@@ -6700,14 +6749,16 @@ var Clients = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Clients.__proto__ || Object.getPrototypeOf(Clients)).call.apply(_ref, [this].concat(args))), _this), _this.openProjects = function (client, e) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Clients.__proto__ || Object.getPrototypeOf(Clients)).call.apply(_ref, [this].concat(args))), _this), _this.changeClient = function (client, e) {
       e.preventDefault();
-      _this.props.changeProjects(client.projects);
+      _this.props.changeClient(client);
+    }, _this.searchClients = function (e) {
+      _this.props.searchClients(e);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Clients, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       var _this2 = this;
 
@@ -6717,24 +6768,39 @@ var Clients = function (_Component) {
 
 
       return _react2.default.createElement(
-        'section',
-        { style: { height: '80vh', overflow: 'auto' } },
+        "section",
+        { style: { height: "80vh", overflow: "auto" } },
         _react2.default.createElement(
-          'h3',
-          { style: { color: '#fff' } },
-          'Clients'
+          "h3",
+          { style: { color: "#fff" } },
+          "Clients"
         ),
-        _react2.default.createElement('input', { type: 'text' }),
+        _react2.default.createElement("input", {
+          type: "text",
+          onChange: this.searchClients,
+          className: "form-control"
+        }),
         _react2.default.createElement(
-          'ul',
-          { style: { padding: '0' } },
+          "ul",
+          { style: { padding: "0" } },
           clients.map(function (client, i) {
             return _react2.default.createElement(
-              'li',
-              { key: i, style: { listStyle: 'none', background: 'rgba(0,0,0, .3)' } },
+              "li",
+              {
+                key: i,
+                style: _this2.props.selected == client.id ? { listStyle: "none", background: "rgba(0,0,0, .3)" } : { listStyle: "none" }
+              },
               _react2.default.createElement(
-                'a',
-                { href: '#', style: _defineProperty({ display: 'block', padding: '40px 0 10px 10px', color: '#fff' }, 'padding', '20px 40px'), onClick: _this2.openProjects.bind(null, client) },
+                "a",
+                {
+                  href: "#",
+                  style: _defineProperty({
+                    display: "block",
+                    padding: "40px 0 10px 10px",
+                    color: "#fff"
+                  }, "padding", "20px 40px"),
+                  onClick: _this2.changeClient.bind(null, client)
+                },
                 client.name
               )
             );
@@ -6935,7 +7001,10 @@ var Projects = function (_Component) {
 
 		_this.openTodos = function (e) {
 			e.preventDefault();
-			console.log('open todos');
+		};
+
+		_this.searchProjects = function (e) {
+			_this.props.searchProjects(e);
 		};
 
 		return _this;
@@ -6957,6 +7026,7 @@ var Projects = function (_Component) {
 					{ style: { color: "#fff" } },
 					'Projects'
 				),
+				_react2.default.createElement('input', { type: 'text', onChange: this.searchProjects, className: 'form-control' }),
 				projects.map(function (project, i) {
 					return _react2.default.createElement(
 						'li',
@@ -6981,7 +7051,7 @@ exports.default = Projects;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -6999,106 +7069,111 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Tasks = function (_Component) {
-	_inherits(Tasks, _Component);
+  _inherits(Tasks, _Component);
 
-	function Tasks() {
-		_classCallCheck(this, Tasks);
+  function Tasks() {
+    _classCallCheck(this, Tasks);
 
-		return _possibleConstructorReturn(this, (Tasks.__proto__ || Object.getPrototypeOf(Tasks)).apply(this, arguments));
-	}
+    return _possibleConstructorReturn(this, (Tasks.__proto__ || Object.getPrototypeOf(Tasks)).apply(this, arguments));
+  }
 
-	_createClass(Tasks, [{
-		key: 'render',
-		value: function render() {
-			var todo = this.props.todo;
+  _createClass(Tasks, [{
+    key: "render",
+    value: function render() {
+      var todo = this.props.todo;
 
 
-			return _react2.default.createElement(
-				'section',
-				{ style: { height: '80vh', overflow: 'auto' } },
-				_react2.default.createElement(
-					'h3',
-					{ style: { color: "#fff", float: 'left' } },
-					'Tasks'
-				),
-				_react2.default.createElement(
-					'button',
-					{ className: 'btn', style: { float: 'right' }, onClick: this.toggleCreator },
-					'+'
-				),
-				_react2.default.createElement(
-					'div',
-					{ style: { float: "left", width: '100%' } },
-					_react2.default.createElement(
-						'h5',
-						{ style: { color: "#fff" } },
-						todo.title
-					),
-					_react2.default.createElement(
-						'span',
-						{ style: { color: "#fff" } },
-						'Author: ',
-						todo.author ? todo.author.name : ''
-					),
-					_react2.default.createElement('br', null),
-					_react2.default.createElement(
-						'span',
-						{ style: { color: "#fff" } },
-						'Created: ',
-						todo.created_at
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ style: { float: "left" } },
-					_react2.default.createElement(
-						'section',
-						{ style: { color: "#333", margin: "20px 0" } },
-						_react2.default.createElement(
-							'header',
-							{ style: { background: "#fff" } },
-							todo.created_at
-						),
-						_react2.default.createElement(
-							'article',
-							{ style: { background: "#F1F3F7", padding: "20px" } },
-							_react2.default.createElement(
-								'p',
-								null,
-								todo.content
-							)
-						)
-					),
-					_react2.default.createElement(
-						'section',
-						{ style: { color: "#333" } },
-						todo.subtodos.map(function (subtodo) {
-							return _react2.default.createElement(
-								'section',
-								{ style: { color: "#333", margin: "20px 0" } },
-								_react2.default.createElement(
-									'header',
-									{ style: { background: "#fff" } },
-									subtodo.created_at
-								),
-								_react2.default.createElement(
-									'article',
-									{ style: { background: "#F1F3F7", padding: "20px" } },
-									_react2.default.createElement(
-										'p',
-										null,
-										subtodo.content
-									)
-								)
-							);
-						})
-					)
-				)
-			);
-		}
-	}]);
+      return Object.keys(todo).length > 0 ? _react2.default.createElement(
+        "section",
+        { style: { height: "80vh", overflow: "auto" } },
+        _react2.default.createElement(
+          "h3",
+          { style: { color: "#fff", float: "left" } },
+          "Tasks"
+        ),
+        _react2.default.createElement(
+          "div",
+          { style: { float: "left", width: "100%" } },
+          _react2.default.createElement(
+            "h5",
+            { style: { color: "#fff" } },
+            todo.title
+          ),
+          _react2.default.createElement(
+            "span",
+            { style: { color: "#fff" } },
+            "Author: ",
+            todo.author ? todo.author.name : ""
+          ),
+          _react2.default.createElement("br", null),
+          _react2.default.createElement(
+            "span",
+            { style: { color: "#fff" } },
+            "Created: ",
+            todo.created_at
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { style: { float: "left", width: "100%" } },
+          _react2.default.createElement(
+            "section",
+            { style: { color: "#333", margin: "20px 0", width: "100%" } },
+            _react2.default.createElement(
+              "header",
+              { style: { background: "#fff", padding: "10px" } },
+              todo.created_at
+            ),
+            _react2.default.createElement(
+              "article",
+              { style: { background: "#F1F3F7", padding: "20px" } },
+              _react2.default.createElement(
+                "p",
+                null,
+                todo.content
+              )
+            )
+          ),
+          _react2.default.createElement(
+            "section",
+            { style: { color: "#333" } },
+            todo.subtodos ? todo.subtodos.map(function (subtodo) {
+              return _react2.default.createElement(
+                "section",
+                { style: { color: "#333", margin: "20px 0" } },
+                _react2.default.createElement(
+                  "header",
+                  { style: { background: "#fff", padding: "10px" } },
+                  subtodo.created_at
+                ),
+                _react2.default.createElement(
+                  "article",
+                  {
+                    style: { background: "#F1F3F7", padding: "20px" }
+                  },
+                  _react2.default.createElement(
+                    "p",
+                    null,
+                    subtodo.content
+                  )
+                )
+              );
+            }) : _react2.default.createElement(
+              "h3",
+              { style: { color: "#fff" } },
+              "NO TODOS"
+            )
+          )
+        )
+      ) : _react2.default.createElement(
+        "h1",
+        null,
+        "Create your first todo"
+      );
+    }
+  }]);
 
-	return Tasks;
+  return Tasks;
 }(_react.Component);
 
 exports.default = Tasks;

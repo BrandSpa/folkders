@@ -13,6 +13,7 @@ import SubTodo from './subtodoType';
 const Todo = new GraphQLObjectType({
   name: "todo",
   fields: () => ({
+    id: { type: GraphQLInt },
     title: { type: GraphQLString },
     content: { type: GraphQLString },
     created_at: { type: GraphQLString },

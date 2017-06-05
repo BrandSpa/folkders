@@ -10,9 +10,19 @@ import GraphQLJSON from "graphql-type-json";
 import Client from "../types/clientType";
 import models from "../../models";
 
+const operators = new GraphQLInputObjectType({
+  name: "sequelizeOperators",
+  fields: () => ({
+    between: { type: GraphQLString },
+    in: { type: GraphQLJSON },
+    like: { type: GraphQLString }
+  })
+});
+
 const clientsFilter = new GraphQLNonNull(
   new GraphQLInputObjectType({
-    name: "clientsFilter",
+
+    name: "clientsFilters",
     fields: () => ({
       name: { type: GraphQLJSON },
       company_id: { type: new GraphQLNonNull(GraphQLInt) }

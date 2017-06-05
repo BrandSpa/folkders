@@ -6,11 +6,12 @@ class Projects extends Component {
 		super(props);
 	}
 
-
-
 	openTodos = (e) => {
 		e.preventDefault();
-		console.log('open todos');
+	}
+
+	searchProjects = (e) => {
+		this.props.searchProjects(e);
 	}
 
 	render() {
@@ -19,10 +20,10 @@ class Projects extends Component {
 		return (
 			<section style={{ height: '80vh', overflow: 'auto' }}>
 				<h3 style={{color: "#fff"}}>Projects</h3>
-
+				<input type="text" onChange={this.searchProjects} className="form-control" />
 					{projects.map((project, i) => {
 						return (
-							<li key={i} style={{listStyle: 'none'}}>
+							<li key={i} style={{listStyle: 'none'} }>
 								<ProjectTodos changeTodos={this.props.changeTodos} project={project} />
 							</li>
 						)

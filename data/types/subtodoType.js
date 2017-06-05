@@ -12,6 +12,7 @@ import User from './userType';
 const SubTodo = new GraphQLObjectType({
   name: "subtodo",
   fields: () => ({
+    id: { type: GraphQLInt },
     content: { type: GraphQLString },
     created_at: { type: GraphQLString },
     author: {

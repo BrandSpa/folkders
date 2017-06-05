@@ -19,6 +19,7 @@ const todosFilter = new GraphQLInputObjectType({
 const Project = new GraphQLObjectType({
   name: "project",
   fields: () => ({
+    id: { type: GraphQLInt },
     name: { type: GraphQLString },
     todos: {
       type: new GraphQLList(Todo),
