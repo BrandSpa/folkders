@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { gql, graphql } from "react-apollo";
-import Clients from "./clients";
+import Clients from "./clients/section";
 import Projects from "./projects";
 import Tasks from "./tasks";
 
