@@ -23,14 +23,15 @@ class Clients extends Component {
   }
 
   addClient = (client) => {
-    this.setState({client});
+    this.props.addClient();
   }
 
   render() {
     const { clients } = this.props;
 
     return (
-      <section style={{ height: "80vh", overflow: "auto" }}>
+      <section style={{position:'relative'}}>
+      <header style={{position: "relative"}}>
         <h3 style={{ color: "#fff" }}>Clients</h3>
         <input
           type="text"
@@ -45,7 +46,8 @@ class Clients extends Component {
           addClient={this.addClient}  
         />
         <br/>
-        <ul style={{ padding: "0" }}>
+        </header>
+        <ul style={{ padding: "0", height: "60vh", overflow: "auto" }}>
           {clients.map((client, i) => 
             <Client
               key={i}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { gql, graphql } from "react-apollo";
+import { gql, graphql, compose } from "react-apollo";
 import { getClientsQuery } from '../dashboard';
 
 class ClientForm extends Component {
@@ -7,7 +7,8 @@ class ClientForm extends Component {
     super(props);
     this.state = {
 			id: null,
-      name: ""
+      name: "",
+      company_id: this.props.companyId
     };
   }
 
@@ -23,16 +24,26 @@ class ClientForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    this.props
-      .mutate({
-        variables: { name: this.state.name, companyId: this.props.companyId }
+    if(this.state.id) {
+
+    } else {
+      this.props
+      .createClient({
+        variables: { name: this.state.name, companyId: 2 },
+        update: (store, { data: { createClient } }) => {
+            const data = store.readQuery({ query: getClientsQuery, variables: {companyId: "2"} });
+            const clients = [createClient].concat(data.clients);
+            store.writeQuery({ query: getClientsQuery, variables: {companyId: "2"}, data: {clients} });
+        }
       })
-      .then(({ data }) => {
-        this.props.addClient(data.createClient);
+      .then(({ data }) => { 
+        console.log(data);
       })
       .catch(error => {
         console.log("there was an error sending the query", error);
       });
+    }
+    
   };
 
   render() {
@@ -64,25 +75,61 @@ class ClientForm extends Component {
 const createClientMutation = gql`
 mutation createClient($name: String!, $companyId: Int!) {
 	createClient(name: $name, company_id: $companyId) {
-		id,
-	  name
+		id
+    name
+    projects {
+      ...projectFields
+      todos {
+  	    ...todoFields
+        author {
+          ...authorFields
+        }
+        subtodos {
+          ...subTodoFields
+          author {
+            ...authorFields
+          }
+        }
+      }
+    }
+	}
+}
+
+
+fragment projectFields on project {
+  id
+  name
+}
+
+fragment todoFields on todo {
+  id
+  title
+  content
+  created_at
+}
+
+fragment subTodoFields on subtodo {
+  id
+  content
+  created_at
+}
+  
+fragment authorFields on user {
+  id
+	name  
+}
+`;
+
+const updateClientMutation = gql`
+mutation updateClient($name: String!, $id: Int!, $companyId: Int!) {
+	updateClient(id: $id, name: $name, company_id: $companyId) {
+		id
+    name
 	}
 }
 `;
 
-const options = {
-  options: {
-    update: (proxy, { data: { createClient } }) => {
-			console.log(proxy);
-      // Read the data from our cache for this query.
-      const data = proxy.readQuery({ query: getClientsQuery });
-      console.log(data);
-      // // Add our todo from the mutation to the end.
-      data.clients.push(createClient);
-      // // Write our data back to the cache.
-      // proxy.writeQuery({ query: getClientsQuery , data });
-    }
-  }
-};
-
-export default graphql(createClientMutation, options)(ClientForm);
+export default compose(
+  graphql(createClientMutation, {name: 'createClient'}),
+  graphql(updateClientMutation, {name: 'updateClient'}),
+)(ClientForm);

@@ -20,7 +20,7 @@ class Projects extends Component {
 		return (
 			<section style={{ height: '80vh', overflow: 'auto' }}>
 				<h3 style={{color: "#fff"}}>Projects</h3>
-				<input type="text" onChange={this.searchProjects} className="form-control" />
+				<input type="text" onChange={this.searchProjects} className="form-control" placeholder="Search" />
 					{projects.map((project, i) => {
 						return (
 							<li key={i} style={{listStyle: 'none'} }>
@@ -28,7 +28,6 @@ class Projects extends Component {
 							</li>
 						)
 					})}
-
 			</section>
 		)
 	}

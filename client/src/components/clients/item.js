@@ -2,6 +2,13 @@ import React, { Component } from "react";
 
 class Client extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      edit: false
+    }
+  }
+
   changeClient = (client, e) => {
     e.preventDefault();
     this.props.changeClient(client);
@@ -23,6 +30,7 @@ class Client extends Component {
             : { listStyle: "none" }
         }
       >
+    
         <a
           href="#"
           style={{
@@ -39,6 +47,7 @@ class Client extends Component {
             style={{float: "right"}} 
             onClick={this.editClient.bind(null, client)}>Edit</button>
         </a>
+     
       </li>
     );
   }

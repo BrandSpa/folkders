@@ -21,10 +21,12 @@ class Dashboard extends Component {
   }
 
   componentWillReceiveProps = props => {
-    this.setClientAndProject(props.data.clients);
+    if(!this.state.client.hasOwnProperty('name')) {
+      this.setClientAndProject(props.data.clients);
+    }
   }
 
-  setClientAndProject = clients => {
+  setClientAndProject = (clients) => {
     if(clients.length > 0) {
       const client = clients[0];
       const project = client.projects.length > 0 ? client.projects[0] : {todos: []};
@@ -45,9 +47,11 @@ class Dashboard extends Component {
   searchProjects = e => {
     let variables = {...this.state.variables,  projectName: { like: `%${e.target.value}%` }};
     this.setState({ variables });
-
+    let _this = this;
     this.props.data.fetchMore({ variables ,
       updateQuery(previousResult, { fetchMoreResult, queryVariables }) {
+        let client = fetchMoreResult.clients.find(client => client.id == _this.state.client.id);
+        _this.setState({client});
         return { ...previousResult, clients: fetchMoreResult.clients };
       }
     });
@@ -77,6 +81,10 @@ class Dashboard extends Component {
       }
     });
   }
+  
+  addClient = () => {
+    this.props.data.refetch({variables: this.state.variables});
+  }
 
   render() {
     const { data } = this.props;
@@ -94,11 +102,12 @@ class Dashboard extends Component {
 
           <div className="col-lg-3" style={{ padding: " 40px 40px" }}>
             <Clients
+              addClient={this.addClient.bind(this)}
               searchClients={this.searchClients}
               changeClient={this.changeClient}
-              selected={this.state.clientSelected}
               clients={data.clients}
               selected={client}
+              companyId={this.props.companyId}
             />
           </div>
 
@@ -120,16 +129,22 @@ class Dashboard extends Component {
 }
 
 export const getClientsQuery = gql`
-query getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $subtaskContent: JSON, $offset: Int = 0, $limit: Int = 4) {
-  clients(where: {company_id: $companyId, name: $clientName}, offset: $offset, limit: $limit, order: [["id", "DESC"]]) {
+query getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $subtaskContent: JSON) {
+  clients(where: {company_id: $companyId, name: $clientName}, order: [["id", "DESC"]]) {
     id
     name
     projects(where: {name: $projectName}) {
       ...projectFields
       todos {
   	    ...todoFields
+        author {
+          ...authorFields
+        }
         subtodos(where: { content: $subtaskContent }) {
           ...subTodoFields
+          author {
+            ...authorFields
+          }
         }
       }
     }
@@ -146,18 +161,12 @@ fragment todoFields on todo {
   title
   content
   created_at
-  author {
-    ...authorFields
-  }
 }
 
 fragment subTodoFields on subtodo {
   id
   content
   created_at
-  author {
-  	...authorFields
-  }
 }
   
 fragment authorFields on user {

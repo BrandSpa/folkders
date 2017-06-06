@@ -2252,7 +2252,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(["\nquery getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $subtaskContent: JSON, $offset: Int = 0, $limit: Int = 4) {\n  clients(where: {company_id: $companyId, name: $clientName}, offset: $offset, limit: $limit, order: [[\"id\", \"DESC\"]]) {\n    id\n    name\n    projects(where: {name: $projectName}) {\n      ...projectFields\n      todos {\n  \t    ...todoFields\n        subtodos(where: { content: $subtaskContent }) {\n          ...subTodoFields\n        }\n      }\n    }\n\t}\n}\n\nfragment projectFields on project {\n  id\n  name\n}\n\nfragment todoFields on todo {\n  id\n  title\n  content\n  created_at\n  author {\n    ...authorFields\n  }\n}\n\nfragment subTodoFields on subtodo {\n  id\n  content\n  created_at\n  author {\n  \t...authorFields\n  }\n}\n  \nfragment authorFields on user {\n  id\n\tname  \n}\n"], ["\nquery getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $subtaskContent: JSON, $offset: Int = 0, $limit: Int = 4) {\n  clients(where: {company_id: $companyId, name: $clientName}, offset: $offset, limit: $limit, order: [[\"id\", \"DESC\"]]) {\n    id\n    name\n    projects(where: {name: $projectName}) {\n      ...projectFields\n      todos {\n  \t    ...todoFields\n        subtodos(where: { content: $subtaskContent }) {\n          ...subTodoFields\n        }\n      }\n    }\n\t}\n}\n\nfragment projectFields on project {\n  id\n  name\n}\n\nfragment todoFields on todo {\n  id\n  title\n  content\n  created_at\n  author {\n    ...authorFields\n  }\n}\n\nfragment subTodoFields on subtodo {\n  id\n  content\n  created_at\n  author {\n  \t...authorFields\n  }\n}\n  \nfragment authorFields on user {\n  id\n\tname  \n}\n"]);
+var _templateObject = _taggedTemplateLiteral(["\nquery getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $subtaskContent: JSON) {\n  clients(where: {company_id: $companyId, name: $clientName}, order: [[\"id\", \"DESC\"]]) {\n    id\n    name\n    projects(where: {name: $projectName}) {\n      ...projectFields\n      todos {\n  \t    ...todoFields\n        author {\n          ...authorFields\n        }\n        subtodos(where: { content: $subtaskContent }) {\n          ...subTodoFields\n          author {\n            ...authorFields\n          }\n        }\n      }\n    }\n\t}\n}\n\nfragment projectFields on project {\n  id\n  name\n}\n\nfragment todoFields on todo {\n  id\n  title\n  content\n  created_at\n}\n\nfragment subTodoFields on subtodo {\n  id\n  content\n  created_at\n}\n  \nfragment authorFields on user {\n  id\n\tname  \n}\n"], ["\nquery getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $subtaskContent: JSON) {\n  clients(where: {company_id: $companyId, name: $clientName}, order: [[\"id\", \"DESC\"]]) {\n    id\n    name\n    projects(where: {name: $projectName}) {\n      ...projectFields\n      todos {\n  \t    ...todoFields\n        author {\n          ...authorFields\n        }\n        subtodos(where: { content: $subtaskContent }) {\n          ...subTodoFields\n          author {\n            ...authorFields\n          }\n        }\n      }\n    }\n\t}\n}\n\nfragment projectFields on project {\n  id\n  name\n}\n\nfragment todoFields on todo {\n  id\n  title\n  content\n  created_at\n}\n\nfragment subTodoFields on subtodo {\n  id\n  content\n  created_at\n}\n  \nfragment authorFields on user {\n  id\n\tname  \n}\n"]);
 
 var _react = __webpack_require__(6);
 
@@ -2277,8 +2277,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2330,12 +2328,14 @@ var Dashboard = function (_Component) {
           _react2.default.createElement(
             "div",
             { className: "col-lg-3", style: { padding: " 40px 40px" } },
-            _react2.default.createElement(_section2.default, _defineProperty({
+            _react2.default.createElement(_section2.default, {
+              addClient: this.addClient.bind(this),
               searchClients: this.searchClients,
               changeClient: this.changeClient,
-              selected: this.state.clientSelected,
-              clients: data.clients
-            }, "selected", client))
+              clients: data.clients,
+              selected: client,
+              companyId: this.props.companyId
+            })
           ),
           _react2.default.createElement(
             "div",
@@ -2363,7 +2363,9 @@ var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
 
   this.componentWillReceiveProps = function (props) {
-    _this3.setClientAndProject(props.data.clients);
+    if (!_this3.state.client.hasOwnProperty('name')) {
+      _this3.setClientAndProject(props.data.clients);
+    }
   };
 
   this.setClientAndProject = function (clients) {
@@ -2387,12 +2389,16 @@ var _initialiseProps = function _initialiseProps() {
   this.searchProjects = function (e) {
     var variables = _extends({}, _this3.state.variables, { projectName: { like: "%" + e.target.value + "%" } });
     _this3.setState({ variables: variables });
-
+    var _this = _this3;
     _this3.props.data.fetchMore({ variables: variables,
       updateQuery: function updateQuery(previousResult, _ref) {
         var fetchMoreResult = _ref.fetchMoreResult,
             queryVariables = _ref.queryVariables;
 
+        var client = fetchMoreResult.clients.find(function (client) {
+          return client.id == _this.state.client.id;
+        });
+        _this.setState({ client: client });
         return _extends({}, previousResult, { clients: fetchMoreResult.clients });
       }
     });
@@ -2426,6 +2432,10 @@ var _initialiseProps = function _initialiseProps() {
         });
       }
     });
+  };
+
+  this.addClient = function () {
+    _this3.props.data.refetch({ variables: _this3.state.variables });
   };
 };
 
@@ -6702,7 +6712,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(["\nmutation createClient($name: String!, $companyId: Int!) {\n\tcreateClient(name: $name, company_id: $companyId) {\n\t\tid,\n\t  name\n\t}\n}\n"], ["\nmutation createClient($name: String!, $companyId: Int!) {\n\tcreateClient(name: $name, company_id: $companyId) {\n\t\tid,\n\t  name\n\t}\n}\n"]);
+var _templateObject = _taggedTemplateLiteral(["\nmutation createClient($name: String!, $companyId: Int!) {\n\tcreateClient(name: $name, company_id: $companyId) {\n\t\tid\n    name\n    projects {\n      ...projectFields\n      todos {\n  \t    ...todoFields\n        author {\n          ...authorFields\n        }\n        subtodos {\n          ...subTodoFields\n          author {\n            ...authorFields\n          }\n        }\n      }\n    }\n\t}\n}\n\n\nfragment projectFields on project {\n  id\n  name\n}\n\nfragment todoFields on todo {\n  id\n  title\n  content\n  created_at\n}\n\nfragment subTodoFields on subtodo {\n  id\n  content\n  created_at\n}\n  \nfragment authorFields on user {\n  id\n\tname  \n}\n"], ["\nmutation createClient($name: String!, $companyId: Int!) {\n\tcreateClient(name: $name, company_id: $companyId) {\n\t\tid\n    name\n    projects {\n      ...projectFields\n      todos {\n  \t    ...todoFields\n        author {\n          ...authorFields\n        }\n        subtodos {\n          ...subTodoFields\n          author {\n            ...authorFields\n          }\n        }\n      }\n    }\n\t}\n}\n\n\nfragment projectFields on project {\n  id\n  name\n}\n\nfragment todoFields on todo {\n  id\n  title\n  content\n  created_at\n}\n\nfragment subTodoFields on subtodo {\n  id\n  content\n  created_at\n}\n  \nfragment authorFields on user {\n  id\n\tname  \n}\n"]),
+    _templateObject2 = _taggedTemplateLiteral(["\nmutation updateClient($name: String!, $id: Int!, $companyId: Int!) {\n\tupdateClient(id: $id, name: $name, company_id: $companyId) {\n\t\tid\n    name\n\t}\n}\n"], ["\nmutation updateClient($name: String!, $id: Int!, $companyId: Int!) {\n\tupdateClient(id: $id, name: $name, company_id: $companyId) {\n\t\tid\n    name\n\t}\n}\n"]);
 
 var _react = __webpack_require__(6);
 
@@ -6736,7 +6747,8 @@ var ClientForm = function (_Component) {
 
     _this.state = {
       id: null,
-      name: ""
+      name: "",
+      company_id: _this.props.companyId
     };
     return _this;
   }
@@ -6793,38 +6805,32 @@ var _initialiseProps = function _initialiseProps() {
 
   this.onSubmit = function (e) {
     e.preventDefault();
-    _this2.props.mutate({
-      variables: { name: _this2.state.name, companyId: _this2.props.companyId }
-    }).then(function (_ref2) {
-      var data = _ref2.data;
+    if (_this2.state.id) {} else {
+      _this2.props.createClient({
+        variables: { name: _this2.state.name, companyId: 2 },
+        update: function update(store, _ref) {
+          var createClient = _ref.data.createClient;
 
-      _this2.props.addClient(data.createClient);
-    }).catch(function (error) {
-      console.log("there was an error sending the query", error);
-    });
+          var data = store.readQuery({ query: _dashboard.getClientsQuery, variables: { companyId: "2" } });
+          var clients = [createClient].concat(data.clients);
+          store.writeQuery({ query: _dashboard.getClientsQuery, variables: { companyId: "2" }, data: { clients: clients } });
+        }
+      }).then(function (_ref2) {
+        var data = _ref2.data;
+
+        console.log(data);
+      }).catch(function (error) {
+        console.log("there was an error sending the query", error);
+      });
+    }
   };
 };
 
 var createClientMutation = (0, _reactApollo.gql)(_templateObject);
 
-var options = {
-  options: {
-    update: function update(proxy, _ref) {
-      var createClient = _ref.data.createClient;
+var updateClientMutation = (0, _reactApollo.gql)(_templateObject2);
 
-      console.log(proxy);
-      // Read the data from our cache for this query.
-      var data = proxy.readQuery({ query: _dashboard.getClientsQuery });
-      console.log(data);
-      // // Add our todo from the mutation to the end.
-      data.clients.push(createClient);
-      // // Write our data back to the cache.
-      // proxy.writeQuery({ query: getClientsQuery , data });
-    }
-  }
-};
-
-exports.default = (0, _reactApollo.graphql)(createClientMutation, options)(ClientForm);
+exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(createClientMutation, { name: 'createClient' }), (0, _reactApollo.graphql)(updateClientMutation, { name: 'updateClient' }))(ClientForm);
 
 /***/ }),
 /* 177 */
@@ -6856,24 +6862,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Client = function (_Component) {
   _inherits(Client, _Component);
 
-  function Client() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function Client(props) {
     _classCallCheck(this, Client);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    var _this = _possibleConstructorReturn(this, (Client.__proto__ || Object.getPrototypeOf(Client)).call(this, props));
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Client.__proto__ || Object.getPrototypeOf(Client)).call.apply(_ref, [this].concat(args))), _this), _this.changeClient = function (client, e) {
+    _this.changeClient = function (client, e) {
       e.preventDefault();
       _this.props.changeClient(client);
-    }, _this.editClient = function (client, e) {
+    };
+
+    _this.editClient = function (client, e) {
       e.preventDefault();
       _this.props.editClient(client);
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    };
+
+    _this.state = {
+      edit: false
+    };
+    return _this;
   }
 
   _createClass(Client, [{
@@ -6971,7 +6978,7 @@ var Clients = function (_Component) {
     };
 
     _this.addClient = function (client) {
-      _this.setState({ client: client });
+      _this.props.addClient();
     };
 
     _this.state = {
@@ -6990,28 +6997,32 @@ var Clients = function (_Component) {
 
       return _react2.default.createElement(
         'section',
-        { style: { height: "80vh", overflow: "auto" } },
+        { style: { position: 'relative' } },
         _react2.default.createElement(
-          'h3',
-          { style: { color: "#fff" } },
-          'Clients'
+          'header',
+          { style: { position: "relative" } },
+          _react2.default.createElement(
+            'h3',
+            { style: { color: "#fff" } },
+            'Clients'
+          ),
+          _react2.default.createElement('input', {
+            type: 'text',
+            onChange: this.searchClients,
+            className: 'form-control',
+            placeholder: 'Search'
+          }),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(_form2.default, {
+            companyId: this.props.companyId,
+            client: this.state.client,
+            addClient: this.addClient
+          }),
+          _react2.default.createElement('br', null)
         ),
-        _react2.default.createElement('input', {
-          type: 'text',
-          onChange: this.searchClients,
-          className: 'form-control',
-          placeholder: 'Search'
-        }),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(_form2.default, {
-          companyId: this.props.companyId,
-          client: this.state.client,
-          addClient: this.addClient
-        }),
-        _react2.default.createElement('br', null),
         _react2.default.createElement(
           'ul',
-          { style: { padding: "0" } },
+          { style: { padding: "0", height: "60vh", overflow: "auto" } },
           clients.map(function (client, i) {
             return _react2.default.createElement(_item2.default, {
               key: i,
@@ -7155,7 +7166,7 @@ var Projects = function (_Component) {
 					{ style: { color: "#fff" } },
 					'Projects'
 				),
-				_react2.default.createElement('input', { type: 'text', onChange: this.searchProjects, className: 'form-control' }),
+				_react2.default.createElement('input', { type: 'text', onChange: this.searchProjects, className: 'form-control', placeholder: 'Search' }),
 				projects.map(function (project, i) {
 					return _react2.default.createElement(
 						'li',
