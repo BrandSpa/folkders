@@ -7,7 +7,7 @@
 	- Flux with apollo client
 
 ## Structure
-- Auth Viewer
+- Viewer
 	- Companies
 		- Users
 			- Clients
