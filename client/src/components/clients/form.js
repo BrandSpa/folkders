@@ -31,13 +31,13 @@ class ClientForm extends Component {
       .createClient({
         variables: { name: this.state.name, companyId: 2 },
         update: (store, { data: { createClient } }) => {
-            const data = store.readQuery({ query: getClientsQuery, variables: {companyId: "2"} });
-            const clients = [createClient].concat(data.clients);
-            store.writeQuery({ query: getClientsQuery, variables: {companyId: "2"}, data: {clients} });
+          const data = store.readQuery({ query: getClientsQuery, variables: {companyId: this.props.companyId} });
+          const clients = [createClient].concat(data.clients);
+          store.writeQuery({ query: getClientsQuery, variables: {companyId: this.props.companyId}, data: {clients} });
         }
       })
       .then(({ data }) => { 
-        console.log(data);
+        this.setState({id: null, name: "", company_id: this.props.companyId});
       })
       .catch(error => {
         console.log("there was an error sending the query", error);

@@ -13,6 +13,7 @@ const Project = new GraphQLObjectType({
   name: "project",
   fields: () => ({
     id: { type: GraphQLInt },
+    client_id: { type: GraphQLInt },
     name: { type: GraphQLString },
     todos: {
       type: new GraphQLList(Todo),

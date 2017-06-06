@@ -2,16 +2,13 @@ import React, { Component } from "react";
 import { gql, graphql } from "react-apollo";
 import Clients from "./clients/section";
 import Projects from "./projects/section";
-import Tasks from "./tasks/section";
+
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      client: {
-        projects: [],
-        todos: []
-      },
+      client: {},
       project: {
         todos: []
       },
@@ -22,39 +19,28 @@ class Dashboard extends Component {
 
   componentWillReceiveProps = props => {
     if(!this.state.client.hasOwnProperty('name')) {
-      this.setClientAndProject(props.data.clients);
+      this.setClient(props.data.clients);
     }
   }
 
-  setClientAndProject = (clients) => {
+  setClient = (clients) => {
     if(clients.length > 0) {
       const client = clients[0];
-      const project = client.projects.length > 0 ? client.projects[0] : {todos: []};
-      const todo = project.todos.length > 0 ? project.todos[0] : {};
-      this.setState({ client, project, todo });
+      this.setState({ client });
     }
   } 
 
   changeClient = client => {
-    this.setClientAndProject([client]);
+    this.setClient([client]);
+  }
+
+  changeProject = project => {
+    this.setState({project});
   }
 
   changeTodo = (todo, e) => {
     e.preventDefault();
     this.setState({ todo });
-  }
-
-  searchProjects = e => {
-    let variables = {...this.state.variables,  projectName: { like: `%${e.target.value}%` }};
-    this.setState({ variables });
-    let _this = this;
-    this.props.data.fetchMore({ variables ,
-      updateQuery(previousResult, { fetchMoreResult, queryVariables }) {
-        let client = fetchMoreResult.clients.find(client => client.id == _this.state.client.id);
-        _this.setState({client});
-        return { ...previousResult, clients: fetchMoreResult.clients };
-      }
-    });
   }
 
   searchClients = e => {
@@ -63,32 +49,15 @@ class Dashboard extends Component {
     this.setState({ variables });
     this.props.data.fetchMore({variables,
       updateQuery(previousResult, { fetchMoreResult, queryVariables }) {
-        _this.setClientAndProject(fetchMoreResult.clients);
+        _this.setClient(fetchMoreResult.clients);
         return { ...previousResult, clients: fetchMoreResult.clients };
       }
     });
   }
 
-  changeCompany = () => {
-    this.setState({ offset: this.state.offset + 1 });
-    this.props.data.fetchMore({
-      variables: { offset: this.state.offset + 1 },
-      updateQuery(previousResult, { fetchMoreResult, queryVariables }) {
-        return {
-          ...previousResult,
-          clients: [...previousResult.clients, ...fetchMoreResult]
-        };
-      }
-    });
-  }
-  
-  addClient = () => {
-    this.props.data.refetch({variables: this.state.variables});
-  }
-
   render() {
     const { data } = this.props;
-    const { client } = this.state;
+    const { client, project } = this.state;
 
     if (data.loading) {
       return (
@@ -102,7 +71,6 @@ class Dashboard extends Component {
 
           <div className="col-lg-3" style={{ padding: " 40px 40px" }}>
             <Clients
-              addClient={this.addClient.bind(this)}
               searchClients={this.searchClients}
               changeClient={this.changeClient}
               clients={data.clients}
@@ -111,17 +79,14 @@ class Dashboard extends Component {
             />
           </div>
 
-          <div className="col-lg-3" style={{ padding: " 40px 40px" }}>
-            <Projects
-              searchProjects={this.searchProjects}
-              changeTodos={this.changeTodo}
-              projects={client.projects}
+          <div className="col-lg-9" style={{ padding: " 40px 40px" }}>
+            <Projects 
+              changeProject={this.changeProject}
+              clientId={client.id}
+              selected={project} 
             />
           </div>
 
-          <div className="col-lg-6">
-          <Tasks task={this.state.todo} />
-          </div>
         </div>
       );
     }
@@ -129,56 +94,19 @@ class Dashboard extends Component {
 }
 
 export const getClientsQuery = gql`
-query getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $subtaskContent: JSON) {
-  clients(where: {company_id: $companyId, name: $clientName}, order: [["id", "DESC"]]) {
-    id
-    name
-    projects(where: {name: $projectName}) {
-      ...projectFields
-      todos {
-  	    ...todoFields
-        author {
-          ...authorFields
-        }
-        subtodos(where: { content: $subtaskContent }) {
-          ...subTodoFields
-          author {
-            ...authorFields
-          }
-        }
-      }
+  query getClients($companyId: Int!, $clientName: JSON, $order: JSON) {
+    clients(where: {company_id: $companyId, name: $clientName}, order: $order) {
+      id
+      name
     }
-	}
-}
-
-fragment projectFields on project {
-  id
-  name
-}
-
-fragment todoFields on todo {
-  id
-  title
-  content
-  created_at
-}
-
-fragment subTodoFields on subtodo {
-  id
-  content
-  created_at
-}
-  
-fragment authorFields on user {
-  id
-	name  
 }
 `;
 
 export default graphql(getClientsQuery, {
   options: props => ({
     variables: {
-      companyId: props.companyId
+      companyId: props.companyId,
+      order: [["id", "DESC"]]
     }
   })
 })(Dashboard);

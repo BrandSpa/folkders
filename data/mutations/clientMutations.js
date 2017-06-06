@@ -1,7 +1,4 @@
 import {
-  graphql,
-  GraphQLSchema,
-  GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
   GraphQLList,
@@ -31,6 +28,6 @@ export const updateClient = {
   },
   resolve(root, args) {
     return models.Client.update(args.data, { where: { id: args.id } })
-        .then(company => models.Company.findOne({ where: args.id }));
+      .then(company => models.Client.findOne({ where: args.id }));
   }
 };

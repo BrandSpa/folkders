@@ -1,14 +1,14 @@
 import React, { Component } from "react";
+import Form from './form';
+import TodoForm from './form';
 
 class Tasks extends Component {
   render() {
-    const { task } = this.props;
-    const todo = task;
+    const { todo = {} } = this.props;
     return (
-      Object.keys(task).length > 0 ? 
-      <section style={{ height: "80vh", overflow: "auto" }}>
+      <section>
         <h3 style={{ color: "#fff", float: "left" }}>Tasks</h3>
-        
+        <TodoForm />
         <div style={{ float: "left", width: "100%" }}>
           <h5 style={{ color: "#fff" }}>{todo.title}</h5>
           <span style={{ color: "#fff" }}>
@@ -18,7 +18,9 @@ class Tasks extends Component {
           <span style={{ color: "#fff" }}>Created: {todo.created_at}</span>
         </div>
 
-        <div style={{ float: "left", width: "100%"  }}>
+        { Object.keys(todo).length > 0 ? 
+        <div style={{ float: "left", width: "100%", height: "80vh", overflow: "auto" }}>
+
           <section style={{ color: "#333", margin: "20px 0", width: "100%" }}>
             <header style={{ background: "#fff", padding: "10px" }}>
               {todo.created_at}
@@ -29,27 +31,11 @@ class Tasks extends Component {
             </article>
           </section>
 
-          <section style={{ color: "#333" }}>
-            {todo.subtodos
-              ? todo.subtodos.map(subtodo => {
-                  return (
-                    <section style={{ color: "#333", margin: "20px 0" }}>
-                      <header style={{ background: "#fff", padding: "10px" }}>
-                        {subtodo.created_at}
-                      </header>
-                      <article
-                        style={{ background: "#F1F3F7", padding: "20px" }}
-                      >
-                        <p>{subtodo.content}</p>
-                      </article>
-                    </section>
-                  );
-                })
-              : <h3 style={{ color: "#fff" }}>NO TODOS</h3>}
-          </section>
+          {todo.subtodos.map(subtodo => <SubTodo subtodo={subtodo} />)}
         </div>
+        : <h1>Create your first todo</h1>}
       </section>
-      : <h1>Create your first todo</h1>
+      
     );
   }
 }
