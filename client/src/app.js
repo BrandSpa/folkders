@@ -3,8 +3,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import {  ApolloProvider, ApolloClient, createNetworkInterface } from 'react-apollo';
 import gql from 'graphql-tag';
-import Login from './components/login';
-import Register from './components/register';
+import Login from './components/users/login';
+import Register from './components/users/register';
 import Main from './components/main';
 import Dashboard from './components/dashboard';
 

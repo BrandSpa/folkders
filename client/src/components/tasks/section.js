@@ -2,11 +2,10 @@ import React, { Component } from "react";
 
 class Tasks extends Component {
   render() {
-
-    const { todo } = this.props;
-
+    const { task } = this.props;
+    const todo = task;
     return (
-      Object.keys(todo).length > 0 ? 
+      Object.keys(task).length > 0 ? 
       <section style={{ height: "80vh", overflow: "auto" }}>
         <h3 style={{ color: "#fff", float: "left" }}>Tasks</h3>
         

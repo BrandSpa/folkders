@@ -8,6 +8,7 @@ import {
 } from "graphql";
 import GraphQLJSON from "graphql-type-json";
 import Project from './projectType';
+import models from '../../models';
 
 const projectsFilter = new GraphQLInputObjectType({
     name: "projectsFilter",

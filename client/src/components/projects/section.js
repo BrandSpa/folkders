@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProjectTodos from './project_todos';
+import ProjectTodos from './tasks';
 
 class Projects extends Component {
 	constructor(props) {
@@ -15,7 +15,7 @@ class Projects extends Component {
 	}
 
 	render() {
-		const { projects } = this.props;
+		const { projects = [] } = this.props;
 
 		return (
 			<section style={{ height: '80vh', overflow: 'auto' }}>

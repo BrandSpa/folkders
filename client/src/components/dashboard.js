@@ -1,45 +1,69 @@
 import React, { Component } from "react";
 import { gql, graphql } from "react-apollo";
 import Clients from "./clients/section";
-import Projects from "./projects";
-import Tasks from "./tasks";
+import Projects from "./projects/section";
+import Tasks from "./tasks/section";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      clientSelected: null,
-      projects: [],
-      todo: { subtodos: [] },
-      offset: 0
+      client: {
+        projects: [],
+        todos: []
+      },
+      project: {
+        todos: []
+      },
+      todo: {},
+      variables: {}
     };
   }
 
-  changeClient = client => {
-    this.setState({ clientSelected: client.id, projects: client.projects });
-  };
+  componentWillReceiveProps = props => {
+    this.setClientAndProject(props.data.clients);
+  }
 
-  changeTodos = todo => {
+  setClientAndProject = clients => {
+    if(clients.length > 0) {
+      const client = clients[0];
+      const project = client.projects.length > 0 ? client.projects[0] : {todos: []};
+      const todo = project.todos.length > 0 ? project.todos[0] : {};
+      this.setState({ client, project, todo });
+    }
+  } 
+
+  changeClient = client => {
+    this.setClientAndProject([client]);
+  }
+
+  changeTodo = (todo, e) => {
+    e.preventDefault();
     this.setState({ todo });
-  };
+  }
 
   searchProjects = e => {
-    this.props.data.fetchMore({
-      variables: { projectName: { like: `%${e.target.value}%` } },
+    let variables = {...this.state.variables,  projectName: { like: `%${e.target.value}%` }};
+    this.setState({ variables });
+
+    this.props.data.fetchMore({ variables ,
       updateQuery(previousResult, { fetchMoreResult, queryVariables }) {
         return { ...previousResult, clients: fetchMoreResult.clients };
       }
     });
-  };
+  }
 
   searchClients = e => {
-    this.props.data.fetchMore({
-      variables: { clientName: { like: `%${e.target.value}%` } },
+    let _this = this;
+    let variables = {...this.state.variables,  clientName: { like: `%${e.target.value}%` }};
+    this.setState({ variables });
+    this.props.data.fetchMore({variables,
       updateQuery(previousResult, { fetchMoreResult, queryVariables }) {
+        _this.setClientAndProject(fetchMoreResult.clients);
         return { ...previousResult, clients: fetchMoreResult.clients };
       }
     });
-  };
+  }
 
   changeCompany = () => {
     this.setState({ offset: this.state.offset + 1 });
@@ -52,97 +76,83 @@ class Dashboard extends Component {
         };
       }
     });
-  };
+  }
 
   render() {
     const { data } = this.props;
-    const { clients = [] } = data;
-    let projects = [];
-    let todo = {};
+    const { client } = this.state;
 
-    if (this.state.clientSelected !== null) {
-      projects = clients.filter(
-        client => client.id == this.state.clientSelected
-      )[0].projects;
-      if (projects.length > 0) {
-				let defaultTodo = projects[0].todos.length > 0 ? projects[0].todos[0] : {};
-        todo = Object.keys(this.state.todo).length > 0 ? this.state.todo : defaultTodo;
-      } else {
-        todo = {};
-      }
-    } else {
-      let defaultProjects = clients.length > 0 ? clients[0].projects : [];
-      projects = this.state.projects.length > 0
-        ? this.state.projects
-        : defaultProjects;
-      let defaultTodo = projects.length > 0
-        ? projects[0].todos[0]
-        : this.state.todo;
-      todo = Object.keys(this.state.todo).length > 0
-        ? this.state.todo
-        : defaultTodo;
-    }
-
-    return data.loading
-      ? <h1 style={{ margin: "40px 0", textAlign: "center", color: "#fff" }}>
+    if (data.loading) {
+      return (
+        <h1 style={{ margin: "40px 0", textAlign: "center", color: "#fff" }}>
           loading...
         </h1>
-      : <div className="row">
+      );
+    } else {
+      return (
+        <div className="row">
 
-          <div className="col-lg-3">
+          <div className="col-lg-3" style={{ padding: " 40px 40px" }}>
             <Clients
               searchClients={this.searchClients}
               changeClient={this.changeClient}
-							selected={this.state.clientSelected}
-              {...this.props}
+              selected={this.state.clientSelected}
+              clients={data.clients}
+              selected={client}
             />
           </div>
 
-          <div className="col-lg-3">
+          <div className="col-lg-3" style={{ padding: " 40px 40px" }}>
             <Projects
               searchProjects={this.searchProjects}
-              changeTodos={this.changeTodos}
-              projects={projects}
+              changeTodos={this.changeTodo}
+              projects={client.projects}
             />
           </div>
 
           <div className="col-lg-6">
-            <Tasks todo={todo} />
+          <Tasks task={this.state.todo} />
           </div>
-        </div>;
+        </div>
+      );
+    }
   }
 }
 
 export const getClientsQuery = gql`
-query getClients($companyId: Int!, $offset: Int = 0, $limit: Int = 4) {
-  clients(where: {company_id: $companyId}, offset: $offset, limit: $limit, order: [["id", "DESC"]]) {
+query getClients($companyId: Int!, $clientName: JSON, $projectName: JSON, $subtaskContent: JSON, $offset: Int = 0, $limit: Int = 4) {
+  clients(where: {company_id: $companyId, name: $clientName}, offset: $offset, limit: $limit, order: [["id", "DESC"]]) {
+    id
     name
-    projects {
+    projects(where: {name: $projectName}) {
       ...projectFields
+      todos {
+  	    ...todoFields
+        subtodos(where: { content: $subtaskContent }) {
+          ...subTodoFields
+        }
+      }
     }
 	}
 }
 
 fragment projectFields on project {
+  id
   name
-  todos {
-  	...todoFields
-	}
 }
 
 fragment todoFields on todo {
+  id
   title
   content
   created_at
   author {
     ...authorFields
   }
-  subtodos {
-    ...subTodoFields
-  }
 }
 
 fragment subTodoFields on subtodo {
+  id
   content
   created_at
   author {
@@ -151,12 +161,13 @@ fragment subTodoFields on subtodo {
 }
   
 fragment authorFields on user {
+  id
 	name  
 }
 `;
 
 export default graphql(getClientsQuery, {
-  options: (props) => ({
+  options: props => ({
     variables: {
       companyId: props.companyId
     }
