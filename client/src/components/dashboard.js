@@ -69,7 +69,7 @@ class Dashboard extends Component {
       return (
         <div className="row">
 
-          <div className="col-lg-3" style={{ padding: " 40px 40px" }}>
+          <div className="col-lg-3" style={{ padding: "20px 0 0 20px", background: "rgba(200,200,200,0.1)" }}>
             <Clients
               searchClients={this.searchClients}
               changeClient={this.changeClient}
@@ -79,10 +79,11 @@ class Dashboard extends Component {
             />
           </div>
 
-          <div className="col-lg-9" style={{ padding: " 40px 40px" }}>
+          <div className="col-lg-9">
             <Projects 
               changeProject={this.changeProject}
               clientId={client.id}
+              client={client}
               selected={project} 
             />
           </div>

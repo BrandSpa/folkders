@@ -3,12 +3,12 @@ import React, { Component } from "react";
 class ProjectTodos extends Component {
   state = {
     show: false
-  };
+  }
 
   toggleShow = e => {
     e.preventDefault();
     this.setState({ show: !this.state.show });
-  };
+  }
 
   render() {
     const { project, selected } = this.props;
@@ -16,7 +16,7 @@ class ProjectTodos extends Component {
 
     return (
       <div
-        style={ project.id == selected.id ? { background: "rgba(0,0,0, .1)" } : {} }
+        style={ project.id == selected.id ? { background: "rgba(255,255,255, .1)" } : {} }
       >
         <a
           style={{
@@ -28,7 +28,7 @@ class ProjectTodos extends Component {
           href="#"
           onClick={this.toggleShow}
         >
-          {this.props.project.name}
+          <i className="ion-ios-folder-outline"></i> {this.props.project.name} {this.props.project.todosCount}
         </a>
         <ul
           style={
@@ -37,9 +37,12 @@ class ProjectTodos extends Component {
               : { display: "none" }
           }
         >
+        {todos.length == 0 ? 
+          <a href="">Create todo</a>
+          : ''}
           {todos.map((todo, i) => {
             return (
-              <li key={i} style={{ color: "#fff", padding: "10px" }}>
+              <li key={i} style={{ color: "#fff", padding: "10px", background: 'rgba(0,0,0,0.2 )' }}>
                 <a
                   style={{ color: "#fff" }}
                   href="#"

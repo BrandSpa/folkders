@@ -17,8 +17,8 @@ networkInterface.use([{
     if (!req.options.headers) {
       req.options.headers = {};  // Create the header object if needed.
     } 
-    // get the authentication token from local storage if it exists
     const token = localStorage.getItem('token');
+
     if(token) {
       req.options.headers.authorization = token ? `JWT ${token}` : null;
       next();
@@ -28,6 +28,17 @@ networkInterface.use([{
     
   }
 }]);
+
+const loggingAfterware = {
+  applyAfterware(res, next) {
+    if(res.response.status == 401) {
+      page.redirect('/login');
+    } 
+    return next();
+  }
+};
+
+networkInterface.useAfter([loggingAfterware]);
 
 const client = new ApolloClient({
   networkInterface

@@ -22,7 +22,7 @@ class ClientForm extends Component {
     this.setState({ [field]: e.target.value });
   };
 
-  onSubmit = e => {
+  handleSubmit = e => {
     e.preventDefault();
     if(this.state.id) {
 
@@ -35,7 +35,9 @@ class ClientForm extends Component {
             query: getClientsQuery, 
             variables: { order: [["id", "DESC"]] }
           });
+
           const clients = [createClient].concat(data.clients);
+        
           store.writeQuery({ 
             query: getClientsQuery, 
             variables: { order: [["id", "DESC"]] },
@@ -54,7 +56,7 @@ class ClientForm extends Component {
 
   render() {
     return (
-      <form action="">
+      <form action="" onSubmit={this.handleSubmit}>
         <div className="input-group">
           <input
             type="text"
@@ -63,15 +65,6 @@ class ClientForm extends Component {
             value={this.state.name}
             placeholder="Client Name"
           />
-          <span className="input-group-btn">
-            <button
-              className="btn btn-secondary"
-              type="button"
-              onClick={this.onSubmit}
-            >
-              {this.state.id ? 'Edit' : 'Add' }
-            </button>
-          </span>
         </div>
       </form>
     );

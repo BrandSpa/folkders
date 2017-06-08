@@ -30,17 +30,18 @@ class TodoForm extends Component {
 		return (
 			<form action="">
 			<input 
+				placeholder="Title"
 				type="text" 
 				className="form-control"
 				onChange={this.handleChange.bind(null, 'title')}
 			/>
-			<div style={{background: "#fff", margin: '20px 0'}}>
+			<div style={{background: "#fff", margin: '20px 0', color: "#333"}}>
 			  <Editor
-            toolbarClassName="demo-toolbar"
-            wrapperClassName="demo-wrapper-medium"
-            editorClassName="demo-editor"
-            toolbar={{
-              options: ['inline', 'list', 'emoji', 'image', 'remove'],
+          toolbarClassName="task-toolbar"
+          wrapperClassName="task-wrapper-medium"
+          editorClassName="task-editor"
+          toolbar={{
+            options: ['inline', 'list', 'emoji', 'image', 'remove'],
               inline: {
                 options: ['bold', 'italic'],
               },

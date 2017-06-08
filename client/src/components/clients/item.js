@@ -41,11 +41,7 @@ class Client extends Component {
           }}
           onClick={this.changeClient.bind(null, client)}
         >
-          {client.name}
-          <button 
-            className="btn btn-secondary" 
-            style={{float: "right"}} 
-            onClick={this.editClient.bind(null, client)}>Edit</button>
+          <i className="ion-ios-folder-outline"></i> {client.name}
         </a>
      
       </li>

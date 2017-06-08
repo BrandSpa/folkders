@@ -32,7 +32,7 @@ class Clients extends Component {
     return (
       <section style={{position:'relative'}}>
       <header style={{position: "relative"}}>
-        <h3 style={{ color: "#fff" }}>Clients</h3>
+        <h5><i className="ion-ios-folder"></i> Clients</h5>
         <input
           type="text"
           onChange={this.searchClients}

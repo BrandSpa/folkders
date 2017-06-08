@@ -20,7 +20,7 @@ class ProjectForm extends Component {
     this.setState({ [field]: e.target.value });
   };
 
-  onSubmit = e => {
+  handleSubmit = e => {
     e.preventDefault();
     if(this.state.id) {
 
@@ -51,7 +51,7 @@ class ProjectForm extends Component {
 
   render() {
     return (
-      <form action="">
+      <form action="" onSubmit={this.handleSubmit}>
         <div className="input-group">
           <input
             type="text"
@@ -60,15 +60,6 @@ class ProjectForm extends Component {
             value={this.state.name}
             placeholder="Project Name"
           />
-          <span className="input-group-btn">
-            <button
-              className="btn btn-secondary"
-              type="button"
-              onClick={this.onSubmit}
-            >
-              {this.state.id ? 'Edit' : 'Add' }
-            </button>
-          </span>
         </div>
       </form>
     );
@@ -76,13 +67,14 @@ class ProjectForm extends Component {
 }
 
 const createProjectMutation = gql`
-mutation createProject($name:String!, $clientId:Int!) {
+mutation createProject($name: String!, $clientId:Int!) {
   createProject(name: $name, client_id: $clientId) {
     id
-    client_id
-    name,
+    name
+    todosCount
     todos {
       id
+      title
     }
   }
 }

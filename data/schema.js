@@ -6,6 +6,7 @@ import {
 import clientsQuery from './queries/clientsQuery';
 import projectsQuery from './queries/projectsQuery';
 import todosQuery from './queries/todosQuery';
+import todoQuery from './queries/todoQuery';
 //mutations
 import { createCompany, updateCompany } from './mutations/companyMutations';
 import { createClient, updateClient } from './mutations/clientMutations';
@@ -18,7 +19,8 @@ const Query = new GraphQLObjectType({
   fields: () => ({
     clients: clientsQuery,
     projects: projectsQuery,
-    todos: todosQuery
+    todos: todosQuery,
+    todo: todoQuery
   })
 });
 

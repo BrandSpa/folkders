@@ -1,38 +1,49 @@
 import React, { Component } from "react";
 import { gql, graphql } from "react-apollo";
-import ProjectTodos from "./tasks";
+import Project from "./item";
 import Form from "./form";
 import Tasks from "../tasks/section";
 
 class Projects extends Component {
   state = {
-    project: {}
-  }
+    project: {},
+    todo: {}
+  };
 
   openTodos = e => {
     e.preventDefault();
-  }
+  };
 
   searchProjects = e => {
-    this.props.searchProjects(e);
+    let _this = this;
+    let variables = {name: { like: `%${e.target.value}%` }};
+    
+    this.props.data.fetchMore({variables,
+      updateQuery(previousResult, { fetchMoreResult, queryVariables }) {
+        console.log(fetchMoreResult);
+        return { ...previousResult, projects: fetchMoreResult.projects };
+      }
+    });
   }
 
   changeTodos = todo => {
-    console.log(todo);
-  }
+    this.setState({todo});
+  };
 
   changeProject = project => {
     this.props.changeProject(project);
-  }
- 
+  };
+
   render() {
-    const { data: { projects = [], loading } } = this.props;
-  
+    const { data: { projects = [], loading }, client } = this.props;
+
     return (
       <section className="row">
-        <div className="col-lg-5">
-
-          <h3 style={{ color: "#fff" }}>Projects</h3>
+        <div
+          className="col-lg-5"
+          style={{ paddingTop: "20px", background: "rgba(0,0,0,0.2)" }}
+        >
+          <h5 style={{ color: "#fff" }}>Projects for {client.name}</h5>
           <input
             type="text"
             onChange={this.searchProjects}
@@ -41,36 +52,43 @@ class Projects extends Component {
           />
           <br />
           <Form project={this.state.project} clientId={this.props.clientId} />
-          <br/>
-          <ul style={{padding: 0, height: "80vh", overflow: "auto"}}>
-          {!loading ? projects.map((project, i) => {
-            return (
-              <li key={i} style={{ listStyle: "none" }} onClick={this.changeProject.bind(null, project)}>
-                <ProjectTodos
-                  changeTodos={this.changeTodos}
-                  project={project}
-                  selected={this.props.selected}
-                />
-              </li>
-            );
-          }) : <h3>Loading...</h3>}
+          <br />
+          <ul style={{ padding: 0, height: "80vh", overflow: "auto" }}>
+            {!loading
+              ? projects.map((project, i) => {
+                  return (
+                    <li
+                      key={i}
+                      style={{ listStyle: "none" }}
+                      onClick={this.changeProject.bind(null, project)}
+                    >
+                      <Project
+                        changeTodos={this.changeTodos}
+                        project={project}
+                        selected={this.props.selected}
+                      />
+                    </li>
+                  );
+                })
+              : <h3>Loading...</h3>}
           </ul>
-         </div>
-        <div className="col-lg-7" >
-          <Tasks />
+        </div>
+        <div className="col-lg-7" style={{paddingTop: '20px'}}>
+          <Tasks todo={this.state.todo} project={this.props.selected} />
         </div>
       </section>
     );
-
   }
 }
 
 export const getClientProjectsQuery = gql`
-  query getClientProjects($clientId: Int!) {
-    projects(where: {client_id: $clientId}) {
+  query getClientProjects($clientId: Int!, $name: JSON) {
+    projects(where: {client_id: $clientId, name: $name}) {
       id
       name,
+      todosCount,
       todos {
+        id,
         title
       }
     }

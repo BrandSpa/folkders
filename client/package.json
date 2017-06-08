@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "draft-js": "^0.10.1",
+    "fecha": "^2.3.1",
     "page.js": "^4.13.3",
     "react": "^15.5.4",
     "react-apollo": "^1.2.0",

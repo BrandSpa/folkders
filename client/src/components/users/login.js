@@ -22,8 +22,10 @@ class Login extends React.Component {
 		e.preventDefault();
 		console.log(this.state);
 		request.post('/login', this.state).then(({data}) => {
-				localStorage.setItem('token', data.token);
-				window.location = '/home';
+				if(data.success) {
+					localStorage.setItem('token', data.token);
+					window.location = '/home';
+				}
 		});
 	}
 
