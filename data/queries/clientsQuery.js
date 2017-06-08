@@ -19,16 +19,12 @@ const operators = new GraphQLInputObjectType({
   })
 });
 
-const clientsFilter = new GraphQLNonNull(
-  new GraphQLInputObjectType({
-
+const clientsFilter = new GraphQLInputObjectType({
     name: "clientsFilters",
     fields: () => ({
-      name: { type: GraphQLJSON },
-      company_id: { type: new GraphQLNonNull(GraphQLInt) }
+      name: { type: GraphQLJSON }
     })
-  })
-);
+});
 
 const clients = {
   type: new GraphQLList(Client),
@@ -38,8 +34,10 @@ const clients = {
     offset: { type: GraphQLInt },
     order: { type: GraphQLJSON }
   },
-  resolve(root, args) {
-    return models.Client.findAll(args);
+  
+  resolve(root, args, ctx) {
+    let where = {...args.where, company_id: ctx.user.company_id};
+    return models.Client.findAll({...args, where });
   }
 };
 

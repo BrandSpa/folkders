@@ -1,7 +1,7 @@
 import express from 'express';
 const app = express();
 import config from './config';
-import models from './models/index';
+import models from './models';
 import bodyParser from 'body-parser';
 import passport from 'passport';
 import graphqlHTTP from 'express-graphql';
@@ -11,6 +11,7 @@ import passportJwt from './lib/passport-jwt';
 
 app.use(passport.initialize());
 app.use(express.static('public/assets'));
+app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -19,14 +20,15 @@ passportJwt(passport);
 app.post('/login', (req, res) => {
 	models.User.findOne({where: {email: req.body.email}}).then((user) => {
 		if(user) {
-			return models.User.checkPassword(user, 'nea').then(isValid => {
+			return models.User.checkPassword(user, req.body.password).then(isValid => {
 				if(isValid) {
-					var token = jwt.sign(user, config.secret, {
-            expiresIn: 10080 // in seconds
+					var token = jwt.sign({ id: user.id }, config.secret, {
+            expiresIn: 86400 // in seconds
           });
 
-          res.json({ success: true, token });
+          return res.json({ success: true, token });
 				}
+				
 				return res.json({success: false, token: null});
 			});
 		}
@@ -44,9 +46,11 @@ app.post('/register', (req, res) => {
 	return res.json({});
 });
 
-app.use('/graphql', graphqlHTTP({
-  schema: Schema
-}));
+app.use(
+	'/graphql', 
+	passport.authenticate("jwt", { session: false }),
+	graphqlHTTP({ schema: Schema })
+);
 
 app.use('/graphiql', graphqlHTTP({
 	schema: Schema,

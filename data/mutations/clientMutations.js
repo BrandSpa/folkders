@@ -12,11 +12,11 @@ import Client from '../types/clientType';
 export const createClient = {
 	type: Client,
 	args: {
-		name: { type: new GraphQLNonNull(GraphQLString) },
-    company_id: { type: new GraphQLNonNull(GraphQLInt) }
+		name: { type: new GraphQLNonNull(GraphQLString) }
 	},
-	resolve(root, args) {
-		return models.Client.create(args);
+	resolve(root, args, ctx) {
+    let data = {...args, company_id: ctx.user.company_id};
+		return models.Client.create(data);
 	}
 }
 

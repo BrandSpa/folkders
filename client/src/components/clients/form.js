@@ -29,11 +29,17 @@ class ClientForm extends Component {
     } else {
       this.props
       .createClient({
-        variables: { name: this.state.name, companyId: 2 },
+        variables: { name: this.state.name },
         update: (store, { data: { createClient } }) => {
-          const data = store.readQuery({ query: getClientsQuery, variables: {companyId: this.props.companyId} });
+          const data = store.readQuery({ 
+            query: getClientsQuery, 
+            variables: { order: [["id", "DESC"]] }
+          });
           const clients = [createClient].concat(data.clients);
-          store.writeQuery({ query: getClientsQuery, variables: {companyId: this.props.companyId}, data: {clients} });
+          store.writeQuery({ 
+            query: getClientsQuery, 
+            variables: { order: [["id", "DESC"]] },
+            data: {clients} });
         }
       })
       .then(({ data }) => { 
@@ -73,56 +79,17 @@ class ClientForm extends Component {
 }
 
 const createClientMutation = gql`
-mutation createClient($name: String!, $companyId: Int!) {
-	createClient(name: $name, company_id: $companyId) {
+mutation createClient($name: String!) {
+	createClient(name: $name) {
 		id
     name
-    projects {
-      ...projectFields
-      todos {
-  	    ...todoFields
-        author {
-          ...authorFields
-        }
-        subtodos {
-          ...subTodoFields
-          author {
-            ...authorFields
-          }
-        }
-      }
-    }
-	}
-}
-
-
-fragment projectFields on project {
-  id
-  name
-}
-
-fragment todoFields on todo {
-  id
-  title
-  content
-  created_at
-}
-
-fragment subTodoFields on subtodo {
-  id
-  content
-  created_at
-}
-  
-fragment authorFields on user {
-  id
-	name  
+  }
 }
 `;
 
 const updateClientMutation = gql`
-mutation updateClient($name: String!, $id: Int!, $companyId: Int!) {
-	updateClient(id: $id, name: $name, company_id: $companyId) {
+mutation updateClient($name: String!, $id: Int!) {
+	updateClient(id: $id, name: $name) {
 		id
     name
 	}

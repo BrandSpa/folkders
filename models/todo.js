@@ -14,7 +14,8 @@ export default function(sequelize, Sequelize) {
         associate(models) {
 					Todo.belongsTo(models.Project);
 					Todo.belongsTo(models.User);
-          Todo.hasMany(models.SubTodo);
+          Todo.hasMany(Todo);
+          Todo.belongsTo(Todo);
         },
       },
       underscored: true

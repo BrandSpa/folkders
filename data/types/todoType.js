@@ -8,7 +8,6 @@ import {
 } from "graphql";
 import GraphQLJSON from "graphql-type-json";
 import User from './userType';
-import SubTodo from './subtodoType';
 
 const Todo = new GraphQLObjectType({
   name: "todo",
@@ -18,7 +17,7 @@ const Todo = new GraphQLObjectType({
     content: { type: GraphQLString },
     created_at: { type: GraphQLString },
     subtodos: {
-      type: new GraphQLList(SubTodo),
+      type: new GraphQLList(Todo),
       args: {
         where: { type: GraphQLJSON },
         order: { type: GraphQLJSON },
@@ -26,7 +25,7 @@ const Todo = new GraphQLObjectType({
         offset: { type: GraphQLInt }
       },
       resolve(todo, args) {
-        return todo.getSubTodos(args);
+        return todo.getTodos(args);
       }
     },
     author: {

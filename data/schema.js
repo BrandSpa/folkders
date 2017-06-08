@@ -27,7 +27,7 @@ const Mutation = new GraphQLObjectType({
   fields: () => ({
     createCompany,
     updateCompany,
-    createClient, 
+    createClient,
     updateClient,
     createProject, 
     updateProject,

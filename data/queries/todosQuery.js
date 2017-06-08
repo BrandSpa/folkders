@@ -29,7 +29,7 @@ const todos = {
     offset: { type: GraphQLInt },
     order: { type: GraphQLJSON }
   },
-  resolve(root, args) {
+  resolve(_, args) {
     return models.Todo.findAll(args);
   }
 };

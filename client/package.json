@@ -14,11 +14,12 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "draft-js": "^0.10.1",
     "page.js": "^4.13.3",
     "react": "^15.5.4",
     "react-apollo": "^1.2.0",
     "react-dom": "^15.5.4",
-    "react-redux": "^5.0.5"
+    "react-draft-wysiwyg": "^1.10.0"
   },
   "devDependencies": {
     "babel": "^6.23.0",

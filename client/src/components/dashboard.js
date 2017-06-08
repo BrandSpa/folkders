@@ -94,8 +94,8 @@ class Dashboard extends Component {
 }
 
 export const getClientsQuery = gql`
-  query getClients($companyId: Int!, $clientName: JSON, $order: JSON) {
-    clients(where: {company_id: $companyId, name: $clientName}, order: $order) {
+  query getClients($clientName: JSON, $order: JSON) {
+    clients(where: {name: $clientName}, order: $order) {
       id
       name
     }
@@ -105,7 +105,6 @@ export const getClientsQuery = gql`
 export default graphql(getClientsQuery, {
   options: props => ({
     variables: {
-      companyId: props.companyId,
       order: [["id", "DESC"]]
     }
   })

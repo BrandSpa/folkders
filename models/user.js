@@ -19,7 +19,6 @@ export default function(sequelize, Sequelize) {
         associate(models) {
           User.belongsTo(models.Company);
           User.hasMany(models.Todo);
-          User.hasMany(models.SubTodo);
         },
 				checkPassword(user, plainPass) {
 					return bcrypt.compare(plainPass, user.password).then(function(res) {

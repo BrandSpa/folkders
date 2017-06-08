@@ -1,4 +1,5 @@
 import React from 'react';
+import request from 'axios';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -20,10 +21,13 @@ class Login extends React.Component {
 	login(e) {
 		e.preventDefault();
 		console.log(this.state);
+		request.post('/login', this.state).then(({data}) => {
+				localStorage.setItem('token', data.token);
+				window.location = '/home';
+		});
 	}
 
 	render() {
-
 		return (
 			<div className="row" style={{ height: '90vh' }}>
 			<div className="col-lg-3" style={{ background: '#19212F', padding: "40px" }}>

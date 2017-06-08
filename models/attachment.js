@@ -10,7 +10,6 @@ export default function(sequelize, Sequelize) {
       classMethods: {
         associate(models) {
 					Attachment.belongsTo(models.Todo);
-					Attachment.belongsTo(models.SubTodo);
 					Attachment.belongsTo(models.User);
         },
       },

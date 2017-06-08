@@ -8,7 +8,7 @@ class Tasks extends Component {
     return (
       <section>
         <h3 style={{ color: "#fff", float: "left" }}>Tasks</h3>
-        <TodoForm />
+        <TodoForm container="editable" />
         <div style={{ float: "left", width: "100%" }}>
           <h5 style={{ color: "#fff" }}>{todo.title}</h5>
           <span style={{ color: "#fff" }}>

@@ -11,7 +11,7 @@ function createUser(company) {
   return models.User.create({
       name: casual.first_name,
       email: casual.email,
-      password: casual.password,
+      password: 'durden99',
       company_id: company.id
   })
 }
@@ -36,7 +36,7 @@ function createTodo(project) {
 }
 
 function createSubTodo(todo) {
-  return models.SubTodo.create({ content: casual.text, todo_id: todo.id, user_id: userCreated.id });
+  return models.Todo.create({ content: casual.text, todo_id: todo.id, user_id: userCreated.id });
 }
 
 _.times(10, () => { 
