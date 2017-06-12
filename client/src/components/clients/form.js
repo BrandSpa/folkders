@@ -35,8 +35,7 @@ export class ClientForm extends Component {
       variables,
       data: { clients }
     });
-    
-    this.cleanState();
+  
   }
 
   handleSubmit = e => {
@@ -46,7 +45,8 @@ export class ClientForm extends Component {
         name: this.state.name
       },
       update: this.updateClients
-    });
+    })
+    .then(this.cleanState());
   }
 
   render() {

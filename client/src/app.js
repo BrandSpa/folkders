@@ -9,6 +9,7 @@ import Main from './components/main';
 import Dashboard from './components/dashboard';
 import Clients from './components/clients';
 import Projects from './components/projects';
+import Todos from './components/todos';
 
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import reducers from './reducers';
@@ -83,7 +84,11 @@ page('/clients', (ctx) => {
 });
 
 page('/projects', (ctx) => {
-  RootRender(<Projects client={{id: 1}} />);
+  RootRender(<Projects />);
+});
+
+page('/todos', (ctx) => {
+  RootRender(<Todos />);
 });
 
 page('/login', () => {

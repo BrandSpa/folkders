@@ -7,11 +7,13 @@ import clientsQuery from './queries/clientsQuery';
 import projectsQuery from './queries/projectsQuery';
 import todosQuery from './queries/todosQuery';
 import todoQuery from './queries/todoQuery';
+import usersQuery from './queries/usersQuery';
 //mutations
 import { createCompany, updateCompany } from './mutations/companyMutations';
 import { createClient, updateClient } from './mutations/clientMutations';
 import { createProject, updateProject } from './mutations/projectMutations';
 import { loginUser, registerUser } from './mutations/userMutations';
+import { createTodo, updateTodo } from './mutations/todoMutations';
 
 const Query = new GraphQLObjectType({
   name: "folkderAppQueries",
@@ -20,7 +22,8 @@ const Query = new GraphQLObjectType({
     clients: clientsQuery,
     projects: projectsQuery,
     todos: todosQuery,
-    todo: todoQuery
+    todo: todoQuery,
+    users: usersQuery
   })
 });
 
@@ -34,7 +37,9 @@ const Mutation = new GraphQLObjectType({
     createProject, 
     updateProject,
     loginUser,
-    registerUser
+    registerUser,
+    createTodo, 
+    updateTodo
   })
 });
 

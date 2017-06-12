@@ -4,6 +4,7 @@ import {
   GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
+  GraphQLBoolean,
   GraphQLInputObjectType
 } from "graphql";
 import GraphQLJSON from "graphql-type-json";
@@ -16,6 +17,7 @@ const Todo = new GraphQLObjectType({
     title: { type: GraphQLString },
     content: { type: GraphQLString },
     created_at: { type: GraphQLString },
+    is_completed: { type: GraphQLBoolean },
     subtodos: {
       type: new GraphQLList(Todo),
       args: {
@@ -31,6 +33,13 @@ const Todo = new GraphQLObjectType({
     author: {
       type: User,
       resolve(todo) {
+        return todo.getUser();
+      }
+    },
+    assigned: {
+      type: User,
+      resolve(todo) {
+        console.log('assign', todo.assign_id);
         return todo.getUser();
       }
     }

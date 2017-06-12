@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Project from "./item";
 import ProjectForm from "./form";
-import Tasks from "../tasks/section";
 
 class Projects extends Component {
 
@@ -12,6 +11,8 @@ class Projects extends Component {
   }
 
   selectProject = (project) => {
+    //select first todo on select project if has todos
+    console.log(project.todos.length);
     this.props.dispatch({type: 'SELECT_PROJECT', payload: project});
   }
 
@@ -35,6 +36,7 @@ class Projects extends Component {
           <h5>Projects</h5>
         </header>
         <ul>
+          <li><ProjectForm client={this.props.client} /></li>
           {projects.map(project => 
             <Project 
               key={project.id} 

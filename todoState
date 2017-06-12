@@ -1,0 +1,24 @@
+    let projectSelected = project.hasOwnProperty('id') && !todo.hasOwnProperty('id');
+    let projectHasTodos = project.hasOwnProperty('todos') && project.todos.length > 0;
+    let projectAndTodo = project.hasOwnProperty('id') && todo.hasOwnProperty('id');
+    let noProjectAndTodo = !project.hasOwnProperty('id') && !todo.hasOwnProperty('id');
+  states = {
+    projectSelected: false,
+    projectHasTodos: false,
+    projectAndTodo: false,
+    noProjectAndTodo: false
+  }
+
+  <Editor
+          toolbarClassName="task-toolbar"
+          wrapperClassName="task-wrapper-medium"
+          editorClassName="task-editor"
+					onEditorStateChange={this.handleEditorChange}
+          toolbar={{
+            options: ['inline', 'list', 'emoji', 'image', 'remove'],
+              inline: {
+                options: ['bold', 'italic'],
+              },
+							image: { uploadCallback: this.uploadImageCallBack }
+            }}
+        />
