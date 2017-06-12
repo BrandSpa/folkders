@@ -1,49 +1,16 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Client extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      edit: false
-    }
-  }
-
-  changeClient = (client, e) => {
+  selectClient = e => {
     e.preventDefault();
-    this.props.changeClient(client);
+    this.props.selectClient(this.props.client);
   }
 
-  editClient = (client, e) => {
-    e.preventDefault();
-    this.props.editClient(client);
-  }
-	
   render() {
-    const {client} = this.props;
-
+    const { client, selected } = this.props;
     return (
-      <li
-        style={
-          this.props.selected == client.id
-            ? { listStyle: "none", background: "rgba(0,0,0, .3)" }
-            : { listStyle: "none" }
-        }
-      >
-    
-        <a
-          href="#"
-          style={{
-            display: "block",
-            padding: "40px 0 10px 10px",
-            color: "#fff",
-            padding: "20px 40px"
-          }}
-          onClick={this.changeClient.bind(null, client)}
-        >
-          <i className="ion-ios-folder-outline"></i> {client.name}
-        </a>
-     
+      <li className={`client__item ${client.id == selected.id ? 'client__item--active' : ''}`}>
+        <a href='#' onClick={this.selectClient}>{client.name}</a>
       </li>
     );
   }

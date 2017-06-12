@@ -16,8 +16,8 @@ class TodoForm extends Component {
 		console.log(this.state);
 	}
 
-	handleEditorChange = (e) => {
-
+	handleEditorChange = (state) => {
+		console.log('state:', state, state.getCurrentInlineStyle());
 	}
 
 	uploadImageCallBack = (e) => {
@@ -40,6 +40,7 @@ class TodoForm extends Component {
           toolbarClassName="task-toolbar"
           wrapperClassName="task-wrapper-medium"
           editorClassName="task-editor"
+					onEditorStateChange={this.handleEditorChange}
           toolbar={{
             options: ['inline', 'list', 'emoji', 'image', 'remove'],
               inline: {

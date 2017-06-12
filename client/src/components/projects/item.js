@@ -1,62 +1,30 @@
 import React, { Component } from "react";
 
-class ProjectTodos extends Component {
-  state = {
-    show: false
+class Project extends Component {
+  selectProject = (e) => {
+    e.preventDefault();
+    this.props.selectProject(this.props.project);
   }
 
-  toggleShow = e => {
+  changeTodo = (todoId, e) => {
     e.preventDefault();
-    this.setState({ show: !this.state.show });
+    this.props.changeTodo(todoId);
   }
 
   render() {
-    const { project, selected } = this.props;
-    const { todos } = project;
-
+    const { project = {}, selected = {} } = this.props;
+    
     return (
-      <div
-        style={ project.id == selected.id ? { background: "rgba(255,255,255, .1)" } : {} }
-      >
-        <a
-          style={{
-            display: "block",
-            padding: "40px 0 10px 10px",
-            color: "#fff",
-            padding: "20px 40px"
-          }}
-          href="#"
-          onClick={this.toggleShow}
-        >
-          <i className="ion-ios-folder-outline"></i> {this.props.project.name} {this.props.project.todosCount}
-        </a>
-        <ul
-          style={
-            this.state.show
-              ? { display: "block", padding: "0 0 0 60px", listStyle: "none" }
-              : { display: "none" }
-          }
-        >
-        {todos.length == 0 ? 
-          <a href="">Create todo</a>
-          : ''}
-          {todos.map((todo, i) => {
-            return (
-              <li key={i} style={{ color: "#fff", padding: "10px", background: 'rgba(0,0,0,0.2 )' }}>
-                <a
-                  style={{ color: "#fff" }}
-                  href="#"
-                  onClick={this.props.changeTodos.bind(null, todo)}
-                >
-                  {todo.title}
-                </a>
-              </li>
-            );
-          })}
+      <li className={`project__item ${project.id == selected.id ? 'project__item--active' : ''}`}>
+        <a href="#" onClick={this.selectProject}>{project.name}</a>
+        <ul>
+          {project.todos.map(todo => 
+            <li key={todo.id}><a href="#" onClick={this.changeTodo.bind(null, todo.id)}>{todo.title}</a></li>
+          )}
         </ul>
-      </div>
-    );
+      </li>
+    )
   }
 }
 
-export default ProjectTodos;
+export default Project;

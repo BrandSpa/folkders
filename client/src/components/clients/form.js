@@ -1,93 +1,81 @@
-import React, { Component } from "react";
-import { gql, graphql, compose } from "react-apollo";
-import { getClientsQuery } from '../dashboard';
+import React, { Component } from 'react';
+import { graphql, compose } from 'react-apollo';
+import { 
+  createClientMutation, 
+  updateClientMutation, 
+  getClientsQuery 
+} from '../../queries/clientQueries';
 
-class ClientForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-			id: null,
-      name: "",
-      company_id: this.props.companyId
-    };
+export class ClientForm extends Component {
+  
+  state = {
+    name: ''
   }
 
-	componentWillReceiveProps = (props) => {
-		if(Object.keys(props.client).length > 0) {
-			this.setState(props.client);
-		}
-	}
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
-  onChange = (field, e) => {
-    this.setState({ [field]: e.target.value });
-  };
+  cleanState = () => {
+    this.setState({name: ''});
+  }
+
+  updateClients = (proxy, { data }) => {
+    let variables = { order: [['id', 'DESC']] };
+    let query = getClientsQuery;
+    const queryData = proxy.readQuery({ 
+      query,
+      variables
+    });
+    
+    const clients = [data.createClient].concat(queryData.clients);
+    
+    proxy.writeQuery({ 
+      query,
+      variables,
+      data: { clients }
+    });
+    
+    this.cleanState();
+  }
 
   handleSubmit = e => {
     e.preventDefault();
-    if(this.state.id) {
-
-    } else {
-      this.props
-      .createClient({
-        variables: { name: this.state.name },
-        update: (store, { data: { createClient } }) => {
-          const data = store.readQuery({ 
-            query: getClientsQuery, 
-            variables: { order: [["id", "DESC"]] }
-          });
-
-          const clients = [createClient].concat(data.clients);
-        
-          store.writeQuery({ 
-            query: getClientsQuery, 
-            variables: { order: [["id", "DESC"]] },
-            data: {clients} });
-        }
-      })
-      .then(({ data }) => { 
-        this.setState({id: null, name: "", company_id: this.props.companyId});
-      })
-      .catch(error => {
-        console.log("there was an error sending the query", error);
-      });
-    }
-    
-  };
+    this.props.createClient({
+      variables: {
+        name: this.state.name
+      },
+      update: this.updateClients
+    });
+  }
 
   render() {
     return (
-      <form action="" onSubmit={this.handleSubmit}>
-        <div className="input-group">
+      <form onSubmit={this.handleSubmit} className="row">
+        <div className="input-group col-lg-6">
           <input
             type="text"
+            name="name"
             className="form-control"
-            onChange={this.onChange.bind(null, "name")}
+            onChange={this.handleChange}
             value={this.state.name}
             placeholder="Client Name"
+          />
+        </div>
+        <div className="input-group col-lg-6">
+          <input
+            type="text"
+            name="abbreviation"
+            className="form-control"
+            onChange={this.handleChange}
+            value={this.state.abbreviation}
+            placeholder="Client Abbreviation"
           />
         </div>
       </form>
     );
   }
 }
-
-const createClientMutation = gql`
-mutation createClient($name: String!) {
-	createClient(name: $name) {
-		id
-    name
-  }
-}
-`;
-
-const updateClientMutation = gql`
-mutation updateClient($name: String!, $id: Int!) {
-	updateClient(id: $id, name: $name) {
-		id
-    name
-	}
-}
-`;
 
 export default compose(
   graphql(createClientMutation, {name: 'createClient'}),

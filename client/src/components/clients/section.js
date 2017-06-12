@@ -1,65 +1,46 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import Client from './item';
-import Form from './form';
+import ClientForm from './form';
 
 class Clients extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      client: {}
+
+  componentWillReceiveProps(props) {
+    if(!props.client.selected.hasOwnProperty('id') && props.data.clients.length > 0) {
+      this.selectClient(props.data.clients[0]);
     }
   }
-
-  changeClient = (client, e) => {
-    this.props.changeClient(client);
+   
+  selectClient = client => {
+    this.props.dispatch({type: 'SELECT_CLIENT', payload: client});
   }
 
-  searchClients = e => {
-    this.props.searchClients(e);
-  }
-
-  editClient = (client) => {
-     this.setState({client});
-  }
-
-  addClient = (client) => {
-    this.props.addClient();
+  renderLoading = () => {
+    return (<h5>loading...</h5>)
   }
 
   render() {
-    const { clients } = this.props;
+    const { clients = [], loading } = this.props.data;
+    const { selected } = this.props.client;
+    if(loading) return this.renderLoading();
 
     return (
-      <section style={{position:'relative'}}>
-      <header style={{position: "relative"}}>
-        <h5><i className="ion-ios-folder"></i> Clients</h5>
-        <input
-          type="text"
-          onChange={this.searchClients}
-          className="form-control"
-          placeholder="Search"
-        />
-        <br/>
-        <Form
-          companyId={this.props.companyId} 
-          client={this.state.client} 
-          addClient={this.addClient}  
-        />
-        <br/>
+      <section className="col-lg-3 clients">
+        <header>
+          <h3>Clients</h3>
         </header>
-        <ul style={{ padding: "0", height: "60vh", overflow: "auto" }}>
-          {clients.map((client, i) => 
+        <ul className="clients--list">
+          <li><ClientForm /></li>
+          {clients.map(client =>
             <Client
-              key={i}
-              changeClient={this.changeClient} 
-              editClient={this.editClient} 
-              selected={this.props.selected.id} 
-              client={client} 
+              key={client.id}
+              client={client}
+              selectClient={this.selectClient}
+              selected={selected}
             />
           )}
         </ul>
       </section>
-    );
+    )
   }
 }
 

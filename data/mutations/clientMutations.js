@@ -12,7 +12,8 @@ import Client from '../types/clientType';
 export const createClient = {
 	type: Client,
 	args: {
-		name: { type: new GraphQLNonNull(GraphQLString) }
+		name: { type: new GraphQLNonNull(GraphQLString) },
+    abbreviation: { type: GraphQLString },
 	},
 	resolve(root, args, ctx) {
     let data = {...args, company_id: ctx.user.company_id};

@@ -12,7 +12,7 @@
 - An user can create a new project associate to one client
 
 ## Todo & SubTodos
-- Fetch todo by todo id, until an user select the todo from project todo list 
+- Fetch todo by todo id, until an user select the todo from the project todo list
 - An user can only create a subtodo if he is assign to it
 - If a project doesn't has todos, it should show the editor
 
