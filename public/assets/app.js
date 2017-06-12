@@ -3425,7 +3425,7 @@ var Todos = function (_Component) {
         _react2.default.createElement(
           'section',
           null,
-          _react2.default.createElement(_form2.default, { project: project })
+          _react2.default.createElement(_form2.default, { todo: todo, project: project })
         ),
         _react2.default.createElement(
           'section',
@@ -3869,22 +3869,31 @@ var TodoForm = exports.TodoForm = function (_Component) {
 			assign_id: ""
 		}, _this.handleChange = function (e) {
 			_this.setState(_defineProperty({}, e.target.name, e.target.value));
+		}, _this.updateSubtodos = function (proxy, _ref2) {
+			var data = _ref2.data;
 		}, _this.handleSubmit = function (e) {
 			e.preventDefault();
 			var _this$state = _this.state,
 			    title = _this$state.title,
 			    content = _this$state.content,
 			    assign_id = _this$state.assign_id;
-			var selected = _this.props.project.selected;
+			var _this$props = _this.props,
+			    _this$props$todo = _this$props.todo,
+			    todo = _this$props$todo === undefined ? {} : _this$props$todo,
+			    _this$props$project = _this$props.project,
+			    project = _this$props$project === undefined ? {} : _this$props$project;
+			var selected = project.selected;
 
 
 			_this.props.createTodo({
 				variables: {
 					project_id: selected.id,
+					todo_id: todo.id,
 					title: title,
 					content: content,
 					assign_id: assign_id
-				}
+				},
+				update: _this.updateSubtodos
 			}).then(function (data) {
 				return console.log(data);
 			});

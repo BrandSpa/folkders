@@ -13,19 +13,26 @@ export class TodoForm extends Component {
 	handleChange = e => {
 		this.setState({ [e.target.name] : e.target.value });
 	}
+
+	updateSubtodos = (proxy, { data }) => {
+
+	}
 	
 	handleSubmit = (e) => {
 		e.preventDefault();
 		const { title, content, assign_id } = this.state;
-		const { selected} = this.props.project;
+		const { todo = {}, project = {} } = this.props;
+		const { selected } = project;
 
 		this.props.createTodo({
 			variables: {
 				project_id: selected.id,
+				todo_id: todo.id,
 				title, 
 				content, 
 				assign_id
-			}
+			},
+			update: this.updateSubtodos
 		}).then(data => console.log(data));
 	}
 

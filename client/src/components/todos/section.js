@@ -16,7 +16,7 @@ class Todos extends Component {
         </header>
 
         <section>
-          <TodoForm project={project} />
+          <TodoForm todo={todo} project={project} />
         </section>
 
         <section className="todo__item">
