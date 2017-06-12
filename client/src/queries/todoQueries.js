@@ -39,3 +39,22 @@ export const createTodoMutation = gql`
 		}
 	}
 `;
+
+export const createSubTodoMutation = gql`
+	mutation createSubTodo($content: String!, $title: String, $project_id: Int!, $assign_id: Int, $todo_id: Int) {
+		createTodo(title: $title, content: $content, project_id: $project_id, assign_id: $assign_id, todo_id: $todo_int) {
+			id
+			title
+			content
+			created_at
+			author {
+				id
+				name
+			}
+			assigned {
+				id
+				name
+			}
+		}
+	}
+`;

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { graphql, compose } from "react-apollo";
 import { getUsersQuery } from '../../queries/userQueries';
-import { createTodoMutation } from '../../queries/todoQueries';
+import { createSubTodoMutation } from '../../queries/todoQueries';
 
-export class TodoForm extends Component {
+export class SubTodoForm extends Component {
 	state = {
 		title: "",
 		content: "",
@@ -14,9 +14,8 @@ export class TodoForm extends Component {
 		this.setState({ [e.target.name] : e.target.value });
 	}
 
-	updateTodos = (proxy, { data }) => {
-		//it should update project todos list
-		// it should update todos views with this new todo
+	updateSubtodos = (proxy, { data }) => {
+
 	}
 	
 	handleSubmit = (e) => {
@@ -28,12 +27,13 @@ export class TodoForm extends Component {
 		this.props.createTodo({
 			variables: {
 				project_id: selected.id,
+				todo_id: todo.id,
 				title, 
 				content, 
 				assign_id
 			},
-			update: this.updateTodos
-		}).then(({ data }) => console.log(data));
+			update: this.updateSubtodos
+		}).then(data => console.log(data));
 	}
 
 	render() {
@@ -85,5 +85,5 @@ export class TodoForm extends Component {
 
 export default compose(
   graphql(getUsersQuery, {name: 'getUsers'}),
-  graphql(createTodoMutation, {name: 'createTodo'}),
+  graphql(createSubTodoMutation, {name: 'createTodo'}),
 )(TodoForm);

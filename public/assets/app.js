@@ -3459,10 +3459,11 @@ exports.default = Todos;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.createTodoMutation = exports.getTodoQuery = undefined;
+exports.createSubTodoMutation = exports.createTodoMutation = exports.getTodoQuery = undefined;
 
 var _templateObject = _taggedTemplateLiteral(['\n  query getTodo($id: Int!) {\n  todo(where: {id: $id}) {\n\t\tid\n    title\n    content\n    created_at\n    author {\n      name\n    }\n    assigned {\n      name\n    }\n    subtodos {\n\t\t\tid\n      content\n    }\n  }\n}\n'], ['\n  query getTodo($id: Int!) {\n  todo(where: {id: $id}) {\n\t\tid\n    title\n    content\n    created_at\n    author {\n      name\n    }\n    assigned {\n      name\n    }\n    subtodos {\n\t\t\tid\n      content\n    }\n  }\n}\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n\tmutation createTodo($content: String!, $title: String, $project_id: Int!, $assign_id: Int) {\n\t\tcreateTodo(title: $title, content: $content, project_id: $project_id, assign_id: $assign_id) {\n\t\t\tid\n\t\t\ttitle\n\t\t\tcontent\n\t\t\tcreated_at\n\t\t\tauthor {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t\tassigned {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t}\n\t}\n'], ['\n\tmutation createTodo($content: String!, $title: String, $project_id: Int!, $assign_id: Int) {\n\t\tcreateTodo(title: $title, content: $content, project_id: $project_id, assign_id: $assign_id) {\n\t\t\tid\n\t\t\ttitle\n\t\t\tcontent\n\t\t\tcreated_at\n\t\t\tauthor {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t\tassigned {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t}\n\t}\n']);
+    _templateObject2 = _taggedTemplateLiteral(['\n\tmutation createTodo($content: String!, $title: String, $project_id: Int!, $assign_id: Int) {\n\t\tcreateTodo(title: $title, content: $content, project_id: $project_id, assign_id: $assign_id) {\n\t\t\tid\n\t\t\ttitle\n\t\t\tcontent\n\t\t\tcreated_at\n\t\t\tauthor {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t\tassigned {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t}\n\t}\n'], ['\n\tmutation createTodo($content: String!, $title: String, $project_id: Int!, $assign_id: Int) {\n\t\tcreateTodo(title: $title, content: $content, project_id: $project_id, assign_id: $assign_id) {\n\t\t\tid\n\t\t\ttitle\n\t\t\tcontent\n\t\t\tcreated_at\n\t\t\tauthor {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t\tassigned {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t}\n\t}\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n\tmutation createSubTodo($content: String!, $title: String, $project_id: Int!, $assign_id: Int, $todo_id: Int) {\n\t\tcreateTodo(title: $title, content: $content, project_id: $project_id, assign_id: $assign_id, todo_id: $todo_int) {\n\t\t\tid\n\t\t\ttitle\n\t\t\tcontent\n\t\t\tcreated_at\n\t\t\tauthor {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t\tassigned {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t}\n\t}\n'], ['\n\tmutation createSubTodo($content: String!, $title: String, $project_id: Int!, $assign_id: Int, $todo_id: Int) {\n\t\tcreateTodo(title: $title, content: $content, project_id: $project_id, assign_id: $assign_id, todo_id: $todo_int) {\n\t\t\tid\n\t\t\ttitle\n\t\t\tcontent\n\t\t\tcreated_at\n\t\t\tauthor {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t\tassigned {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t}\n\t\t}\n\t}\n']);
 
 var _reactApollo = __webpack_require__(22);
 
@@ -3471,6 +3472,8 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var getTodoQuery = exports.getTodoQuery = (0, _reactApollo.gql)(_templateObject);
 
 var createTodoMutation = exports.createTodoMutation = (0, _reactApollo.gql)(_templateObject2);
+
+var createSubTodoMutation = exports.createSubTodoMutation = (0, _reactApollo.gql)(_templateObject3);
 
 /***/ }),
 
@@ -3869,7 +3872,10 @@ var TodoForm = exports.TodoForm = function (_Component) {
 			assign_id: ""
 		}, _this.handleChange = function (e) {
 			_this.setState(_defineProperty({}, e.target.name, e.target.value));
-		}, _this.updateSubtodos = function (proxy, _ref2) {
+		}, _this.updateTodos = function (proxy, _ref2) {
+			//it should update project todos list
+			// it should update todos views with this new todo
+
 			var data = _ref2.data;
 		}, _this.handleSubmit = function (e) {
 			e.preventDefault();
@@ -3888,13 +3894,13 @@ var TodoForm = exports.TodoForm = function (_Component) {
 			_this.props.createTodo({
 				variables: {
 					project_id: selected.id,
-					todo_id: todo.id,
 					title: title,
 					content: content,
 					assign_id: assign_id
 				},
-				update: _this.updateSubtodos
-			}).then(function (data) {
+				update: _this.updateTodos
+			}).then(function (_ref3) {
+				var data = _ref3.data;
 				return console.log(data);
 			});
 		}, _temp), _possibleConstructorReturn(_this, _ret);
