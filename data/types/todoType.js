@@ -41,7 +41,7 @@ const Todo = new GraphQLObjectType({
       type: User,
       resolve(todo) {
         console.log('assign', todo.assign_id);
-        return todo.getUser();
+        return todo.getAssign();
       }
     }
   })

@@ -100,9 +100,21 @@
 		}
 
 		.clients {
-			background: rgba(0, 0, 0, 0.08);
-			padding-top: 20px;
+			background: rgba(255, 255, 255, 0.01);
+			padding: 20px 0;
 			height: 91vh
+		}
+
+		.clients > header {
+			padding: 0 10px;
+		}
+
+		.clients > header h5 {
+			display: inline-block;
+		}
+
+		.clients > header .btns {
+			display: inline-block;
 		}
 
 		.clients__item a {
@@ -117,8 +129,20 @@
 
 		.projects {
 			background: rgba(0, 0, 0, 0.1);
-			padding-top: 20px;
+			padding: 20px 0;
 			height: 91vh
+		}
+
+		.projects > header {
+			padding: 0 10px;
+		}
+
+		.projects > header h5 {
+			display: inline-block;
+		}
+
+		.projects > header .btns {
+			display: inline-block;
 		}
 
 		.projects__item a {
@@ -126,10 +150,16 @@
 			padding: 10px;
 		}
 
+		.projects__item__todos-count {
+			float: right
+		}
+
 		.projects__item ul {
 			display: none;
-			overflow-y: scroll;
+			overflow-y: auto;
+			overflow-x: none;
 			max-height: 400px;
+			padding: 0
 		}
 
 		.projects__item--active a {
@@ -146,15 +176,49 @@
 
 		.todos {
 			padding: 20px;
-			background: rgba(255, 255, 255, 0.05);
+			background: rgba(0, 0, 0, 0.2);
 			height: 91vh
 		}
 
-		.todo__item {
-			background: #fff;
-			color: #333;
+		.todos-form {
+			background: rgba(255, 255, 255, .9);
 			padding: 20px;
+		}
+
+		.todos-form .form-control {
+			border-color: #1F293B;
+			color: #1F293B
+		}
+
+		.todos-form  .form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+			color: #1F293B;
+		}
+
+		.todos-form .form-control::-moz-placeholder { /* Firefox 19+ */
+			color: #1F293B;
+		}
+
+		.todos-form .form-control:-ms-input-placeholder { /* IE 10+ */
+			color: #1F293B;
+		}
+
+		.todos-form .form-control:-moz-placeholder { /* Firefox 18- */
+			color: #1F293B;
+		}
+
+		.todo__item {
+			background: rgba(255, 255, 255, .9);
+			color: #333;
 			margin: 20px 0;
+		}
+
+		.todo__item header {
+			background: #fff;
+			padding: 20px;
+		}
+
+		.todo__item__content {
+			padding: 20px;
 		}
 
 		::-webkit-scrollbar {

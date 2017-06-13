@@ -3,6 +3,9 @@ import Project from "./item";
 import ProjectForm from "./form";
 
 class Projects extends Component {
+  state = {
+    showForm: false
+  }
 
   componentWillReceiveProps(props) {
     if(!props.project.selected.hasOwnProperty('id') && props.data.projects && props.data.projects.length > 0) {
@@ -20,6 +23,15 @@ class Projects extends Component {
     this.props.dispatch({type: 'SELECT_PROJECT_TODO', payload: todoId});
   }
 
+  toggleForm = (e) => {
+    if(e) e.preventDefault();
+    this.setState({ showForm: !this.state.showForm });
+  } 
+
+  handleProjectAdded = () => {
+    this.toggleForm();
+  }
+
   renderLoading = () => {
     return (<section className="col-lg-3 projects"><h5>loading...</h5></section>);
   }
@@ -34,19 +46,25 @@ class Projects extends Component {
       <section className="col-lg-3 projects">
         <header>
           <h5>Projects</h5>
+           <div className="btns">
+            <button onClick={this.toggleForm} className="btn btn-link"><i className="ion-plus"></i></button>
+            <button className="btn btn-link"><i className="ion-search"></i></button>
+          </div>
         </header>
-        <ul>
-          <li><ProjectForm client={this.props.client} /></li>
-          {projects.map(project => 
-            <Project 
-              key={project.id} 
-              project={project} 
-              selected={selected}
-              selectProject={this.selectProject}
-              changeTodo={this.changeTodo}
-              />  
-          )}
-        </ul>
+        {this.state.showForm ? <ProjectForm client={this.props.client} onProjectAdded={this.handleProjectAdded} /> : <div/>}
+
+          <ul>
+            {projects.map(project => 
+              <Project 
+                key={project.id} 
+                project={project} 
+                selected={selected}
+                selectProject={this.selectProject}
+                changeTodo={this.changeTodo}
+                />  
+            )}
+          </ul> 
+
       </section>
     );
   }

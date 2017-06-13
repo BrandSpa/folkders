@@ -21,18 +21,10 @@ class ProjectForm extends Component {
       order: [["id", "DESC"]]
     };
     let query = getClientProjectsQuery;
-    const queryData = proxy.readQuery({ 
-      query,
-      variables
-    });
-
-     const projects = [data.createProject].concat(queryData.projects);
+    const queryData = proxy.readQuery({ query, variables }); 
+    const projects = [data.createProject].concat(queryData.projects);
     
-    proxy.writeQuery({ 
-      query,
-      variables,
-      data: { projects }
-    });
+    proxy.writeQuery({ query, variables, data: { projects } });
 
   }
 
@@ -46,6 +38,10 @@ class ProjectForm extends Component {
         name
       },
       update: this.updateProjects
+    })
+    .then(data => {
+      this.setState({name: ""});
+      this.props.onProjectAdded();
     });
   }
 

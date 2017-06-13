@@ -54,29 +54,28 @@ export class ClientForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className="row">
-        <div className="input-group col-lg-6">
-          <input
-            type="text"
-            name="name"
-            className="form-control"
-            onChange={this.handleChange}
-            value={this.state.name}
-            placeholder="Client Name"
-          />
-        </div>
-        <div className="input-group col-lg-6">
-          <input
-            type="text"
-            name="abbreviation"
-            className="form-control"
-            onChange={this.handleChange}
-            value={this.state.abbreviation}
-            placeholder="Client Abbreviation"
-          />
-        </div>
-        <div className="input-group col-lg-6">
-        <button className="btn btn-secondary">Store</button>
+      <form onSubmit={this.handleSubmit} className="form-inline">
+        <div className="row">
+          <div className="input-group col-lg-6">
+            <input
+              type="text"
+              name="name"
+              className="form-control"
+              onChange={this.handleChange}
+              value={this.state.name}
+              placeholder="Name"
+            />
+          </div>
+          <div className="input-group col-lg-6">
+            <input
+              type="text"
+              name="abbreviation"
+              className="form-control"
+              onChange={this.handleChange}
+              value={this.state.abbreviation}
+              placeholder="Shortname"
+            />
+          </div>
         </div>
       </form>
     );

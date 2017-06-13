@@ -43,7 +43,7 @@ export class TodoForm extends Component {
 		const { users = [], loading } = getUsers;
 
 		return (
-			<form onSubmit={this.handleSubmit}>
+			<form onSubmit={this.handleSubmit} className="todos-form">
 				<div className="form-group">
 					<input 
 						placeholder="Title"
@@ -61,7 +61,7 @@ export class TodoForm extends Component {
 						onChange={this.handleChange}
 						value={this.state.assign_id}
 						>
-						<option value="">Select user</option>
+						<option value="">Assign to</option>
 						{users.map(user => 
 							<option key={user.id} value={user.id}>{user.name}</option>	
 						)}
@@ -77,7 +77,7 @@ export class TodoForm extends Component {
 						></textarea>
 				</div>
 				<div className="form-group">
-					<button className="btn btn-secondary" onClick={this.handleSubmit}>Add</button>
+					<button className="btn btn-secondary" onClick={this.handleSubmit}>Create & Assign</button>
 				</div>
 			
 		</form>

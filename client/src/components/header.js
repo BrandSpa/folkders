@@ -9,12 +9,7 @@ class Header extends Component {
 			padding: '10px 40px'
 		};
 
-		let logoStyle = {
-			
-		};
-
 		return (
-		
 			<header className="row">
 				<div style={headerStyle}>
 					<img src="/logo.png" alt="" width="120px"/>

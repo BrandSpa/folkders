@@ -9,7 +9,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   entry: {
-    vendor: ['react', 'react-dom', 'react-apollo', 'axios', 'react-draft-wysiwyg'],
+    vendor: ['react', 'react-dom', 'react-apollo', 'axios', 'react-draft-wysiwyg', 'redux', 'react-redux'],
   	app: './src/app.js'
   },
   output: {
