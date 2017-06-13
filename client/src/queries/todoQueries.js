@@ -2,22 +2,25 @@ import { gql } from 'react-apollo';
 
 export const getTodoQuery = gql`
   query getTodo($id: Int!) {
-  todo(where: {id: $id}) {
-		id
-    title
-    content
-    created_at
-    author {
-      name
-    }
-    assigned {
-      name
-    }
-    subtodos {
+		todo(where: {id: $id}) {
 			id
-      content
-    }
-  }
+			title
+			content
+			created_at
+			author {
+				id
+				name
+			}
+			assigned {
+				id
+				name
+			}
+			steps(order: [["id", "desc"]]) {
+				id
+				content
+        created_at
+			}
+		}
 }
 `;
 

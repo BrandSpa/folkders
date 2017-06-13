@@ -15,7 +15,7 @@ class Clients extends Component {
   }
 
   renderLoading = () => {
-    return (<h5>loading...</h5>)
+    return (<section className="col-lg-3 clients"><h5>loading...</h5></section>)
   }
 
   render() {
@@ -26,7 +26,7 @@ class Clients extends Component {
     return (
       <section className="col-lg-3 clients">
         <header>
-          <h3>Clients</h3>
+          <h5>Clients</h5>
         </header>
         <ul className="clients--list">
           <li><ClientForm /></li>

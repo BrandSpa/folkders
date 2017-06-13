@@ -15,7 +15,8 @@ import Company from '../types/companyType';
 export const createCompany = {
 	type: Company,
   args: {
-      name: { type: new GraphQLNonNull(GraphQLString) }
+    name: { type: new GraphQLNonNull(GraphQLString) },
+    abbreviation: { type: GraphQLString }
     },
   resolve(root, args) {
     return models.Company.create(args);

@@ -9,6 +9,7 @@ import {
 } from "graphql";
 import GraphQLJSON from "graphql-type-json";
 import User from './userType';
+import Step from './stepType';
 
 const Todo = new GraphQLObjectType({
   name: "todo",
@@ -18,8 +19,8 @@ const Todo = new GraphQLObjectType({
     content: { type: GraphQLString },
     created_at: { type: GraphQLString },
     is_completed: { type: GraphQLBoolean },
-    subtodos: {
-      type: new GraphQLList(Todo),
+    steps: {
+      type: new GraphQLList(Step),
       args: {
         where: { type: GraphQLJSON },
         order: { type: GraphQLJSON },
@@ -27,7 +28,7 @@ const Todo = new GraphQLObjectType({
         offset: { type: GraphQLInt }
       },
       resolve(todo, args) {
-        return todo.getTodos(args);
+        return todo.getSteps(args);
       }
     },
     author: {

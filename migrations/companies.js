@@ -6,16 +6,16 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-       created_at: {
-        type: Sequelize.DATE
-      },
-      updated_at: {
-        type: Sequelize.DATE
-      },
       name: Sequelize.STRING,
       slug: Sequelize.STRING,
       logo: Sequelize.STRING,
-      options: Sequelize.STRING
+      address: Sequelize.STRING,
+      phone: Sequelize.STRING,
+      country: Sequelize.STRING,
+      city: Sequelize.STRING,
+      options: Sequelize.STRING,
+      created_at: Sequelize.DATE,
+      updated_at: Sequelize.DATE,
     });
   },
 

@@ -14,6 +14,7 @@ import { createClient, updateClient } from './mutations/clientMutations';
 import { createProject, updateProject } from './mutations/projectMutations';
 import { loginUser, registerUser } from './mutations/userMutations';
 import { createTodo, updateTodo } from './mutations/todoMutations';
+import { createStep } from './mutations/stepMutations';
 
 const Query = new GraphQLObjectType({
   name: "folkderAppQueries",
@@ -36,10 +37,9 @@ const Mutation = new GraphQLObjectType({
     updateClient,
     createProject, 
     updateProject,
-    loginUser,
-    registerUser,
     createTodo, 
-    updateTodo
+    updateTodo,
+    createStep
   })
 });
 

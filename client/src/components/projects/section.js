@@ -12,8 +12,8 @@ class Projects extends Component {
 
   selectProject = (project) => {
     //select first todo on select project if has todos
-    console.log(project.todos.length);
     this.props.dispatch({type: 'SELECT_PROJECT', payload: project});
+    this.props.dispatch({type: 'SELECT_PROJECT_TODO', payload: null});
   }
 
   changeTodo = (todoId) => {
@@ -21,7 +21,7 @@ class Projects extends Component {
   }
 
   renderLoading = () => {
-    return (<h5>loading...</h5>)
+    return (<section className="col-lg-3 projects"><h5>loading...</h5></section>);
   }
 
   render() {

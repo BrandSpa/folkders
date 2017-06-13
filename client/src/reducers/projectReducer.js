@@ -12,7 +12,6 @@ const projectReducer = (state = { selected: {}, todoId: null }, action) => {
 			state = {...state, todoId: action.payload};
 		break
 	}
-
 	return state;
 }
 

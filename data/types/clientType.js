@@ -22,6 +22,7 @@ const Client = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLInt },
     name: { type: GraphQLString },
+    abbreviation: { type: GraphQLString },
     projects: {
       type: new GraphQLList(Project),
       args: {

@@ -83,6 +83,10 @@
 			min-height: 100px;
 			padding: 0 20px;
 		}
+
+		button {
+			cursor: pointer
+		}
 		ul {
 			padding: 0
 		}
@@ -94,6 +98,7 @@
 		.clients {
 			background: rgba(0, 0, 0, 0.08);
 			padding-top: 20px;
+			height: 91vh
 		}
 
 		.client__item a {
@@ -109,6 +114,7 @@
 		.projects {
 			background: rgba(0, 0, 0, 0.1);
 			padding-top: 20px;
+			height: 91vh
 		}
 
 		.project__item a {
@@ -118,6 +124,8 @@
 
 		.project__item ul {
 			display: none;
+			overflow-y: scroll;
+			max-height: 400px;
 		}
 
 		.project__item--active a {
@@ -135,6 +143,7 @@
 		.todos {
 			padding: 20px;
 			background: rgba(255, 255, 255, 0.05);
+			height: 91vh
 		}
 
 		.todo__item {
@@ -143,6 +152,20 @@
 			padding: 20px;
 			margin: 20px 0;
 		}
+
+		::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+		background: transparent;
+    border-radius: 0;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    background: rgba(0,0,0,0.3);
+}
 		
 	</style>
 </head>

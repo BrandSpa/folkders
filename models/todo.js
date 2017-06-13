@@ -3,10 +3,20 @@ export default function(sequelize, Sequelize) {
     "Todo",
     {
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+          notEmpty: {
+            msg: "It must have a title"
+          }
+        }
       },
 			content: {
-				type: Sequelize.TEXT
+				type: Sequelize.TEXT,
+         validate: {
+          notEmpty: {
+            msg: "It must have content"
+          }
+        }
 			}
     },
     {
@@ -14,8 +24,7 @@ export default function(sequelize, Sequelize) {
         associate(models) {
 					Todo.belongsTo(models.Project);
 					Todo.belongsTo(models.User);
-          Todo.hasMany(Todo);
-          Todo.belongsTo(Todo);
+          Todo.hasMany(models.Step);
         },
       },
       underscored: true

@@ -6,14 +6,14 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
+      client_id: Sequelize.INTEGER,
+      name: Sequelize.STRING,
       created_at: {
         type: Sequelize.DATE
       },
       updated_at: {
         type: Sequelize.DATE
       },
-      client_id: Sequelize.INTEGER,
-      name: Sequelize.STRING
     });
   },
 

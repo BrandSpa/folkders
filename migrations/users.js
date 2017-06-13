@@ -12,7 +12,7 @@ module.exports = {
       updated_at: {
         type: Sequelize.DATE
       },
-      company_id: { 
+      company_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'companies',
@@ -23,7 +23,7 @@ module.exports = {
       email: Sequelize.STRING,
       password: Sequelize.STRING,
       role: Sequelize.STRING,
-      email_verified: {type: Sequelize.BOOLEAN, default: 0 }
+      email_verified: {type: Sequelize.BOOLEAN, defaultValue: 0 }
     });
   },
 

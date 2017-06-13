@@ -9,7 +9,8 @@ import {
 export class ClientForm extends Component {
   
   state = {
-    name: ''
+    name: '',
+    abbreviation: ''
   }
 
   handleChange = e => {
@@ -17,7 +18,7 @@ export class ClientForm extends Component {
   }
 
   cleanState = () => {
-    this.setState({name: ''});
+    this.setState({name: '', abbreviation: ''});
   }
 
   updateClients = (proxy, { data }) => {
@@ -40,6 +41,8 @@ export class ClientForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    console.log('create client');
+
     this.props.createClient({
       variables: {
         name: this.state.name
@@ -71,6 +74,9 @@ export class ClientForm extends Component {
             value={this.state.abbreviation}
             placeholder="Client Abbreviation"
           />
+        </div>
+        <div className="input-group col-lg-6">
+        <button className="btn btn-secondary">Store</button>
         </div>
       </form>
     );

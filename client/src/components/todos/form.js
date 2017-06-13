@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { graphql, compose } from "react-apollo";
 import { getUsersQuery } from '../../queries/userQueries';
-import { createTodoMutation } from '../../queries/todoQueries';
+import { createTodoMutation, getTodoQuery } from '../../queries/todoQueries';
 
 export class TodoForm extends Component {
 	state = {
 		title: "",
 		content: "",
-		assign_id: ""
+		assign_id: 0
 	}
 	
 	handleChange = e => {
@@ -17,6 +17,7 @@ export class TodoForm extends Component {
 	updateTodos = (proxy, { data }) => {
 		//it should update project todos list
 		// it should update todos views with this new todo
+		;
 	}
 	
 	handleSubmit = (e) => {
@@ -31,9 +32,10 @@ export class TodoForm extends Component {
 				title, 
 				content, 
 				assign_id
-			},
-			update: this.updateTodos
-		}).then(({ data }) => console.log(data));
+			}
+		}).then(({ data }) => {
+			this.props.selectTodo(data.createTodo);
+		});
 	}
 
 	render() {
@@ -41,8 +43,8 @@ export class TodoForm extends Component {
 		const { users = [], loading } = getUsers;
 
 		return (
-			<form action="">
-				<div className="input-group">
+			<form onSubmit={this.handleSubmit}>
+				<div className="form-group">
 					<input 
 						placeholder="Title"
 						type="text" 
@@ -52,7 +54,7 @@ export class TodoForm extends Component {
 						value={this.state.title}
 					/>
 				</div>
-				<div className="input-group">
+				<div className="form-group">
 					<select 
 						name="assign_id" 
 						className="form-control"
@@ -65,7 +67,7 @@ export class TodoForm extends Component {
 						)}
 					</select>
 				</div>
-				<div className="input-group">
+				<div className="form-group">
 					<textarea 
 						name="content" 
 						className="form-control"
@@ -74,8 +76,8 @@ export class TodoForm extends Component {
 						value={this.state.content}
 						></textarea>
 				</div>
-				<div className="input-group">
-					<button className="btn" onClick={this.handleSubmit}>Add</button>
+				<div className="form-group">
+					<button className="btn btn-secondary" onClick={this.handleSubmit}>Add</button>
 				</div>
 			
 		</form>

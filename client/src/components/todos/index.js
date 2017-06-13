@@ -6,17 +6,17 @@ import { getTodoQuery } from '../../queries/todoQueries';
 const todosWithData = graphql(getTodoQuery, {
    options: props => ({
     variables: {
-      id: props.project.clientId
+      id: props.project.todoId
     }
   }),
   skip: props => { 
-    return props.project.clientId == null ? true : false;
+    return !props.project.todoId ? true : false;
   }
 })(Todos);
 
 const mapStateToProps = state => ({
   client: state.client,
-	project: {clientId: 1, selected: {id: 1, name: "brandspa"}},
+	project: state.project,
 	todo: state.todo
 });
 

@@ -8,8 +8,7 @@ import {
 
 class ProjectForm extends Component {
   state = {
-      name: "",
-      client_id: this.props.client.id
+      name: ""
   }
 
   handleChange = e => {
@@ -18,7 +17,7 @@ class ProjectForm extends Component {
 
   updateProjects = (proxy, { data }) => {
     let variables = {
-      clientId: this.props.client.id,
+      clientId: this.props.client.selected.id,
       order: [["id", "DESC"]]
     };
     let query = getClientProjectsQuery;
@@ -43,7 +42,7 @@ class ProjectForm extends Component {
 
     this.props.createProject({
       variables: {
-        clientId: this.props.client.id,
+        clientId: this.props.client.selected.id,
         name
       },
       update: this.updateProjects

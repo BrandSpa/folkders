@@ -13,7 +13,7 @@ import models from "../../models";
 const clientsFilter = new GraphQLInputObjectType({
     name: "clientsFilters",
     fields: () => ({
-      name: { type: GraphQLJSON }
+      name: { type: GraphQLJSON },
     })
 });
 

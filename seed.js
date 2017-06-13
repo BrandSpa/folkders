@@ -35,8 +35,8 @@ function createTodo(project) {
   return models.Todo.create({ title: casual.title, content: casual.text, project_id: project.id, user_id: userCreated.id })
 }
 
-function createSubTodo(todo) {
-  return models.Todo.create({ content: casual.text, todo_id: todo.id, user_id: userCreated.id });
+function createStep(todo) {
+  return models.Step.create({ content: casual.text, todo_id: todo.id, user_id: userCreated.id });
 }
 
 _.times(10, () => { 
@@ -45,6 +45,5 @@ _.times(10, () => {
   .then(createClient)
   .then(createProject)
   .then(createTodo)
-  .then(createSubTodo)
-  .then(subtodo => console.log('finish') );
+  .then(createStep);
 });
