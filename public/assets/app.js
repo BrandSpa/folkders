@@ -2054,7 +2054,7 @@ var Client = function (_Component) {
 
       return _react2.default.createElement(
         'li',
-        { className: 'client__item ' + (client.id == selected.id ? 'client__item--active' : '') },
+        { className: 'clients__item ' + (client.id == selected.id ? 'clients__item--active' : '') },
         _react2.default.createElement(
           'a',
           { href: '#', onClick: this.selectClient },
@@ -2239,8 +2239,12 @@ var Header = function (_Component) {
 
 			return _react2.default.createElement(
 				'header',
-				{ style: headerStyle },
-				_react2.default.createElement('img', { src: '/logo.png', alt: '', width: '120px' })
+				{ className: 'row' },
+				_react2.default.createElement(
+					'div',
+					{ style: headerStyle },
+					_react2.default.createElement('img', { src: '/logo.png', alt: '', width: '120px' })
+				)
 			);
 		}
 	}]);
@@ -2425,7 +2429,7 @@ var Project = function (_Component) {
 
       return _react2.default.createElement(
         'li',
-        { className: 'project__item ' + (project.id == selected.id ? 'project__item--active' : '') },
+        { className: 'projects__item ' + (project.id == selected.id ? 'projects__item--active' : '') },
         _react2.default.createElement(
           'a',
           { href: '#', onClick: this.selectProject },

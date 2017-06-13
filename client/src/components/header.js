@@ -14,8 +14,11 @@ class Header extends Component {
 		};
 
 		return (
-			<header style={headerStyle}>
-				<img src="/logo.png" alt="" width="120px"/>
+		
+			<header className="row">
+				<div style={headerStyle}>
+					<img src="/logo.png" alt="" width="120px"/>
+				</div>
 			</header>
 		)
 		

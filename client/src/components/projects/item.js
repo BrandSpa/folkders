@@ -15,7 +15,7 @@ class Project extends Component {
     const { project = {}, selected = {} } = this.props;
     
     return (
-      <li className={`project__item ${project.id == selected.id ? 'project__item--active' : ''}`}>
+      <li className={`projects__item ${project.id == selected.id ? 'projects__item--active' : ''}`}>
         <a href="#" onClick={this.selectProject}>{project.name}</a>
         <ul>
           {project.todos.map(todo => 

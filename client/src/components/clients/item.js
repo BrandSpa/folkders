@@ -9,7 +9,7 @@ class Client extends Component {
   render() {
     const { client, selected } = this.props;
     return (
-      <li className={`client__item ${client.id == selected.id ? 'client__item--active' : ''}`}>
+      <li className={`clients__item ${client.id == selected.id ? 'clients__item--active' : ''}`}>
         <a href='#' onClick={this.selectClient}>{client.name}</a>
       </li>
     );
