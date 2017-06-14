@@ -14,7 +14,7 @@ module.exports = {
       },
       user_id: Sequelize.INTEGER,
 			todo_id: Sequelize.INTEGER,
-			subtodo_id: Sequelize.INTEGER,
+			step_id: Sequelize.INTEGER,
 			url: Sequelize.STRING
     });
   },

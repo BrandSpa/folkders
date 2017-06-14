@@ -17,13 +17,11 @@ const usersFilter = new GraphQLInputObjectType({
     })
 });
 
-
 const users = {
   type: new GraphQLList(User),
   args: {
     where: {type: usersFilter},
     limit: { type: GraphQLInt },
-    offset: { type: GraphQLInt },
     order: { type: GraphQLJSON }
   },
   resolve(root, args, ctx) {

@@ -15,4 +15,4 @@
 - Fetch todo by todo id, until an user select the todo from the project todo list
 - An user can only create a subtodo if he is assign to it
 - If a project doesn't has todos, it should show the todo editor
-- If a project has todos, it should show the subtodo editor
+- If a project has todos, it should show the steps editor

@@ -26,7 +26,6 @@ const projects = {
   args: {
     where: {type: projectsFilter},
     limit: { type: GraphQLInt },
-    offset: { type: GraphQLInt },
     order: { type: GraphQLJSON }
   },
   resolve(root, args) {

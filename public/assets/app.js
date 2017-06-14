@@ -1464,7 +1464,8 @@ var ClientForm = exports.ClientForm = function (_Component) {
               placeholder: 'Shortname'
             })
           )
-        )
+        ),
+        _react2.default.createElement('button', { style: { display: 'none' } })
       );
     }
   }]);
@@ -2248,47 +2249,51 @@ var Todos = function (_Component) {
           null,
           !todo.hasOwnProperty('id') ? _react2.default.createElement(_form2.default, { selectTodo: this.selectTodo, todo: todo, project: project }) : _react2.default.createElement('div', null)
         ),
-        todo.hasOwnProperty('id') ? _react2.default.createElement(
+        _react2.default.createElement(
           'div',
-          null,
-          _react2.default.createElement(
-            'h2',
+          { className: 'todos-items' },
+          todo.hasOwnProperty('id') ? _react2.default.createElement(
+            'div',
             null,
-            todo.title
-          ),
-          _react2.default.createElement(
-            'section',
-            { className: 'todo__item' },
             _react2.default.createElement(
-              'header',
+              'h2',
               null,
-              'Assigned: ',
-              todo.assigned.name
+              todo.title
             ),
             _react2.default.createElement(
-              'div',
-              { className: 'todo__item__content' },
-              todo.content
+              'section',
+              { className: 'todo__item' },
+              _react2.default.createElement(
+                'header',
+                null,
+                'Assigned: ',
+                todo.assigned.name
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'todo__item__content' },
+                todo.content
+              )
             )
-          )
-        ) : _react2.default.createElement('div', null),
-        todo.steps.map(function (subtodo, ind) {
-          return _react2.default.createElement(
-            'section',
-            { key: ind, className: 'todo__item' },
-            _react2.default.createElement(
-              'header',
-              null,
-              'Step: ',
-              ind + 1
-            ),
-            _react2.default.createElement(
-              'article',
-              null,
-              subtodo.content
-            )
-          );
-        }),
+          ) : _react2.default.createElement('div', null),
+          todo.steps.map(function (subtodo, ind) {
+            return _react2.default.createElement(
+              'section',
+              { key: ind, className: 'todo__item' },
+              _react2.default.createElement(
+                'header',
+                null,
+                'Step: ',
+                ind + 1
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'todo__item__content' },
+                subtodo.content
+              )
+            );
+          })
+        ),
         todo.hasOwnProperty('id') ? _react2.default.createElement(_stepForm2.default, { todo: todo, project: project }) : _react2.default.createElement('div', null)
       );
     }
@@ -2385,6 +2390,8 @@ var StepForm = exports.StepForm = function (_Component) {
 				update: _this.updateSteps
 			}).then(function (data) {
 				return _this.setState({ content: '' });
+			}).catch(function (message, err) {
+				return console.log('err', message, err);
 			});
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}

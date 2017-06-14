@@ -39,7 +39,9 @@ export class StepForm extends Component {
 				content
 			},
 			update: this.updateSteps
-		}).then(data => this.setState({content: ''}));
+		})
+		.then(data => this.setState({content: ''}))
+		.catch((message, err) => console.log('err', message, err)); 
 	}
 
 	render() {

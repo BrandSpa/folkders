@@ -155,11 +155,13 @@
 		}
 
 		.projects__item ul {
-			display: none;
+			visibility: hidden;
+			height: 0;
 			overflow-y: auto;
 			overflow-x: none;
 			max-height: 400px;
-			padding: 0
+			padding: 0;
+			transition: all 300ms;
 		}
 
 		.projects__item--active a {
@@ -168,10 +170,12 @@
 		}
 
 		.projects__item--active ul {
-			display: block;
+			visibility:visible;
+			height: auto;
 			background: rgba(0, 0, 0, 0.07);
 			padding-left: 40px;
 			padding-bottom: 20px;
+			transition: all 300ms;
 		}
 
 		.todos {
@@ -204,6 +208,12 @@
 
 		.todos-form .form-control:-moz-placeholder { /* Firefox 18- */
 			color: #1F293B;
+		}
+
+		.todos-items {
+			overflow-y: auto;
+			overflow-x: hidden;
+			max-height: 400px; 
 		}
 
 		.todo__item {

@@ -8,12 +8,14 @@ import graphqlHTTP from 'express-graphql';
 import Schema from './data/schema';
 import jwt from 'jsonwebtoken';
 import passportJwt from './lib/passport-jwt';
+import responseTime from 'response-time';
 
 app.use(passport.initialize());
 app.use(express.static('public/assets'));
 app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(responseTime());
 
 passportJwt(passport);
 
@@ -49,7 +51,9 @@ app.post('/register', (req, res) => {
 app.use(
 	'/graphql', 
 	passport.authenticate("jwt", { session: false }),
-	graphqlHTTP({ schema: Schema })
+	graphqlHTTP({ 
+		schema: Schema
+	})
 );
 
 app.use('/graphiql', graphqlHTTP({

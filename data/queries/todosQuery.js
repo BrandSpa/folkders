@@ -26,7 +26,6 @@ const todos = {
   args: {
     where: {type: todosFilter},
     limit: { type: GraphQLInt },
-    offset: { type: GraphQLInt },
     order: { type: GraphQLJSON }
   },
   resolve(_, args) {

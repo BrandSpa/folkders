@@ -77,6 +77,7 @@ export class ClientForm extends Component {
             />
           </div>
         </div>
+        <button style={{display: 'none'}}></button>
       </form>
     );
   }

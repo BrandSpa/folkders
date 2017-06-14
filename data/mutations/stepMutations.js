@@ -7,6 +7,8 @@ import {
   GraphQLInputObjectType
 } from "graphql";
 import GraphQLJSON from "graphql-type-json";
+import { UserError } from 'graphql-errors';
+import { createError } from 'apollo-errors';
 import models from "../../models";
 import Step from '../types/stepType';
 
@@ -17,7 +19,11 @@ export const createStep = {
     todo_id: { type: new GraphQLNonNull(GraphQLInt) }
 	},
 	resolve(root, args, ctx) {
-    args = {...args, user_id: ctx.user.id}
-		return models.Step.create(args);
+    const user_id = ctx.user.id;
+    args = {...args, user_id };
+    return models.Todo.findOne( { where: { id: args.todo_id } } ).then( todo => {
+      if(todo.assign_id == user_id) return models.Step.create(args);
+      return Promise.reject('no permitted');
+    });
 	}
 }

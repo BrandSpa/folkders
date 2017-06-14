@@ -25,7 +25,6 @@ const todo = {
   args: {
     where: {type: todoFilter},
     limit: { type: GraphQLInt },
-    offset: { type: GraphQLInt },
     order: { type: GraphQLJSON }
   },
   resolve(_, args) {

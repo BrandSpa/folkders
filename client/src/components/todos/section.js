@@ -32,7 +32,8 @@ class Todos extends Component {
             : <div/>
           }
         </section>
-
+        
+        <div className="todos-items">
         {
           todo.hasOwnProperty('id') ? 
           <div>
@@ -54,13 +55,14 @@ class Todos extends Component {
             <header>
               Step: {ind + 1}
             </header>
-            <article>
+             <div className="todo__item__content">
               {subtodo.content}
-            </article>
+            </div>
           </section>  
         )}
-
+        </div>
         {todo.hasOwnProperty('id') ? <StepForm todo={todo} project={project} /> : <div/>}
+        
       </section> 
     );
   }

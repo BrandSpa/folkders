@@ -13,16 +13,16 @@ import models from "../../models";
 const clientsFilter = new GraphQLInputObjectType({
     name: "clientsFilters",
     fields: () => ({
-      name: { type: GraphQLJSON },
+      id: { type: GraphQLJSON },
+      name: { type: GraphQLJSON }
     })
 });
-
+  
 const clients = {
   type: new GraphQLList(Client),
   args: {
     where: {type: clientsFilter},
     limit: { type: GraphQLInt },
-    offset: { type: GraphQLInt },
     order: { type: GraphQLJSON }
   },
   resolve(root, args, ctx) {
