@@ -31,5 +31,6 @@
 ##todos 
 [ ] add graphql attachments
 [ ] add limit uploads 
-[ ] create register flow
+[ ] create register
 [ ] create profile page
+[ ] look how handle pagination
