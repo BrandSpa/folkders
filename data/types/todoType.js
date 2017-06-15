@@ -24,23 +24,24 @@ const Todo = new GraphQLObjectType({
       args: {
         where: { type: GraphQLJSON },
         order: { type: GraphQLJSON },
-        limit: { type: GraphQLInt },
-        offset: { type: GraphQLInt }
+        limit: { type: GraphQLInt }
       },
       resolve(todo, args) {
+        console.log(`---------todo: steps call-----------`);
         return todo.getSteps(args);
       }
     },
     author: {
       type: User,
       resolve(todo) {
+         console.log(`---------todo: user call-----------`);
         return todo.getUser();
       }
     },
     assigned: {
       type: User,
       resolve(todo) {
-        console.log('assign', todo.assign_id);
+         console.log(`---------todo: assigned call-----------`);
         return todo.getAssign();
       }
     }

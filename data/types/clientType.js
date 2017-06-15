@@ -7,15 +7,9 @@ import {
   GraphQLInputObjectType
 } from "graphql";
 import GraphQLJSON from "graphql-type-json";
-import Project from './projectType';
-import models from '../../models';
-
-const projectsFilter = new GraphQLInputObjectType({
-    name: "projectsFilter",
-    fields: () => ({
-      name: { type: GraphQLJSON}
-    })
-});
+import Project from "./projectType";
+import clientsFilter from '../types/clientFilterType';
+import models from "../../models";
 
 const Client = new GraphQLObjectType({
   name: "client",
@@ -26,11 +20,11 @@ const Client = new GraphQLObjectType({
     projects: {
       type: new GraphQLList(Project),
       args: {
-        where: {type: projectsFilter},
-        limit: { type: GraphQLInt },
-        offset: { type: GraphQLInt }
+        where: { type: clientsFilter },
+        limit: { type: GraphQLInt }
       },
       resolve(client, args) {
+        console.log(`---------client: projects call-----------`);
         return client.getProjects(args);
       }
     }

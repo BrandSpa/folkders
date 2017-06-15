@@ -7,8 +7,6 @@ import {
   GraphQLInputObjectType
 } from "graphql";
 import GraphQLJSON from "graphql-type-json";
-import { UserError } from 'graphql-errors';
-import { createError } from 'apollo-errors';
 import models from "../../models";
 import Step from '../types/stepType';
 

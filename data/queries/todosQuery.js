@@ -9,17 +9,8 @@ import {
 
 import GraphQLJSON from "graphql-type-json";
 import Todo from "../types/todoType";
+import { todosFilter } from "../types/todoFilterType";
 import models from "../../models";
-
-const todosFilter = new GraphQLNonNull(
-  new GraphQLInputObjectType({
-    name: "todosFilters",
-    fields: () => ({
-      name: { type: GraphQLJSON },
-      project_id: { type: new GraphQLNonNull(GraphQLInt) }
-    })
-  })
-);
 
 const todos = {
   type: new GraphQLList(Todo),
@@ -29,6 +20,7 @@ const todos = {
     order: { type: GraphQLJSON }
   },
   resolve(_, args) {
+    console.log(`---------todos query-----------`);
     return models.Todo.findAll(args);
   }
 };

@@ -23,6 +23,7 @@ networkInterface.use([{
     if (!req.options.headers) {
       req.options.headers = {};  // Create the header object if needed.
     } 
+    
     const token = localStorage.getItem('token');
 
     if(token) {

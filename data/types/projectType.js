@@ -26,10 +26,10 @@ const Project = new GraphQLObjectType({
         args: {
           where: { type: GraphQLJSON },
           order: { type: GraphQLJSON },
-          limit: { type: GraphQLInt },
-          offset: { type: GraphQLInt }
+          limit: { type: GraphQLInt }
         },
       resolve(project, args) {
+        console.log(`---------projects query todos-----------`);
         return project.getTodos(args);
       }
     }

@@ -6,29 +6,19 @@ import {
   GraphQLNonNull,
   GraphQLInputObjectType
 } from "graphql";
-
 import GraphQLJSON from "graphql-type-json";
 import Project from "../types/projectType";
+import projectsFilter from "../types/projectFilterType";
 import models from "../../models";
-
-const projectsFilter = new GraphQLNonNull(
-  new GraphQLInputObjectType({
-    name: "projectsFilters",
-    fields: () => ({
-      name: { type: GraphQLJSON },
-      client_id: { type: new GraphQLNonNull(GraphQLInt) }
-    })
-  })
-);
 
 const projects = {
   type: new GraphQLList(Project),
   args: {
-    where: {type: projectsFilter},
+    where: { type: projectsFilter },
     limit: { type: GraphQLInt },
     order: { type: GraphQLJSON }
   },
-  resolve(root, args) {
+  resolve(r, args, ctx, info) {
     return models.Project.findAll(args);
   }
 };

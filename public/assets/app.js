@@ -12,13 +12,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _clientQueries = __webpack_require__(79);
 
-var _section = __webpack_require__(245);
+var _section = __webpack_require__(247);
 
 var _section2 = _interopRequireDefault(_section);
 
 var _reactApollo = __webpack_require__(10);
 
-var _reactRedux = __webpack_require__(52);
+var _reactRedux = __webpack_require__(53);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52,15 +52,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _projectQueries = __webpack_require__(251);
+var _projectQueries = __webpack_require__(131);
 
-var _section = __webpack_require__(247);
+var _section = __webpack_require__(251);
 
 var _section2 = _interopRequireDefault(_section);
 
 var _reactApollo = __webpack_require__(10);
 
-var _reactRedux = __webpack_require__(52);
+var _reactRedux = __webpack_require__(53);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -101,9 +101,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _reactApollo = __webpack_require__(10);
 
-var _reactRedux = __webpack_require__(52);
+var _reactRedux = __webpack_require__(53);
 
-var _section = __webpack_require__(249);
+var _section = __webpack_require__(253);
 
 var _section2 = _interopRequireDefault(_section);
 
@@ -136,7 +136,34 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(todosWithData);
 
 /***/ }),
 
-/***/ 130:
+/***/ 131:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateProjectMutation = exports.createProjectMutation = exports.getClientProjectsQuery = undefined;
+
+var _templateObject = _taggedTemplateLiteral(["\n  query getClientProjects($clientId: Int!, $name: JSON) {\n    projects(where: {client_id: $clientId, name: $name}) {\n      id\n      name,\n      todosCount,\n      todos {\n        id,\n        title\n      }\n    }\n}\n"], ["\n  query getClientProjects($clientId: Int!, $name: JSON) {\n    projects(where: {client_id: $clientId, name: $name}) {\n      id\n      name,\n      todosCount,\n      todos {\n        id,\n        title\n      }\n    }\n}\n"]),
+    _templateObject2 = _taggedTemplateLiteral(["\n  mutation createProject($name: String!, $clientId:Int!) {\n    createProject(name: $name, client_id: $clientId) {\n      id\n      name\n      todosCount\n      todos {\n        id\n        title\n      }\n    }\n  }\n"], ["\n  mutation createProject($name: String!, $clientId:Int!) {\n    createProject(name: $name, client_id: $clientId) {\n      id\n      name\n      todosCount\n      todos {\n        id\n        title\n      }\n    }\n  }\n"]),
+    _templateObject3 = _taggedTemplateLiteral(["\n  mutation updateProject($projectId: Int!, $name:String!, $clientId:Int!) {\n    createProject(name: $name, client_id: $clientId) {\n      id\n      name\n    }\n  }\n"], ["\n  mutation updateProject($projectId: Int!, $name:String!, $clientId:Int!) {\n    createProject(name: $name, client_id: $clientId) {\n      id\n      name\n    }\n  }\n"]);
+
+var _reactApollo = __webpack_require__(10);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var getClientProjectsQuery = exports.getClientProjectsQuery = (0, _reactApollo.gql)(_templateObject);
+
+var createProjectMutation = exports.createProjectMutation = (0, _reactApollo.gql)(_templateObject2);
+
+var updateProjectMutation = exports.updateProjectMutation = (0, _reactApollo.gql)(_templateObject3);
+
+/***/ }),
+
+/***/ 132:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -157,7 +184,7 @@ var getUsersQuery = exports.getUsersQuery = (0, _reactApollo.gql)(_templateObjec
 
 /***/ }),
 
-/***/ 202:
+/***/ 204:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -169,7 +196,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -222,7 +249,7 @@ exports.default = Dashboard;
 
 /***/ }),
 
-/***/ 203:
+/***/ 205:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -234,11 +261,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _header = __webpack_require__(246);
+var _header = __webpack_require__(248);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -278,7 +305,7 @@ exports.default = Main;
 
 /***/ }),
 
-/***/ 204:
+/***/ 206:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -292,7 +319,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -427,7 +454,7 @@ exports.default = Login;
 
 /***/ }),
 
-/***/ 205:
+/***/ 207:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -441,7 +468,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -534,7 +561,7 @@ exports.default = Register;
 
 /***/ }),
 
-/***/ 206:
+/***/ 208:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -556,15 +583,15 @@ exports.default = function (apolloClient) {
 
 var _redux = __webpack_require__(27);
 
-var _clientReducer = __webpack_require__(253);
+var _clientReducer = __webpack_require__(256);
 
 var _clientReducer2 = _interopRequireDefault(_clientReducer);
 
-var _projectReducer = __webpack_require__(254);
+var _projectReducer = __webpack_require__(257);
 
 var _projectReducer2 = _interopRequireDefault(_projectReducer);
 
-var _todoReducer = __webpack_require__(255);
+var _todoReducer = __webpack_require__(258);
 
 var _todoReducer2 = _interopRequireDefault(_todoReducer);
 
@@ -574,7 +601,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 207:
+/***/ 209:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -586,7 +613,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
    * Module dependencies.
    */
 
-  var pathtoRegexp = __webpack_require__(370);
+  var pathtoRegexp = __webpack_require__(373);
 
   /**
    * Module exports.
@@ -1205,17 +1232,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 241:
+/***/ 243:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _page = __webpack_require__(207);
+var _page = __webpack_require__(209);
 
 var _page2 = _interopRequireDefault(_page);
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1227,19 +1254,19 @@ var _graphqlTag = __webpack_require__(118);
 
 var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
 
-var _login = __webpack_require__(204);
+var _login = __webpack_require__(206);
 
 var _login2 = _interopRequireDefault(_login);
 
-var _register = __webpack_require__(205);
+var _register = __webpack_require__(207);
 
 var _register2 = _interopRequireDefault(_register);
 
-var _main = __webpack_require__(203);
+var _main = __webpack_require__(205);
 
 var _main2 = _interopRequireDefault(_main);
 
-var _dashboard = __webpack_require__(202);
+var _dashboard = __webpack_require__(204);
 
 var _dashboard2 = _interopRequireDefault(_dashboard);
 
@@ -1257,7 +1284,7 @@ var _todos2 = _interopRequireDefault(_todos);
 
 var _redux = __webpack_require__(27);
 
-var _reducers = __webpack_require__(206);
+var _reducers = __webpack_require__(208);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -1272,6 +1299,7 @@ networkInterface.use([{
     if (!req.options.headers) {
       req.options.headers = {}; // Create the header object if needed.
     }
+
     var token = localStorage.getItem('token');
 
     if (token) {
@@ -1349,7 +1377,7 @@ function RootRender(component) {
 
 /***/ }),
 
-/***/ 242:
+/***/ 244:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1362,7 +1390,7 @@ exports.ClientForm = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1477,7 +1505,7 @@ exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(_clientQue
 
 /***/ }),
 
-/***/ 243:
+/***/ 245:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1489,7 +1517,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1547,7 +1575,7 @@ exports.default = Client;
 
 /***/ }),
 
-/***/ 244:
+/***/ 246:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1560,7 +1588,7 @@ exports.SearchClients = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1631,7 +1659,7 @@ exports.default = SearchClients;
 
 /***/ }),
 
-/***/ 245:
+/***/ 247:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1643,19 +1671,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _item = __webpack_require__(243);
+var _item = __webpack_require__(245);
 
 var _item2 = _interopRequireDefault(_item);
 
-var _form = __webpack_require__(242);
+var _form = __webpack_require__(244);
 
 var _form2 = _interopRequireDefault(_form);
 
-var _search = __webpack_require__(244);
+var _search = __webpack_require__(246);
 
 var _search2 = _interopRequireDefault(_search);
 
@@ -1776,7 +1804,7 @@ exports.default = Clients;
 
 /***/ }),
 
-/***/ 246:
+/***/ 248:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1788,7 +1816,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1838,7 +1866,7 @@ exports.default = Header;
 
 /***/ }),
 
-/***/ 247:
+/***/ 249:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1850,15 +1878,224 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _item = __webpack_require__(480);
+var _reactApollo = __webpack_require__(10);
+
+var _projectQueries = __webpack_require__(131);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProjectForm = function (_Component) {
+  _inherits(ProjectForm, _Component);
+
+  function ProjectForm() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, ProjectForm);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ProjectForm.__proto__ || Object.getPrototypeOf(ProjectForm)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      name: ""
+    }, _this.handleChange = function (e) {
+      _this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }, _this.updateProjects = function (proxy, _ref2) {
+      var data = _ref2.data;
+
+      var variables = {
+        clientId: _this.props.client.selected.id,
+        order: [["id", "DESC"]]
+      };
+      var query = _projectQueries.getClientProjectsQuery;
+      var queryData = proxy.readQuery({ query: query, variables: variables });
+      var projects = [data.createProject].concat(queryData.projects);
+
+      proxy.writeQuery({ query: query, variables: variables, data: { projects: projects } });
+    }, _this.handleSubmit = function (e) {
+      e.preventDefault();
+      var name = _this.state.name;
+
+
+      _this.props.createProject({
+        variables: {
+          clientId: _this.props.client.selected.id,
+          name: name
+        },
+        update: _this.updateProjects
+      }).then(function (data) {
+        _this.setState({ name: "" });
+        _this.props.onProjectAdded();
+      });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(ProjectForm, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "form",
+        { onSubmit: this.handleSubmit },
+        _react2.default.createElement(
+          "div",
+          { className: "input-group" },
+          _react2.default.createElement("input", {
+            type: "text",
+            name: "name",
+            className: "form-control",
+            onChange: this.handleChange,
+            value: this.state.name,
+            placeholder: "Project Name"
+          })
+        )
+      );
+    }
+  }]);
+
+  return ProjectForm;
+}(_react.Component);
+
+exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(_projectQueries.createProjectMutation, { name: 'createProject' }), (0, _reactApollo.graphql)(_projectQueries.updateProjectMutation, { name: 'updateProject' }))(ProjectForm);
+
+/***/ }),
+
+/***/ 250:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Project = function (_Component) {
+  _inherits(Project, _Component);
+
+  function Project() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Project);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Project.__proto__ || Object.getPrototypeOf(Project)).call.apply(_ref, [this].concat(args))), _this), _this.selectProject = function (e) {
+      e.preventDefault();
+      _this.props.selectProject(_this.props.project);
+    }, _this.changeTodo = function (todoId, e) {
+      e.preventDefault();
+      _this.props.changeTodo(todoId);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Project, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          _props$project = _props.project,
+          project = _props$project === undefined ? {} : _props$project,
+          _props$selected = _props.selected,
+          selected = _props$selected === undefined ? {} : _props$selected;
+
+
+      return _react2.default.createElement(
+        'li',
+        { className: 'projects__item ' + (project.id == selected.id ? 'projects__item--active' : '') },
+        _react2.default.createElement(
+          'a',
+          { href: '#', onClick: this.selectProject },
+          _react2.default.createElement(
+            'span',
+            { className: 'projects__item__name' },
+            project.name
+          ),
+          _react2.default.createElement(
+            'span',
+            { className: 'projects__item__todos-count' },
+            project.todosCount
+          )
+        ),
+        project.todos.length > 0 ? _react2.default.createElement(
+          'ul',
+          null,
+          project.todos.map(function (todo) {
+            return _react2.default.createElement(
+              'li',
+              { key: todo.id },
+              _react2.default.createElement(
+                'a',
+                { href: '#', onClick: _this2.changeTodo.bind(null, todo.id) },
+                todo.title
+              )
+            );
+          })
+        ) : ''
+      );
+    }
+  }]);
+
+  return Project;
+}(_react.Component);
+
+exports.default = Project;
+
+/***/ }),
+
+/***/ 251:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _item = __webpack_require__(250);
 
 var _item2 = _interopRequireDefault(_item);
 
-var _form = __webpack_require__(479);
+var _form = __webpack_require__(249);
 
 var _form2 = _interopRequireDefault(_form);
 
@@ -1983,7 +2220,7 @@ exports.default = Projects;
 
 /***/ }),
 
-/***/ 248:
+/***/ 252:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1996,15 +2233,19 @@ exports.TodoForm = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactApollo = __webpack_require__(10);
 
-var _userQueries = __webpack_require__(130);
+var _userQueries = __webpack_require__(132);
 
 var _todoQueries = __webpack_require__(80);
+
+var _reactDropzone = __webpack_require__(119);
+
+var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2152,7 +2393,7 @@ exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(_userQueri
 
 /***/ }),
 
-/***/ 249:
+/***/ 253:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2164,19 +2405,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _fecha = __webpack_require__(344);
+var _fecha = __webpack_require__(347);
 
 var _fecha2 = _interopRequireDefault(_fecha);
 
-var _form = __webpack_require__(248);
+var _form = __webpack_require__(252);
 
 var _form2 = _interopRequireDefault(_form);
 
-var _stepForm = __webpack_require__(250);
+var _stepForm = __webpack_require__(254);
 
 var _stepForm2 = _interopRequireDefault(_stepForm);
 
@@ -2306,7 +2547,7 @@ exports.default = Todos;
 
 /***/ }),
 
-/***/ 250:
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2321,17 +2562,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(5);
+var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactApollo = __webpack_require__(10);
 
-var _userQueries = __webpack_require__(130);
+var _userQueries = __webpack_require__(132);
 
 var _todoQueries = __webpack_require__(80);
 
-var _stepQueries = __webpack_require__(252);
+var _stepQueries = __webpack_require__(255);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2440,34 +2681,7 @@ exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(_stepQueri
 
 /***/ }),
 
-/***/ 251:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.updateProjectMutation = exports.createProjectMutation = exports.getClientProjectsQuery = undefined;
-
-var _templateObject = _taggedTemplateLiteral(["\n  query getClientProjects($clientId: Int!, $name: JSON) {\n    projects(where: {client_id: $clientId, name: $name}) {\n      id\n      name,\n      todosCount,\n      todos {\n        id,\n        title\n      }\n    }\n}\n"], ["\n  query getClientProjects($clientId: Int!, $name: JSON) {\n    projects(where: {client_id: $clientId, name: $name}) {\n      id\n      name,\n      todosCount,\n      todos {\n        id,\n        title\n      }\n    }\n}\n"]),
-    _templateObject2 = _taggedTemplateLiteral(["\n  mutation createProject($name: String!, $clientId:Int!) {\n    createProject(name: $name, client_id: $clientId) {\n      id\n      name\n      todosCount\n      todos {\n        id\n        title\n      }\n    }\n  }\n"], ["\n  mutation createProject($name: String!, $clientId:Int!) {\n    createProject(name: $name, client_id: $clientId) {\n      id\n      name\n      todosCount\n      todos {\n        id\n        title\n      }\n    }\n  }\n"]),
-    _templateObject3 = _taggedTemplateLiteral(["\n  mutation updateProject($projectId: Int!, $name:String!, $clientId:Int!) {\n    createProject(name: $name, client_id: $clientId) {\n      id\n      name\n    }\n  }\n"], ["\n  mutation updateProject($projectId: Int!, $name:String!, $clientId:Int!) {\n    createProject(name: $name, client_id: $clientId) {\n      id\n      name\n    }\n  }\n"]);
-
-var _reactApollo = __webpack_require__(10);
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var getClientProjectsQuery = exports.getClientProjectsQuery = (0, _reactApollo.gql)(_templateObject);
-
-var createProjectMutation = exports.createProjectMutation = (0, _reactApollo.gql)(_templateObject2);
-
-var updateProjectMutation = exports.updateProjectMutation = (0, _reactApollo.gql)(_templateObject3);
-
-/***/ }),
-
-/***/ 252:
+/***/ 255:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2488,7 +2702,7 @@ var createStepMutation = exports.createStepMutation = (0, _reactApollo.gql)(_tem
 
 /***/ }),
 
-/***/ 253:
+/***/ 256:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2521,7 +2735,7 @@ exports.default = clientReducer;
 
 /***/ }),
 
-/***/ 254:
+/***/ 257:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2557,7 +2771,7 @@ exports.default = projectReducer;
 
 /***/ }),
 
-/***/ 255:
+/***/ 258:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2591,7 +2805,7 @@ exports.default = todoReducer;
 
 /***/ }),
 
-/***/ 344:
+/***/ 347:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;(function (main) {
@@ -2933,7 +3147,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;(function (main) {
 
 /***/ }),
 
-/***/ 370:
+/***/ 373:
 /***/ (function(module, exports) {
 
 /**
@@ -3069,215 +3283,6 @@ function pathtoRegexp(path, keys, options) {
 
 /***/ }),
 
-/***/ 479:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(5);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactApollo = __webpack_require__(10);
-
-var _projectQueries = __webpack_require__(251);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ProjectForm = function (_Component) {
-  _inherits(ProjectForm, _Component);
-
-  function ProjectForm() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, ProjectForm);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ProjectForm.__proto__ || Object.getPrototypeOf(ProjectForm)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      name: ""
-    }, _this.handleChange = function (e) {
-      _this.setState(_defineProperty({}, e.target.name, e.target.value));
-    }, _this.updateProjects = function (proxy, _ref2) {
-      var data = _ref2.data;
-
-      var variables = {
-        clientId: _this.props.client.selected.id,
-        order: [["id", "DESC"]]
-      };
-      var query = _projectQueries.getClientProjectsQuery;
-      var queryData = proxy.readQuery({ query: query, variables: variables });
-      var projects = [data.createProject].concat(queryData.projects);
-
-      proxy.writeQuery({ query: query, variables: variables, data: { projects: projects } });
-    }, _this.handleSubmit = function (e) {
-      e.preventDefault();
-      var name = _this.state.name;
-
-
-      _this.props.createProject({
-        variables: {
-          clientId: _this.props.client.selected.id,
-          name: name
-        },
-        update: _this.updateProjects
-      }).then(function (data) {
-        _this.setState({ name: "" });
-        _this.props.onProjectAdded();
-      });
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  _createClass(ProjectForm, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "form",
-        { onSubmit: this.handleSubmit },
-        _react2.default.createElement(
-          "div",
-          { className: "input-group" },
-          _react2.default.createElement("input", {
-            type: "text",
-            name: "name",
-            className: "form-control",
-            onChange: this.handleChange,
-            value: this.state.name,
-            placeholder: "Project Name"
-          })
-        )
-      );
-    }
-  }]);
-
-  return ProjectForm;
-}(_react.Component);
-
-exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(_projectQueries.createProjectMutation, { name: 'createProject' }), (0, _reactApollo.graphql)(_projectQueries.updateProjectMutation, { name: 'updateProject' }))(ProjectForm);
-
-/***/ }),
-
-/***/ 480:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(5);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Project = function (_Component) {
-  _inherits(Project, _Component);
-
-  function Project() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, Project);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Project.__proto__ || Object.getPrototypeOf(Project)).call.apply(_ref, [this].concat(args))), _this), _this.selectProject = function (e) {
-      e.preventDefault();
-      _this.props.selectProject(_this.props.project);
-    }, _this.changeTodo = function (todoId, e) {
-      e.preventDefault();
-      _this.props.changeTodo(todoId);
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  _createClass(Project, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var _props = this.props,
-          _props$project = _props.project,
-          project = _props$project === undefined ? {} : _props$project,
-          _props$selected = _props.selected,
-          selected = _props$selected === undefined ? {} : _props$selected;
-
-
-      return _react2.default.createElement(
-        'li',
-        { className: 'projects__item ' + (project.id == selected.id ? 'projects__item--active' : '') },
-        _react2.default.createElement(
-          'a',
-          { href: '#', onClick: this.selectProject },
-          _react2.default.createElement(
-            'span',
-            { className: 'projects__item__name' },
-            project.name
-          ),
-          _react2.default.createElement(
-            'span',
-            { className: 'projects__item__todos-count' },
-            project.todosCount
-          )
-        ),
-        project.todos.length > 0 ? _react2.default.createElement(
-          'ul',
-          null,
-          project.todos.map(function (todo) {
-            return _react2.default.createElement(
-              'li',
-              { key: todo.id },
-              _react2.default.createElement(
-                'a',
-                { href: '#', onClick: _this2.changeTodo.bind(null, todo.id) },
-                todo.title
-              )
-            );
-          })
-        ) : ''
-      );
-    }
-  }]);
-
-  return Project;
-}(_react.Component);
-
-exports.default = Project;
-
-/***/ }),
-
 /***/ 79:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3332,4 +3337,4 @@ var createSubTodoMutation = exports.createSubTodoMutation = (0, _reactApollo.gql
 
 /***/ })
 
-},[241]);
+},[243]);

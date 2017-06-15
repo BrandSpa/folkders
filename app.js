@@ -9,6 +9,19 @@ import Schema from './data/schema';
 import jwt from 'jsonwebtoken';
 import passportJwt from './lib/passport-jwt';
 import responseTime from 'response-time';
+import multer from 'multer';
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads/');
+  },
+  filename: function (req, file, cb) {
+		console.log(file);
+    cb(null, `${file.fieldname}_${Date.now()}.${file.mimetype.split('/')[1]}`);
+  }
+});
+
+const upload = multer({ storage });
 
 app.use(passport.initialize());
 app.use(express.static('public/assets'));
@@ -18,6 +31,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(responseTime());
 
 passportJwt(passport);
+
+// app.post('/upload', , (req, res) => {
+// 	return res.json(req.file);
+// });
 
 app.post('/login', (req, res) => {
 	models.User.findOne({where: {email: req.body.email}}).then((user) => {
@@ -51,6 +68,7 @@ app.post('/register', (req, res) => {
 app.use(
 	'/graphql', 
 	passport.authenticate("jwt", { session: false }),
+	upload.single('file'),
 	graphqlHTTP({ 
 		schema: Schema
 	})

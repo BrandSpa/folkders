@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { graphql, compose } from "react-apollo";
 import { getUsersQuery } from '../../queries/userQueries';
 import { createTodoMutation, getTodoQuery } from '../../queries/todoQueries';
+import Dropzone from 'react-dropzone';
 
 export class TodoForm extends Component {
 	state = {
