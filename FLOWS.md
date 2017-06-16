@@ -17,7 +17,7 @@
 - If a project doesn't has todos, it should show the todo editor
 - If a project has todos, it should show the steps editor
 
-##register
+## Register
 - create basic profile user
 - create company
 - associate user to company
