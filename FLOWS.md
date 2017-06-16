@@ -18,6 +18,7 @@
 - If a project has todos, it should show the steps editor
 
 ### Register
+***
 __register user and company__
 - create basic profile user
 - create company
