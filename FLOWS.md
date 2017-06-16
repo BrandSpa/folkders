@@ -1,4 +1,6 @@
 ## FLOWS
+### global
+- if clients is empty show form and so on
 
 ### Clients
 - Fetch clients by user company

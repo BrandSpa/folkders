@@ -12,13 +12,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _clientQueries = __webpack_require__(79);
 
-var _section = __webpack_require__(247);
+var _section = __webpack_require__(248);
 
 var _section2 = _interopRequireDefault(_section);
 
 var _reactApollo = __webpack_require__(10);
 
-var _reactRedux = __webpack_require__(53);
+var _reactRedux = __webpack_require__(54);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54,13 +54,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _projectQueries = __webpack_require__(131);
 
-var _section = __webpack_require__(251);
+var _section = __webpack_require__(252);
 
 var _section2 = _interopRequireDefault(_section);
 
 var _reactApollo = __webpack_require__(10);
 
-var _reactRedux = __webpack_require__(53);
+var _reactRedux = __webpack_require__(54);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -101,9 +101,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _reactApollo = __webpack_require__(10);
 
-var _reactRedux = __webpack_require__(53);
+var _reactRedux = __webpack_require__(54);
 
-var _section = __webpack_require__(253);
+var _section = __webpack_require__(254);
 
 var _section2 = _interopRequireDefault(_section);
 
@@ -265,7 +265,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _header = __webpack_require__(248);
+var _header = __webpack_require__(249);
 
 var _header2 = _interopRequireDefault(_header);
 
@@ -323,7 +323,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(70);
+var _axios = __webpack_require__(53);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -472,7 +472,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(70);
+var _axios = __webpack_require__(53);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -486,38 +486,50 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var getErrMessages = function getErrMessages(errObj) {
+	var obj = {};
+
+	errObj.errors.forEach(function (err) {
+		obj[err.path] = err.message;
+	});
+
+	return obj;
+};
+
 var Register = function (_React$Component) {
 	_inherits(Register, _React$Component);
 
-	function Register(props) {
+	function Register() {
+		var _ref;
+
+		var _temp, _this, _ret;
+
 		_classCallCheck(this, Register);
 
-		var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this, props));
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
 
-		_this.state = {
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Register.__proto__ || Object.getPrototypeOf(Register)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			email: '',
-			password: ''
-		};
+			password: '',
+			errors: {}
+		}, _this.handleChange = function (e) {
+			_this.setState(_extends({}, _this.state, _defineProperty({}, e.target.name, e.target.value)));
+		}, _this.store = function (e) {
+			e.preventDefault();
+			_axios2.default.post('/register', _this.state).then(function (_ref2) {
+				var data = _ref2.data;
 
-		_this.handleChange = _this.handleChange.bind(_this);
-		_this.store = _this.store.bind(_this);
-		return _this;
+				_this.props.redirect('/register/' + data.id + '/company');
+			}).catch(function (_ref3) {
+				var response = _ref3.response;
+				return _this.setState({ errors: getErrMessages(response.data) });
+			});
+		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
 	_createClass(Register, [{
-		key: 'handleChange',
-		value: function handleChange(field, e) {
-			this.setState(_extends({}, this.state, _defineProperty({}, field, e.currentTarget.value)));
-		}
-	}, {
-		key: 'store',
-		value: function store(e) {
-			e.preventDefault();
-			_axios2.default.post('/api/v1/users', this.state).then(function (res) {
-				return console.log(res.data);
-			});
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
@@ -528,26 +540,29 @@ var Register = function (_React$Component) {
 					{ className: 'form-group' },
 					_react2.default.createElement('input', {
 						type: 'text',
+						name: 'email',
 						placeholder: 'Email',
 						className: 'form-control',
-						onChange: this.handleChange.bind(null, 'email'),
+						onChange: this.handleChange,
 						value: this.state.email
-					})
+					}),
+					this.state.errors.email
 				),
 				_react2.default.createElement(
 					'div',
 					{ className: 'form-group' },
 					_react2.default.createElement('input', {
 						type: 'password',
+						name: 'password',
 						placeholder: 'Password',
 						className: 'form-control',
-						onChange: this.handleChange.bind(null, 'password'),
+						onChange: this.handleChange,
 						value: this.state.password
 					})
 				),
 				_react2.default.createElement(
 					'button',
-					{ onClick: this.store },
+					{ onClick: this.store, className: 'btn btn-secondary' },
 					'Register'
 				)
 			);
@@ -571,6 +586,101 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(53);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var RegisterCompany = function (_React$Component) {
+	_inherits(RegisterCompany, _React$Component);
+
+	function RegisterCompany() {
+		var _ref;
+
+		var _temp, _this, _ret;
+
+		_classCallCheck(this, RegisterCompany);
+
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = RegisterCompany.__proto__ || Object.getPrototypeOf(RegisterCompany)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+			name: ''
+		}, _this.handleChange = function (e) {
+			_this.setState(_extends({}, _this.state, _defineProperty({}, e.target.name, e.target.value)));
+		}, _this.store = function (e) {
+			e.preventDefault();
+			_axios2.default.post('/register/' + _this.props.userId + '/company', _this.state).then(function (_ref2) {
+				var data = _ref2.data;
+
+				localStorage.setItem('token', data.token);
+				_this.props.redirect('/home');
+			});
+		}, _temp), _possibleConstructorReturn(_this, _ret);
+	}
+
+	_createClass(RegisterCompany, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'form',
+				{ onSubmit: this.store, className: 'col-md-3' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'form-group' },
+					_react2.default.createElement('input', {
+						type: 'text',
+						name: 'name',
+						placeholder: 'Company',
+						className: 'form-control',
+						onChange: this.handleChange,
+						value: this.state.email
+					})
+				),
+				_react2.default.createElement(
+					'button',
+					{ onClick: this.store, className: 'btn btn-secondary' },
+					'Next'
+				)
+			);
+		}
+	}]);
+
+	return RegisterCompany;
+}(_react2.default.Component);
+
+exports.default = RegisterCompany;
+
+/***/ }),
+
+/***/ 209:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 exports.default = function (apolloClient) {
 
 	return (0, _redux.combineReducers)({
@@ -583,15 +693,15 @@ exports.default = function (apolloClient) {
 
 var _redux = __webpack_require__(27);
 
-var _clientReducer = __webpack_require__(256);
+var _clientReducer = __webpack_require__(257);
 
 var _clientReducer2 = _interopRequireDefault(_clientReducer);
 
-var _projectReducer = __webpack_require__(257);
+var _projectReducer = __webpack_require__(258);
 
 var _projectReducer2 = _interopRequireDefault(_projectReducer);
 
-var _todoReducer = __webpack_require__(258);
+var _todoReducer = __webpack_require__(259);
 
 var _todoReducer2 = _interopRequireDefault(_todoReducer);
 
@@ -601,7 +711,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 209:
+/***/ 210:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -613,7 +723,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
    * Module dependencies.
    */
 
-  var pathtoRegexp = __webpack_require__(373);
+  var pathtoRegexp = __webpack_require__(374);
 
   /**
    * Module exports.
@@ -1232,13 +1342,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 243:
+/***/ 244:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _page = __webpack_require__(209);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _page = __webpack_require__(210);
 
 var _page2 = _interopRequireDefault(_page);
 
@@ -1258,9 +1370,13 @@ var _login = __webpack_require__(206);
 
 var _login2 = _interopRequireDefault(_login);
 
-var _register = __webpack_require__(207);
+var _basic = __webpack_require__(207);
 
-var _register2 = _interopRequireDefault(_register);
+var _basic2 = _interopRequireDefault(_basic);
+
+var _company = __webpack_require__(208);
+
+var _company2 = _interopRequireDefault(_company);
 
 var _main = __webpack_require__(205);
 
@@ -1284,7 +1400,7 @@ var _todos2 = _interopRequireDefault(_todos);
 
 var _redux = __webpack_require__(27);
 
-var _reducers = __webpack_require__(208);
+var _reducers = __webpack_require__(209);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -1350,11 +1466,11 @@ function RootRender(component) {
 });
 
 (0, _page2.default)('/register', function (ctx) {
-  RootRender(_react2.default.createElement(_register2.default, null));
+  RootRender(_react2.default.createElement(_basic2.default, { redirect: _page2.default.redirect }));
 });
 
-(0, _page2.default)('/register/invite', function () {
-  RootRender(_react2.default.createElement(_register2.default, null));
+(0, _page2.default)('/register/:userId/company', function (ctx) {
+  RootRender(_react2.default.createElement(_company2.default, _extends({ redirect: _page2.default.redirect }, ctx.params)));
 });
 
 (0, _page2.default)('/clients', function (ctx) {
@@ -1381,7 +1497,7 @@ function RootRender(component) {
 
 /***/ }),
 
-/***/ 244:
+/***/ 245:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1509,7 +1625,7 @@ exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(_clientQue
 
 /***/ }),
 
-/***/ 245:
+/***/ 246:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1579,7 +1695,7 @@ exports.default = Client;
 
 /***/ }),
 
-/***/ 246:
+/***/ 247:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1663,7 +1779,7 @@ exports.default = SearchClients;
 
 /***/ }),
 
-/***/ 247:
+/***/ 248:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1679,15 +1795,15 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _item = __webpack_require__(245);
+var _item = __webpack_require__(246);
 
 var _item2 = _interopRequireDefault(_item);
 
-var _form = __webpack_require__(244);
+var _form = __webpack_require__(245);
 
 var _form2 = _interopRequireDefault(_form);
 
-var _search = __webpack_require__(246);
+var _search = __webpack_require__(247);
 
 var _search2 = _interopRequireDefault(_search);
 
@@ -1808,7 +1924,7 @@ exports.default = Clients;
 
 /***/ }),
 
-/***/ 248:
+/***/ 249:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1870,7 +1986,7 @@ exports.default = Header;
 
 /***/ }),
 
-/***/ 249:
+/***/ 250:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1977,7 +2093,7 @@ exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(_projectQu
 
 /***/ }),
 
-/***/ 250:
+/***/ 251:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2079,7 +2195,7 @@ exports.default = Project;
 
 /***/ }),
 
-/***/ 251:
+/***/ 252:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2095,11 +2211,11 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _item = __webpack_require__(250);
+var _item = __webpack_require__(251);
 
 var _item2 = _interopRequireDefault(_item);
 
-var _form = __webpack_require__(249);
+var _form = __webpack_require__(250);
 
 var _form2 = _interopRequireDefault(_form);
 
@@ -2224,7 +2340,7 @@ exports.default = Projects;
 
 /***/ }),
 
-/***/ 252:
+/***/ 253:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2397,7 +2513,7 @@ exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(_userQueri
 
 /***/ }),
 
-/***/ 253:
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2413,15 +2529,15 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _fecha = __webpack_require__(347);
+var _fecha = __webpack_require__(348);
 
 var _fecha2 = _interopRequireDefault(_fecha);
 
-var _form = __webpack_require__(252);
+var _form = __webpack_require__(253);
 
 var _form2 = _interopRequireDefault(_form);
 
-var _stepForm = __webpack_require__(254);
+var _stepForm = __webpack_require__(255);
 
 var _stepForm2 = _interopRequireDefault(_stepForm);
 
@@ -2551,7 +2667,7 @@ exports.default = Todos;
 
 /***/ }),
 
-/***/ 254:
+/***/ 255:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2576,7 +2692,7 @@ var _userQueries = __webpack_require__(132);
 
 var _todoQueries = __webpack_require__(80);
 
-var _stepQueries = __webpack_require__(255);
+var _stepQueries = __webpack_require__(256);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2685,7 +2801,7 @@ exports.default = (0, _reactApollo.compose)((0, _reactApollo.graphql)(_stepQueri
 
 /***/ }),
 
-/***/ 255:
+/***/ 256:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2706,7 +2822,7 @@ var createStepMutation = exports.createStepMutation = (0, _reactApollo.gql)(_tem
 
 /***/ }),
 
-/***/ 256:
+/***/ 257:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2739,7 +2855,7 @@ exports.default = clientReducer;
 
 /***/ }),
 
-/***/ 257:
+/***/ 258:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2775,7 +2891,7 @@ exports.default = projectReducer;
 
 /***/ }),
 
-/***/ 258:
+/***/ 259:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2809,7 +2925,7 @@ exports.default = todoReducer;
 
 /***/ }),
 
-/***/ 347:
+/***/ 348:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;(function (main) {
@@ -3151,7 +3267,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;(function (main) {
 
 /***/ }),
 
-/***/ 373:
+/***/ 374:
 /***/ (function(module, exports) {
 
 /**
@@ -3341,4 +3457,4 @@ var createSubTodoMutation = exports.createSubTodoMutation = (0, _reactApollo.gql
 
 /***/ })
 
-},[243]);
+},[244]);

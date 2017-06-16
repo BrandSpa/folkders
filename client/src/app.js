@@ -4,7 +4,8 @@ import { render } from 'react-dom';
 import {  ApolloProvider, ApolloClient, createNetworkInterface } from 'react-apollo';
 import gql from 'graphql-tag';
 import Login from './components/users/login';
-import Register from './components/users/register';
+import Register from './components/users/register/basic';
+import RegisterCompany from './components/users/register/company';
 import Main from './components/main';
 import Dashboard from './components/dashboard';
 import Clients from './components/clients';
@@ -75,13 +76,12 @@ page('/', (ctx) => {
 	RootRender(<Login/>);
 });
 
-
 page('/register', (ctx) => {
-	RootRender(<Register />);
+	RootRender(<Register redirect={page.redirect} />);
 });
 
-page('/register/invite', () => {
-  RootRender(<Register />);
+page('/register/:userId/company', (ctx) => {
+  RootRender(<RegisterCompany redirect={page.redirect} {...ctx.params} />);
 });
 
 page('/clients', (ctx) => {

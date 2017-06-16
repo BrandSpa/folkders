@@ -58,8 +58,28 @@ app.post('/login', (req, res) => {
 app.post('/register', (req, res) => {
 	const { body } = req;
 	return models.User.create(body)
-	.then(user => res.status(201).json({user: user}))
-	.catch(err => res.status(400).json({err}));
+	.then(user => res.status(201).json(user))
+	.catch(err => res.status(400).json(err));
+});
+
+app.post('/register/:id/company', (req, res) => {
+	const { body, params: { id } } = req;
+	//validate first that user has company already
+	return models.Company.create(body)
+	.then(company => {
+		models.User.findOne({where: {id: id}}).then(user => {
+			if(!user.company_id) {
+				user.company_id = company.id;
+			}
+			user.save().then(() => {
+					const token = jwt.sign({ id: user.id }, config.secret, {
+						expiresIn: 86400 //seconds
+					});
+					return res.json({ success: true, token });
+			});
+		}); 
+	})
+	.catch(err => res.status(400).json(err));
 });
 
 
