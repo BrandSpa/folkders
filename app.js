@@ -42,7 +42,7 @@ app.post('/login', (req, res) => {
 			return models.User.checkPassword(user, req.body.password).then(isValid => {
 				if(isValid) {
 					var token = jwt.sign({ id: user.id }, config.secret, {
-            expiresIn: 86400 // in seconds
+            expiresIn: 86400 //seconds
           });
 
           return res.json({ success: true, token });
@@ -57,13 +57,11 @@ app.post('/login', (req, res) => {
 
 app.post('/register', (req, res) => {
 	const { body } = req;
-	
-	models.Company.create({name: body.company_name}).then(company => {
-		models.User.create({});
-	});
-
-	return res.json({});
+	return models.User.create(body)
+	.then(user => res.status(201).json({user: user}))
+	.catch(err => res.status(400).json({err}));
 });
+
 
 app.use(
 	'/graphql', 

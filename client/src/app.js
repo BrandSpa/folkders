@@ -64,7 +64,7 @@ function RootRender(component) {
   return render(
     <ApolloProvider client={client} store={store}>
       <Main>
-          {component}
+          {component ? component : <div/>}
       </Main>
     </ApolloProvider>,
     document.getElementById('app')
@@ -78,6 +78,10 @@ page('/', (ctx) => {
 
 page('/register', (ctx) => {
 	RootRender(<Register />);
+});
+
+page('/register/invite', () => {
+  RootRender(<Register />);
 });
 
 page('/clients', (ctx) => {

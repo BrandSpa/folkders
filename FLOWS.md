@@ -16,3 +16,26 @@
 - An user can only create a subtodo if he is assign to it
 - If a project doesn't has todos, it should show the todo editor
 - If a project has todos, it should show the steps editor
+
+##register
+- create basic profile user
+- create company
+- associate user to company
+- invite people to company
+- get into home
+
+- invited user to create his basic profile
+- automatically is associate to company
+- get into home
+
+- create basic profile user
+- join to existing company requesting invitation
+- send mail to administrator
+- administrator approve
+- send mail to user
+- get into home
+
+
+
+
+ 

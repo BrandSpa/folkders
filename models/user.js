@@ -10,9 +10,17 @@ export default function(sequelize, Sequelize) {
       email: {
         type: Sequelize.STRING,
         validate: {
-          isEmail: true,
-          notEmpty: true
-        }
+          isEmail: {
+            msg: 'it must be an email'
+          },
+          isUnique(email, next) {
+            return User.findOne({where: { email: email }, attributes: ['id']})
+              .then(user => {
+                if(user) return next('email already in use');
+                next();
+            });
+          }
+         }
       },
       password: {
         type: Sequelize.STRING
@@ -33,7 +41,9 @@ export default function(sequelize, Sequelize) {
       },
       hooks: {
         beforeCreate: (user, options) => {
-					return bcrypt.hash(user.password, 10).then(hash => user.password = hash );
+          if(user.password) {
+            return bcrypt.hash(user.password, 10).then(hash => user.password = hash );
+          }
         }
       },
       underscored: true

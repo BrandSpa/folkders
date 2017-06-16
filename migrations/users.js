@@ -23,6 +23,7 @@ module.exports = {
       email: Sequelize.STRING,
       password: Sequelize.STRING,
       role: Sequelize.STRING,
+      options: Sequelize.TEXT,
       email_verified: {type: Sequelize.BOOLEAN, defaultValue: 0 }
     });
   },

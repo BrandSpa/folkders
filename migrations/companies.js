@@ -13,7 +13,8 @@ module.exports = {
       phone: Sequelize.STRING,
       country: Sequelize.STRING,
       city: Sequelize.STRING,
-      options: Sequelize.STRING,
+      options: Sequelize.TEXT,
+      sector: Sequelize.STRING,
       created_at: Sequelize.DATE,
       updated_at: Sequelize.DATE,
     });

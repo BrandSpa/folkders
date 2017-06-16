@@ -522,10 +522,10 @@ var Register = function (_React$Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'form',
-				{ onSubmit: this.store, className: 'col-md-5' },
+				{ onSubmit: this.store, className: 'col-md-3' },
 				_react2.default.createElement(
 					'div',
-					{ className: 'input-group' },
+					{ className: 'form-group' },
 					_react2.default.createElement('input', {
 						type: 'text',
 						placeholder: 'Email',
@@ -536,7 +536,7 @@ var Register = function (_React$Component) {
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'input-group' },
+					{ className: 'form-group' },
 					_react2.default.createElement('input', {
 						type: 'password',
 						placeholder: 'Password',
@@ -548,7 +548,7 @@ var Register = function (_React$Component) {
 				_react2.default.createElement(
 					'button',
 					{ onClick: this.store },
-					'Store'
+					'Register'
 				)
 			);
 		}
@@ -1340,7 +1340,7 @@ function RootRender(component) {
     _react2.default.createElement(
       _main2.default,
       null,
-      component
+      component ? component : _react2.default.createElement('div', null)
     )
   ), document.getElementById('app'));
 }
@@ -1350,6 +1350,10 @@ function RootRender(component) {
 });
 
 (0, _page2.default)('/register', function (ctx) {
+  RootRender(_react2.default.createElement(_register2.default, null));
+});
+
+(0, _page2.default)('/register/invite', function () {
   RootRender(_react2.default.createElement(_register2.default, null));
 });
 

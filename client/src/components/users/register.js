@@ -25,8 +25,8 @@ class Register extends React.Component {
 
 	render() {
 		return (
-			<form onSubmit={this.store} className="col-md-5">
-			<div className="input-group">
+			<form onSubmit={this.store} className="col-md-3">
+			<div className="form-group">
 				<input 
 					type="text" 
 					placeholder="Email" 
@@ -36,16 +36,16 @@ class Register extends React.Component {
 					/>
 			</div>
 				
-				<div className="input-group">
-				<input 
-					type="password" 
-					placeholder="Password" 
-					className="form-control"
-					onChange={this.handleChange.bind(null, 'password')} 
-					value={this.state.password}	
-					/>
+				<div className="form-group">
+					<input 
+						type="password" 
+						placeholder="Password" 
+						className="form-control"
+						onChange={this.handleChange.bind(null, 'password')} 
+						value={this.state.password}	
+						/>
 				</div>
-					<button onClick={this.store}>Store</button>
+					<button onClick={this.store}>Register</button>
 			</form>
 		)
 	}
