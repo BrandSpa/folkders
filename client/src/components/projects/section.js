@@ -6,11 +6,16 @@ class Projects extends Component {
   state = {
     showForm: false
   }
-
+  
   componentWillReceiveProps(props) {
     if(!props.project.selected.hasOwnProperty('id') && props.data.projects && props.data.projects.length > 0) {
       this.selectProject(props.data.projects[0]);
     }
+
+    if(props.data.projects && props.data.projects.length == 0) {
+      this.setState({showForm: true});
+    }
+
   }
 
   selectProject = (project) => {

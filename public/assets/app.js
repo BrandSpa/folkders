@@ -1952,9 +1952,20 @@ var Header = function (_Component) {
 	_inherits(Header, _Component);
 
 	function Header() {
+		var _ref;
+
+		var _temp, _this, _ret;
+
 		_classCallCheck(this, Header);
 
-		return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Header.__proto__ || Object.getPrototypeOf(Header)).call.apply(_ref, [this].concat(args))), _this), _this.logout = function () {
+			localStorage.removeItem('token');
+			window.location('/login');
+		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
 	_createClass(Header, [{
@@ -1973,7 +1984,12 @@ var Header = function (_Component) {
 				_react2.default.createElement(
 					'div',
 					{ style: headerStyle },
-					_react2.default.createElement('img', { src: '/logo.png', alt: '', width: '120px' })
+					_react2.default.createElement('img', { src: '/logo.png', alt: '', width: '120px' }),
+					_react2.default.createElement(
+						'a',
+						{ href: '#', style: { float: 'right' }, onClick: this.logout },
+						'Salir'
+					)
 				)
 			);
 		}
@@ -2272,6 +2288,10 @@ var Projects = function (_Component) {
     value: function componentWillReceiveProps(props) {
       if (!props.project.selected.hasOwnProperty('id') && props.data.projects && props.data.projects.length > 0) {
         this.selectProject(props.data.projects[0]);
+      }
+
+      if (props.data.projects && props.data.projects.length == 0) {
+        this.setState({ showForm: true });
       }
     }
   }, {

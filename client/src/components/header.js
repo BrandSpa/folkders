@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 class Header extends Component {
+	logout = () => {
+		localStorage.removeItem('token');
+		window.location('/login');
+	}
+
 	render() {
 		let headerStyle = {
 			background: '#fff',
@@ -13,10 +18,10 @@ class Header extends Component {
 			<header className="row">
 				<div style={headerStyle}>
 					<img src="/logo.png" alt="" width="120px"/>
+					<a href="#" style={{float: 'right'}} onClick={this.logout}>Salir</a>
 				</div>
 			</header>
 		)
-		
 	}
 }
 
