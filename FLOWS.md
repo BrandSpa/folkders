@@ -23,11 +23,11 @@
 - associate user to company
 - invite people to company
 - get into home
-
+---
 - invited user to create his basic profile
 - automatically is associate to company
 - get into home
-
+---
 - create basic profile user
 - join to existing company requesting invitation
 - send mail to administrator
