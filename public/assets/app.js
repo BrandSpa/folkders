@@ -1962,7 +1962,8 @@ var Header = function (_Component) {
 			args[_key] = arguments[_key];
 		}
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Header.__proto__ || Object.getPrototypeOf(Header)).call.apply(_ref, [this].concat(args))), _this), _this.logout = function () {
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Header.__proto__ || Object.getPrototypeOf(Header)).call.apply(_ref, [this].concat(args))), _this), _this.logout = function (e) {
+			e.preventDefault();
 			localStorage.removeItem('token');
 			window.location('/login');
 		}, _temp), _possibleConstructorReturn(_this, _ret);

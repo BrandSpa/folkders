@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 class Header extends Component {
-	logout = () => {
+	logout = (e) => {
+		e.preventDefault();
 		localStorage.removeItem('token');
 		window.location('/login');
 	}
