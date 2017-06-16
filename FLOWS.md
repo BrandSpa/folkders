@@ -18,19 +18,19 @@
 - If a project has todos, it should show the steps editor
 
 ## Register
-#### register user and company
+__register user and company__
 - create basic profile user
 - create company
 - associate user to company
 - invite people to company
 - get into home
-----
-#### Invited user
+***
+__Invited user__
 - invited user to create his basic profile
 - automatically is associate to company
 - get into home
-----
-#### register and company already created
+***
+__register and company already created__
 - create basic profile user
 - join to existing company requesting invitation
 - send mail to administrator
