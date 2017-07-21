@@ -4,7 +4,7 @@ class Header extends Component {
 	logout = (e) => {
 		e.preventDefault();
 		localStorage.removeItem('token');
-		window.location('/login');
+		window.location = '/login';
 	}
 
 	render() {
